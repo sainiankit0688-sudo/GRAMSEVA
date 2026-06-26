@@ -13,3 +13,13 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Node.js backend
+backend/node_modules/
+backend/.env
+
+# Temp files
+temp_extract/
+
+# Nested git repos
+GRAMSEVA/
