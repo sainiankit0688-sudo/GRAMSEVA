@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spacing_stack_sm">8dp</dimen>
+    <dimen name="spacing_stack_md">16dp</dimen>
+    <dimen name="spacing_stack_lg">24dp</dimen>
+    <dimen name="spacing_gutter">16dp</dimen>
+    <dimen name="radius_sm">4dp</dimen>
+    <dimen name="radius_md">8dp</dimen>
+    <dimen name="radius_lg">12dp</dimen>
+    <dimen name="radius_xl">16dp</dimen>
+    <dimen name="touch_target">48dp</dimen>
+</resources>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gram Seva - Complaint Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1b1c1c",
+                    "error-container": "#ffdad6",
+                    "background": "#fbf9f8",
+                    "surface-variant": "#e4e2e1",
+                    "tertiary-container": "#006eca",
+                    "primary-fixed-dim": "#88d982",
+                    "surface-container": "#f0eded",
+                    "tertiary": "#00569f",
+                    "inverse-on-surface": "#f2f0f0",
+                    "on-tertiary-fixed": "#001c3a",
+                    "on-surface-variant": "#40493d",
+                    "secondary-fixed-dim": "#ffb786",
+                    "secondary-container": "#fc820c",
+                    "tertiary-fixed-dim": "#a5c8ff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#005312",
+                    "on-background": "#1b1c1c",
+                    "tertiary-fixed": "#d4e3ff",
+                    "surface-container-high": "#eae8e7",
+                    "on-secondary-fixed": "#311300",
+                    "surface": "#fbf9f8",
+                    "surface-container-low": "#f5f3f3",
+                    "surface-bright": "#fbf9f8",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#2e7d32",
+                    "inverse-surface": "#303030",
+                    "on-tertiary-container": "#ebf1ff",
+                    "on-tertiary-fixed-variant": "#004786",
+                    "on-primary-container": "#cbffc2",
+                    "primary": "#0d631b",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#5e2c00",
+                    "surface-tint": "#1b6d24",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#a3f69c",
+                    "on-primary": "#ffffff",
+                    "outline": "#707a6c",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dcd9d9",
+                    "inverse-primary": "#88d982",
+                    "on-primary-fixed": "#002204",
+                    "secondary-fixed": "#ffdcc6",
+                    "outline-variant": "#bfcaba",
+                    "secondary": "#964900",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#723600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-margin-desktop": "32px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px",
+                    "base": "8px",
+                    "container-margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Atkinson Hyperlegible Next"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Atkinson Hyperlegible Next"],
+                    "label-sm": ["Atkinson Hyperlegible Next"],
+                    "label-lg": ["Atkinson Hyperlegible Next"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .bento-card {
+            background-color: #ffffff;
+            border: 1px solid #E0E0E0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- TopAppBar Shell -->
+<header class="w-full top-0 sticky z-50 bg-surface shadow-sm flex items-center justify-between px-gutter h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-highest transition-colors p-2 rounded-full active:scale-95 duration-200">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Gram Seva</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-highest transition-colors p-2 rounded-full active:scale-95 duration-200">notifications</button>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-gutter py-8 space-y-stack-lg">
+<!-- Header Section -->
+<section class="space-y-2">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Complaint Portal</h2>
+<p class="text-on-surface-variant font-body-md">Raise your concerns directly to the village council. We aim to resolve issues within 7 working days.</p>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Complaint Submission Form (Left/Main Column) -->
+<div class="lg:col-span-7 space-y-stack-md">
+<div class="bento-card p-6 rounded-xl space-y-6">
+<h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">edit_note</span>
+                        Submit New Complaint
+                    </h3>
+<!-- Category Selection -->
+<div class="space-y-3">
+<label class="font-label-lg text-label-lg text-on-surface-variant">Issue Category</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<button class="category-btn flex flex-col items-center justify-center p-4 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all active:scale-95" onclick="selectCategory(this)">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">road</span>
+<span class="font-label-sm text-label-sm">Road</span>
+</button>
+<button class="category-btn flex flex-col items-center justify-center p-4 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all active:scale-95" onclick="selectCategory(this)">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">water_drop</span>
+<span class="font-label-sm text-label-sm">Water</span>
+</button>
+<button class="category-btn flex flex-col items-center justify-center p-4 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all active:scale-95" onclick="selectCategory(this)">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">bolt</span>
+<span class="font-label-sm text-label-sm">Electricity</span>
+</button>
+<button class="category-btn flex flex-col items-center justify-center p-4 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all active:scale-95" onclick="selectCategory(this)">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">more_horiz</span>
+<span class="font-label-sm text-label-sm">Other</span>
+</button>
+</div>
+</div>
+<!-- Description -->
+<div class="space-y-2">
+<label class="font-label-lg text-label-lg text-on-surface-variant" for="description">Description</label>
+<textarea class="w-full p-4 border border-outline-variant rounded-lg bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-on-surface" id="description" placeholder="Please describe the issue in detail (e.g., location, time it started)..." rows="4"></textarea>
+</div>
+<!-- Photo Upload -->
+<div class="space-y-2">
+<label class="font-label-lg text-label-lg text-on-surface-variant">Attach Photo (Optional)</label>
+<div class="flex items-center justify-center w-full">
+<label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-outline-variant rounded-lg cursor-pointer bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl mb-2">add_a_photo</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Click to upload or drag and drop</p>
+</div>
+<input class="hidden" type="file"/>
+</label>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-primary text-on-primary py-4 rounded-full font-headline-md text-headline-md font-bold active:scale-95 transition-transform shadow-lg hover:opacity-90">
+                        Submit Complaint
+                    </button>
+</div>
+</div>
+<!-- Recent Complaints / Tracking (Right/Side Column) -->
+<div class="lg:col-span-5 space-y-stack-md">
+<div class="bento-card p-6 rounded-xl h-full flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Status</h3>
+<span class="text-primary font-label-lg cursor-pointer hover:underline">View All</span>
+</div>
+<!-- List of Recent Complaints -->
+<div class="space-y-4 flex-1">
+<!-- Complaint Item 1 (Approved) -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group relative cursor-pointer">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">water_drop</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Main Street Leakage</h4>
+<span class="text-[10px] font-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1 mb-2">Large water pipe burst near the primary school gate...</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#88d982]/20 text-primary uppercase">Approved</span>
+<span class="text-[10px] text-on-surface-variant">ID: #GS-4421</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<!-- Complaint Item 2 (Pending) -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group relative cursor-pointer">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">bolt</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Street Light Off</h4>
+<span class="text-[10px] font-label-sm text-on-surface-variant">1d ago</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1 mb-2">The lamp post #45 is flickering since Monday evening.</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed uppercase">Pending</span>
+<span class="text-[10px] text-on-surface-variant">ID: #GS-4398</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<!-- Complaint Item 3 (Action Required) -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group relative cursor-pointer">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-error">report_problem</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Road Blockage</h4>
+<span class="text-[10px] font-label-sm text-on-surface-variant">3d ago</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1 mb-2">Construction debris blocking the path to the dairy farm.</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-error-container text-on-error-container uppercase">Action Required</span>
+<span class="text-[10px] text-on-surface-variant">ID: #GS-4312</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Tips Section -->
+<div class="mt-8 p-4 border border-primary/20 bg-primary/5 rounded-lg border-dashed">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg">info</span>
+<h4 class="font-label-lg text-label-lg text-primary">Need urgent help?</h4>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">For life-threatening emergencies, please call the village helpline at <span class="font-bold">1800-456-789</span> immediately.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Featured Map Section (Visual Context) -->
+<section class="mt-12">
+<div class="relative w-full h-[300px] rounded-2xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist topographical map style representation of a rural Indian village layout with green patches, clean paved roads, and small housing clusters. The lighting is bright and cheerful morning sun, emphasizing a sense of order and civic care. Soft shadows and a slight isometric perspective give a modern digital feel consistent with the Gram Seva branding." data-location="Nagpur, India" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTLiJ1M5vn3eR6UqMXJyQg8AfKDv3JEfdIWYA0B-5kv_WQBSpF6yL-z4chJ9GJZ6gCBtND1_eUSgeUdE9ikAyfENZB-7Wf8rGBqkigQhevilwlqtz2p5TK4UIYy1NVfNBB6MJmBH-zkUfFa3KXJjyNDEND52m-oqlkRE2JLJpf_Ym5Wi8Tnp1E_XO94eshi-b93xdNfRQUbh58UjqZHL6zNM3u3wXMoBchrxO62xLw2jB07aik5DhZ2RgpNSupdlQerJLyZUrTSSY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent flex items-end p-8">
+<div class="text-white">
+<h4 class="font-headline-md text-headline-md font-bold mb-1">Your Village Community</h4>
+<p class="font-body-md opacity-90">Total active resolutions in your ward: 124</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 bg-surface shadow-[0_-2px_10px_rgba(0,0,0,0.05)] px-4 pb-safe z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-variant rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="font-label-sm text-label-sm">Complaints</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-variant rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">apps</span>
+<span class="font-label-sm text-label-sm">Services</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-variant rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        function selectCategory(element) {
+            // Reset all buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
+                btn.classList.add('border-outline-variant');
+            });
+            
+            // Highlight selected
+            element.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
+            element.classList.remove('border-outline-variant');
+        }
+    </script>
+</body></html>

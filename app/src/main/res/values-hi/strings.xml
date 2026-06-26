@@ -1,0 +1,477 @@
+<resources>
+    <string name="app_name">ग्रामसेवा</string>
+
+    <!-- General -->
+    <string name="home">होम</string>
+    <string name="services">सेवाएं</string>
+    <string name="profile">प्रोफ़ाइल</string>
+    <string name="back">वापस</string>
+    <string name="menu">मेन्यू</string>
+    <string name="notifications">सूचनाएं</string>
+    <string name="notifications_coming_soon">सूचनाएं जल्द आ रही हैं</string>
+    <string name="language">भाषा</string>
+    <string name="logout">लॉग आउट</string>
+    <string name="saved_schemes">सहेजी गई योजनाएं</string>
+    <string name="emergency_contacts">आपातकालीन संपर्क</string>
+    <string name="about_app">ऐप के बारे में</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="ok">ठीक है</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="confirm">पुष्टि करें</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">डिजिटल कनेक्शन के माध्यम से गांवों को सशक्त बनाना।</string>
+
+    <!-- Login -->
+    <string name="app_title">ग्राम सेवा</string>
+    <string name="welcome_back">वापसी पर स्वागत है</string>
+    <string name="sign_in_subtitle">अपने ईमेल और पासवर्ड से साइन इन करें।</string>
+    <string name="email">ईमेल</string>
+    <string name="email_hint">आप@उदाहरण.कॉम</string>
+    <string name="password">पासवर्ड</string>
+    <string name="password_hint">अपना पासवर्ड दर्ज करें</string>
+    <string name="sign_in">साइन इन</string>
+    <string name="dont_have_account">खाता नहीं है?</string>
+    <string name="create_account">खाता बनाएं</string>
+    <string name="terms_notice">जारी रखने से, आप हमारी सेवा की शर्तों और गोपनीयता नीति से सहमत होते हैं।</string>
+    <string name="village_focus">ग्राम फोकस</string>
+    <string name="secure_tech">सुरक्षित तकनीक</string>
+    <string name="digital_empowerment">डिजिटल सशक्तिकरण</string>
+    <string name="email_required">ईमेल आवश्यक है</string>
+    <string name="enter_valid_email">मान्य ईमेल दर्ज करें</string>
+    <string name="password_required">पासवर्ड आवश्यक है</string>
+    <string name="password_min_length">पासवर्ड कम से कम 6 अक्षर का होना चाहिए</string>
+
+    <!-- Register -->
+    <string name="register_title">खाता बनाएं</string>
+    <string name="register_subtitle">आरंभ करने के लिए अपना विवरण भरें</string>
+    <string name="full_name">पूरा नाम</string>
+    <string name="full_name_hint">अपना पूरा नाम दर्ज करें</string>
+    <string name="mobile_number">मोबाइल नंबर</string>
+    <string name="mobile_hint">+91 98765 43210</string>
+    <string name="village">गांव</string>
+    <string name="village_hint">अपने गांव का नाम दर्ज करें</string>
+    <string name="district">जिला</string>
+    <string name="district_hint">अपने जिले का नाम दर्ज करें</string>
+    <string name="already_have_account">पहले से खाता है? साइन इन करें</string>
+    <string name="name_required">नाम आवश्यक है</string>
+    <string name="mobile_required">मोबाइल नंबर आवश्यक है</string>
+    <string name="village_required">गांव आवश्यक है</string>
+    <string name="district_required">जिला आवश्यक है</string>
+    <string name="profile_saved">प्रोफ़ाइल सहेजी गई!</string>
+    <string name="account_created">खाता सफलतापूर्वक बनाया गया!</string>
+    <string name="save_profile">प्रोफ़ाइल सहेजें</string>
+    <string name="back_to_profile">प्रोफ़ाइल पर वापस</string>
+
+    <!-- Schemes / Home -->
+    <string name="govt_schemes_portal">सरकारी योजना पोर्टल</string>
+    <string name="schemes_subtitle">पारदर्शी डिजिटल सेवाओं के माध्यम से ग्रामीण विकास को सशक्त बनाना।</string>
+    <string name="search_hint">योजनाएं खोजें&#8230;</string>
+    <string name="categories">श्रेणियां</string>
+    <string name="education">शिक्षा</string>
+    <string name="education_desc">छात्रवृत्ति और प्रशिक्षण</string>
+    <string name="health">स्वास्थ्य</string>
+    <string name="health_desc">चिकित्सा और बीमा</string>
+    <string name="agriculture">कृषि</string>
+    <string name="agriculture_desc">खेती और सब्सिडी</string>
+    <string name="housing">आवास</string>
+    <string name="housing_desc">किफायती घर</string>
+    <string name="emergency_services">आपातकालीन सेवाएं</string>
+    <string name="emergency_desc">एम्बुलेंस · पुलिस · हेल्पलाइन</string>
+    <string name="active_schemes">सक्रिय योजनाएं</string>
+    <string name="tag_agriculture">कृषि</string>
+    <string name="tag_newly_added">नया जोड़ा गया</string>
+    <string name="scheme_pm_kisan">पीएम किसान सम्मान निधि</string>
+    <string name="scheme_pm_kisan_desc">सभी भूमिधारक किसानों को प्रति वर्ष ₹6,000 की आय सहायता।</string>
+    <string name="apply_now">अभी आवेदन करें</string>
+    <string name="check_eligibility">पात्रता जांचें</string>
+    <string name="tag_health">स्वास्थ्य</string>
+    <string name="tag_popular">लोकप्रिय</string>
+    <string name="scheme_ayushman">आयुष्मान भारत</string>
+    <string name="scheme_ayushman_desc">प्रति परिवार प्रति वर्ष ₹5 लाख का स्वास्थ्य बीमा कवर।</string>
+    <string name="tag_housing">आवास</string>
+    <string name="tag_flagship">प्रमुख</string>
+    <string name="scheme_pm_awas">पीएम आवास योजना</string>
+    <string name="scheme_pm_awas_desc">गरीबों को किफायती आवास प्रदान करके सभी के लिए आवास।</string>
+
+    <!-- Profile -->
+    <string name="my_profile">मेरी प्रोफ़ाइल</string>
+    <string name="profile_header_name">रमेश कुमार</string>
+    <string name="profile_header_village">गांव: रामपुर, जिला: सहारनपुर</string>
+    <string name="edit_profile">प्रोफ़ाइल संपादित करें</string>
+    <string name="personal_information">व्यक्तिगत जानकारी</string>
+    <string name="name_label">नाम</string>
+    <string name="mobile_label">मोबाइल नंबर</string>
+    <string name="email_label">ईमेल</string>
+    <string name="village_label">गांव / जिला</string>
+    <string name="complete_profile">अपनी प्रोफ़ाइल पूरी करें</string>
+    <string name="not_set">सेट नहीं है</string>
+    <string name="village_not_set">गांव: सेट नहीं है</string>
+    <string name="village_format">गांव: %s</string>
+    <string name="schemes_saved">सहेजी गई योजनाएं</string>
+    <string name="education_schemes">शिक्षा योजनाएं</string>
+    <string name="health_schemes">स्वास्थ्य योजनाएं</string>
+    <string name="agriculture_schemes">कृषि योजनाएं</string>
+    <string name="housing_schemes">आवास योजनाएं</string>
+    <string name="badge_3">३</string>
+    <string name="badge_2">२</string>
+    <string name="badge_5">५</string>
+    <string name="language_settings">भाषा सेटिंग्स</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="notification_settings">सूचना सेटिंग्स</string>
+    <string name="enable_notifications">सूचनाएं सक्षम करें</string>
+    <string name="disable_notifications">सूचनाएं अक्षम करें</string>
+    <string name="account">खाता</string>
+    <string name="logout_confirm">क्या आप वाकई लॉग आउट करना चाहते हैं?</string>
+    <string name="yes_logout">हां, लॉग आउट करें</string>
+    <string name="logging_out">लॉग आउट हो रहा है&#8230;</string>
+    <string name="language_hindi">भाषा हिंदी में सेट की गई</string>
+    <string name="language_english">भाषा अंग्रेज़ी में सेट की गई</string>
+    <string name="notif_enabled">सूचनाएं सक्षम की गईं</string>
+    <string name="notif_disabled">सूचनाएं अक्षम की गईं</string>
+
+    <!-- Menu -->
+    <string name="menu_title">मेन्यू</string>
+    <string name="menu_home">होम</string>
+    <string name="menu_profile">प्रोफ़ाइल</string>
+    <string name="menu_notifications">सूचनाएं</string>
+    <string name="menu_saved_schemes">सहेजी गई योजनाएं</string>
+    <string name="menu_complaints">शिकायतें</string>
+    <string name="menu_emergency">आपातकालीन संपर्क</string>
+    <string name="menu_language">भाषा</string>
+    <string name="menu_about">ऐप के बारे में</string>
+    <string name="menu_privacy">गोपनीयता नीति</string>
+    <string name="menu_logout">लॉग आउट</string>
+    <string name="select_language">भाषा चुनें</string>
+    <string name="lang_option_hindi">हिंदी</string>
+    <string name="lang_option_english">अंग्रेज़ी</string>
+    <string name="language_set">भाषा %s में सेट की गई</string>
+    <string name="about_app_text">ग्राम सेवा v1.0\nडिजिटल कनेक्शन के माध्यम से गांवों को सशक्त बनाना।</string>
+    <string name="about_version">संस्करण 1.0.0</string>
+    <string name="about_desc">ग्राम सेवा एक ग्रामीण सेवा ऐप है जो गाँव के लोगों को सरकारी योजनाओं, शिक्षा, स्वास्थ्य, खेती और अन्य महत्वपूर्ण सेवाओं की जानकारी प्रदान करती है। हमारा उद्देश्य डिजिटल माध्यम से गाँव तक सही और उपयोगी जानकारी पहुँचाना है।</string>
+    <string name="about_features_title">मुख्य विशेषताएं</string>
+    <string name="about_features">🌾 कृषि जानकारी\n🎓 शिक्षा योजनाएं\n🏥 स्वास्थ्य सेवाएं\n🏠 आवास योजनाएं\n🚨 आपातकालीन संपर्क\n🔔 सूचनाएं</string>
+    <string name="about_mission_title">मिशन</string>
+    <string name="about_mission">गाँव के लोगों तक सही और उपयोगी जानकारी\nडिजिटल माध्यम से पहुँचाना।</string>
+    <string name="about_developer">डेवलपर: अंकित कुमार</string>
+    <string name="about_disclaimer_title">अस्वीकरण</string>
+    <string name="about_disclaimer">ग्राम सेवा एक सूचनात्मक प्लेटफॉर्म है जो सरकारी योजनाओं, कृषि, स्वास्थ्य, आवास और शिक्षा से संबंधित जानकारी प्रदान करता है।\n\nहम जानकारी को सटीक और अपडेटेड रखने का प्रयास करते हैं, लेकिन किसी भी योजना या सेवा की आधिकारिक और नवीनतम जानकारी के लिए संबंधित सरकारी वेबसाइट या विभाग से पुष्टि अवश्य करें।\n\nग्राम सेवा किसी भी सरकारी संस्था या विभाग का आधिकारिक एप्लिकेशन नहीं है।</string>
+    <string name="privacy_coming_soon">गोपनीयता नीति जल्द आ रही है</string>
+
+    <!-- Privacy Policy -->
+    <string name="privacy_last_updated">अंतिम अपडेट: जून 2026</string>
+    <string name="privacy_intro">ग्राम सेवा आपकी प्राइवेसी का सम्मान करता है। यह पॉलिसी बताती है कि ऐप कौन सी जानकारी कलेक्ट करता है और उसका उपयोग कैसे किया जाता है।</string>
+
+    <string name="privacy_section1_title">1. हम कौन सी जानकारी इकट्ठा करते हैं</string>
+    <string name="privacy_section1_body">हम निम्नलिखित जानकारी कलेक्ट कर सकते हैं:\n\n• नाम\n• मोबाइल नंबर\n• ईमेल पता\n• गांव / जिला जानकारी</string>
+
+    <string name="privacy_section2_title">2. जानकारी का उपयोग कैसे किया जाता है</string>
+    <string name="privacy_section2_body">आपकी जानकारी का उपयोग:\n\n• प्रोफाइल मैनेजमेंट के लिए\n• पर्सनलाइज्ड सेवाएं देने के लिए\n• नोटिफिकेशन भेजने के लिए\n• ऐप अनुभव को बेहतर बनाने के लिए</string>
+
+    <string name="privacy_section3_title">3. डेटा सुरक्षा</string>
+    <string name="privacy_section3_body">हम आपकी जानकारी को सुरक्षित रखने का प्रयास करते हैं। डेटा फायरबेस और अन्य विश्वसनीय सेवाओं पर स्टोर किया जा सकता है।</string>
+
+    <string name="privacy_section4_title">4. थर्ड-पार्टी सेवाएं</string>
+    <string name="privacy_section4_body">ऐप फायरबेस, गूगल नोटिफिकेशन और अन्य विश्वसनीय सेवाओं का उपयोग कर सकता है।</string>
+
+    <string name="privacy_section5_title">5. सरकारी जानकारी</string>
+    <string name="privacy_section5_body">ग्राम सेवा सरकारी योजनाओं और सेवाओं की जानकारी प्रदान करता है। आधिकारिक और नवीनतम जानकारी के लिए संबंधित सरकारी वेबसाइट देखें।</string>
+
+    <string name="privacy_section6_title">6. उपयोगकर्ता अधिकार</string>
+    <string name="privacy_section6_body">उपयोगकर्ता अपनी प्रोफाइल जानकारी अपडेट या डिलीट कर सकता है।</string>
+
+    <string name="privacy_section7_title">7. संपर्क</string>
+    <string name="privacy_section7_body">किसी भी प्राइवेसी संबंधित सवाल के लिए डेवलपर से संपर्क करें:\n\nडेवलपर: अंकित कुमार</string>
+
+    <string name="privacy_section8_title">8. अस्वीकरण</string>
+    <string name="privacy_section8_body">ग्राम सेवा किसी भी सरकारी संस्था या विभाग का आधिकारिक एप्लिकेशन नहीं है।</string>
+
+    <!-- Agriculture -->
+    <string name="agriculture_title">कृषि</string>
+    <string name="kisan_seva">किसान सेवा</string>
+    <string name="agriculture_tagline">हर किसान के लिए स्मार्ट खेती समाधान</string>
+    <string name="agriculture_services">कृषि सेवाएं</string>
+    <string name="govt_schemes">सरकारी योजनाएं</string>
+    <string name="govt_schemes_desc">पीएम किसान, केसीसी, फसल बीमा और अधिक</string>
+    <string name="crop_info">फसल की जानकारी</string>
+    <string name="crop_info_desc">गेहूं, चावल, सरसों, गन्ना और अधिक</string>
+    <string name="weather_updates">मौसम अपडेट</string>
+    <string name="weather_desc">तापमान, बारिश पूर्वानुमान और आर्द्रता</string>
+    <string name="mandi_rates">मंडी भाव</string>
+    <string name="mandi_rates_desc">गेहूं, चावल, सरसों, गन्ना और अधिक</string>
+    <string name="fertilizer_guide">उर्वरक गाइड</string>
+    <string name="fertilizer_desc">यूरिया, डीएपी, एनपीके, पोटाश और जिंक</string>
+
+    <!-- Agriculture Detail Items -->
+    <string name="pm_kisan">पीएम किसान सम्मान निधि</string>
+    <string name="kcc">किसान क्रेडिट कार्ड (KCC)</string>
+    <string name="pm_fasal_bima">पीएम फसल बीमा योजना</string>
+    <string name="soil_health_card">मृदा स्वास्थ्य कार्ड योजना</string>
+    <string name="crop_wheat">गेहूं</string>
+    <string name="crop_rice">चावल</string>
+    <string name="crop_mustard">सरसों</string>
+    <string name="crop_sugarcane">गन्ना</string>
+    <string name="crop_potato">आलू</string>
+    <string name="crop_maize">मक्का</string>
+    <string name="crop_gram">चना</string>
+    <string name="crop_arhar">अरहर</string>
+    <string name="weather_temp">वर्तमान तापमान: 32°C</string>
+    <string name="weather_rain">बारिश पूर्वानुमान: 40% संभावना</string>
+    <string name="weather_humidity">आर्द्रता: 65%</string>
+    <string name="weather_7day">7 दिन का पूर्वानुमान: आंशिक रूप से बादल</string>
+    <string name="mandi_wheat">गेहूं: ₹2,425/क्विंटल</string>
+    <string name="mandi_rice">चावल: ₹2,150/क्विंटल</string>
+    <string name="mandi_mustard">सरसों: ₹5,450/क्विंटल</string>
+    <string name="mandi_sugarcane">गन्ना: ₹340/क्विंटल</string>
+    <string name="mandi_potato">आलू: ₹1,850/क्विंटल</string>
+    <string name="mandi_maize">मक्का: ₹1,975/क्विंटल</string>
+    <string name="fertilizer_urea">यूरिया: ₹242/बैग</string>
+    <string name="fertilizer_dap">डीएपी: ₹1,350/बैग</string>
+    <string name="fertilizer_npk">एनपीके: ₹1,050/बैग</string>
+    <string name="fertilizer_potash">पोटाश: ₹850/बैग</string>
+    <string name="fertilizer_zinc">जिंक: ₹520/किग्रा</string>
+
+    <!-- Education -->
+    <string name="education_title">शिक्षा</string>
+    <string name="shiksha_seva">शिक्षा सेवा</string>
+    <string name="education_tagline">हर विद्यार्थी के लिए शिक्षा को सशक्त बनाना</string>
+    <string name="education_services">शिक्षा सेवाएं</string>
+    <string name="education_scholarships">शिक्षा छात्रवृत्तियां</string>
+    <string name="scholarships_desc">यूपी छात्रवृत्ति, राष्ट्रीय और पोस्ट मैट्रिक</string>
+    <string name="courses">कोर्स</string>
+    <string name="courses_desc">कंप्यूटर, डिजिटल मार्केटिंग और अंग्रेज़ी</string>
+    <string name="govt_exams">सरकारी परीक्षाएं</string>
+    <string name="exams_desc">पीईटी, एसएससी, रेलवे और पुलिस</string>
+    <string name="study_material">अध्ययन सामग्री</string>
+    <string name="study_material_desc">नोट्स, सिलेबस, पेपर और पीडीएफ किताबें</string>
+    <string name="career_guidance">करियर मार्गदर्शन</string>
+    <string name="career_desc">10वीं के बाद, 12वीं के बाद और स्नातक</string>
+    <string name="scholarship_up">यूपी छात्रवृत्ति</string>
+    <string name="scholarship_national">राष्ट्रीय छात्रवृत्ति</string>
+    <string name="scholarship_post_matric">पोस्ट मैट्रिक छात्रवृत्ति</string>
+    <string name="course_computer">कंप्यूटर कोर्स</string>
+    <string name="course_dm">डिजिटल मार्केटिंग</string>
+    <string name="course_english">स्पोकन इंग्लिश</string>
+    <string name="exam_pet">पीईटी</string>
+    <string name="exam_ssc">एसएससी</string>
+    <string name="exam_railway">रेलवे</string>
+    <string name="exam_police">पुलिस</string>
+    <string name="study_notes">नोट्स</string>
+    <string name="study_syllabus">सिलेबस</string>
+    <string name="study_previous_papers">पिछले वर्ष के प्रश्नपत्र</string>
+    <string name="study_pdf_books">पीडीएफ किताबें</string>
+    <string name="career_after_10th">10वीं के बाद</string>
+    <string name="career_after_12th">12वीं के बाद</string>
+    <string name="career_graduation">स्नातक</string>
+
+    <!-- Housing -->
+    <string name="housing_title">आवास</string>
+    <string name="awas_seva">आवास सेवा</string>
+    <string name="housing_tagline">हर परिवार के लिए किफायती आवास</string>
+    <string name="housing_services">आवास सेवाएं</string>
+    <string name="housing_schemes_card">आवास योजनाएं</string>
+    <string name="housing_schemes_desc">पीएम आवास योजना</string>
+    <string name="housing_documents">आवास दस्तावेज</string>
+    <string name="housing_documents_desc">आधार, बैंक बुक, आय और निवास प्रमाण</string>
+    <string name="beneficiary_lists">लाभार्थी सूची</string>
+    <string name="beneficiary_desc">पीएमएवाई लाभार्थी सूची</string>
+    <string name="apply_process">आवेदन प्रक्रिया</string>
+    <string name="apply_process_desc">पीएमएवाई आवेदन गाइड</string>
+    <string name="pm_awas">पीएम आवास योजना</string>
+    <string name="doc_aadhaar">आधार कार्ड</string>
+    <string name="doc_bank_passbook">बैंक पासबुक</string>
+    <string name="doc_income">आय प्रमाण पत्र</string>
+    <string name="doc_residence">निवास प्रमाण</string>
+    <string name="pmay_beneficiary">पीएमएवाई लाभार्थी सूची</string>
+    <string name="pmay_apply_guide">पीएमएवाई आवेदन गाइड</string>
+
+    <!-- Health Card -->
+    <string name="health_card">हेल्थ कार्ड</string>
+    <string name="ayushman_bharat">आयुष्मान भारत</string>
+    <string name="pmjay">प्रधानमंत्री जन आरोग्य योजना</string>
+    <string name="not_activated">● सक्रिय नहीं</string>
+    <string name="enter_details">अपना विवरण दर्ज करें</string>
+    <string name="gender">लिंग</string>
+    <string name="male">पुरुष</string>
+    <string name="female">महिला</string>
+    <string name="date_of_birth">जन्म तिथि</string>
+    <string name="dob_hint">DD-MM-YYYY</string>
+    <string name="aadhaar_number">आधार नंबर</string>
+    <string name="aadhaar_hint">XXXX XXXX XXXX</string>
+    <string name="address_label">गांव / पता</string>
+    <string name="address_hint">अपना गांव / पता दर्ज करें</string>
+    <string name="activate_now">अभी सक्रिय करें</string>
+    <string name="your_health_card">आपका हेल्थ कार्ड</string>
+    <string name="name_card_label">नाम</string>
+    <string name="gender_card_label">लिंग</string>
+    <string name="dob_card_label">जन्म तिथि</string>
+    <string name="address_card_label">पता</string>
+    <string name="valid_upto">मान्यता तक</string>
+    <string name="coverage_amount">कवरेज राशि</string>
+    <string name="coverage_value">₹5,00,000</string>
+    <string name="per_family">प्रति परिवार प्रति वर्ष</string>
+    <string name="coverage_benefits">कवरेज लाभ</string>
+    <string name="benefit_hospitalization">  अस्पताल के खर्च</string>
+    <string name="benefit_pre_post">  पूर्व और पश्चात अस्पताल खर्च</string>
+    <string name="benefit_medicine">  दवा और नैदानिक कवरेज</string>
+    <string name="deactivate_card">कार्ड निष्क्रिय करें</string>
+    <string name="no_notifications">कोई नई सूचना नहीं</string>
+    <string name="select_gender">कृपया अपना लिंग चुनें</string>
+    <string name="dob_required">जन्म तिथि आवश्यक है</string>
+    <string name="aadhaar_required">मान्य 12-अंकीय आधार आवश्यक है</string>
+    <string name="address_required">पता आवश्यक है</string>
+    <string name="card_activated">हेल्थ कार्ड सफलतापूर्वक सक्रिय!</string>
+    <string name="card_deactivated">कार्ड निष्क्रिय किया गया</string>
+    <string name="status_live_active">● लाइव / सक्रिय</string>
+
+    <!-- Complaints -->
+    <string name="complaint_portal">शिकायत पोर्टल</string>
+    <string name="complaint_desc">अपनी चिंताओं को सीधे ग्राम पंचायत तक उठाएं। हम 7 कार्य दिवसों के भीतर समस्याओं का समाधान करने का लक्ष्य रखते हैं।</string>
+    <string name="submit_new">नई शिकायत दर्ज करें</string>
+    <string name="issue_category">शिकायत श्रेणी</string>
+    <string name="road">सड़क</string>
+    <string name="water">पानी</string>
+    <string name="electricity">बिजली</string>
+    <string name="other">अन्य</string>
+    <string name="description">विवरण</string>
+    <string name="description_hint">अपनी समस्या का विस्तार से वर्णन करें&#8230;</string>
+    <string name="attach_photo">फोटो संलग्न करें</string>
+    <string name="tap_to_upload">फोटो अपलोड करने के लिए टैप करें</string>
+    <string name="submit_complaint">शिकायत दर्ज करें</string>
+    <string name="recent_status">हाल की शिकायतें</string>
+    <string name="complaint_road">मुख्य सड़क रिसाव</string>
+    <string name="complaint_road_detail">2 दिन पहले | आईडी: #CMP-2024-089</string>
+    <string name="complaint_road_desc">मुख्य जंक्शन के पास पाइपलाइन रिसाव से पानी की बर्बादी&#8230;</string>
+    <string name="status_approved">स्वीकृत</string>
+    <string name="complaint_light">स्ट्रीट लाइट बंद</string>
+    <string name="complaint_light_detail">5 दिन पहले | आईडी: #CMP-2024-076</string>
+    <string name="complaint_light_desc">मुख्य सड़क के कोने पर स्ट्रीट लाइट काम नहीं कर रही&#8230;</string>
+    <string name="status_pending">लंबित</string>
+    <string name="complaint_blockage">सड़क अवरोध</string>
+    <string name="complaint_blockage_detail">1 सप्ताह पहले | आईडी: #CMP-2024-054</string>
+    <string name="complaint_blockage_desc">मुख्य गांव की सड़क के पास मलबा और गिरी शाखाएं&#8230;</string>
+    <string name="status_action_required">कार्रवाई आवश्यक</string>
+    <string name="urgent_help">तत्काल सहायता चाहिए?</string>
+    <string name="helpline">हेल्पलाइन पर कॉल करें: 1800-123-4567</string>
+    <string name="village_community">ग्राम समुदाय</string>
+    <string name="complaint_submitted">शिकायत सफलतापूर्वक दर्ज की गई!</string>
+    <string name="select_category">कृपया एक श्रेणी चुनें</string>
+    <string name="describe_issue">कृपया अपनी समस्या का वर्णन करें</string>
+    <string name="no_complaints">अभी तक कोई शिकायत नहीं</string>
+    <string name="photo_attached">फोटो संलग्न की गई</string>
+    <string name="road_complaint">सड़क समस्या</string>
+    <string name="water_complaint">पानी की समस्या</string>
+    <string name="electricity_complaint">बिजली की समस्या</string>
+    <string name="other_complaint">अन्य समस्या</string>
+    <string name="complaint_date_id">%1$s | आईडी: %2$s</string>
+    <string name="take_photo">फोटो लें</string>
+    <string name="choose_from_gallery">गैलरी से चुनें</string>
+    <string name="photo_error">फोटो फ़ाइल नहीं बनाई जा सकी</string>
+    <string name="permission_denied">अनुमति अस्वीकृत</string>
+    <string name="tap_to_add_location">अपना स्थान जोड़ने के लिए टैप करें</string>
+    <string name="get_location">स्थान लें</string>
+    <string name="change_location">बदलें</string>
+    <string name="getting_location">स्थान मिल रहा है&#8230;</string>
+    <string name="location_found">स्थान: %1$s, %2$s</string>
+    <string name="enable_gps">कृपया GPS चालू करें</string>
+    <string name="location_error">स्थान नहीं मिल सका</string>
+    <string name="location_abbr">स्थान</string>
+
+    <!-- Documents -->
+    <string name="document_services">दस्तावेज़ सेवाएं</string>
+    <string name="documents_desc">अपने सभी सरकारी दस्तावेज़ एक सुरक्षित स्थान पर एक्सेस और प्रबंधित करें।</string>
+    <string name="new_service_ration">नई सेवा: डिजिटल राशन कार्ड लिंक</string>
+    <string name="aadhaar_service">आधार सेवा</string>
+    <string name="aadhaar_service_desc">अपना UID अपडेट या डाउनलोड करें</string>
+    <string name="active">सक्रिय</string>
+    <string name="download_form">फॉर्म डाउनलोड करें</string>
+    <string name="track_status">स्थिति ट्रैक करें</string>
+    <string name="pan_card">पैन कार्ड</string>
+    <string name="pan_card_desc">स्थायी खाता संख्या के लिए आवेदन करें</string>
+    <string name="income_certificate">आय प्रमाण पत्र</string>
+    <string name="income_certificate_desc">आधिकारिक राजस्व दस्तावेज़ीकरण</string>
+    <string name="caste_certificate">जाति प्रमाण पत्र</string>
+    <string name="caste_certificate_desc">समुदाय श्रेणी सत्यापन</string>
+    <string name="recent_requests">हाल के अनुरोध</string>
+    <string name="req_aadhaar_verify">आधार सत्यापन</string>
+    <string name="req_aadhaar_date">15 जून 2026 को सबमिट किया गया</string>
+    <string name="req_income_cert">आय प्रमाण पत्र</string>
+    <string name="req_income_date">10 जून 2026 को सबमिट किया गया</string>
+    <string name="status_approved_doc">स्वीकृत</string>
+    <string name="req_pan_update">पैन कार्ड अपडेट</string>
+    <string name="req_pan_date">05 जून 2026 को सबमिट किया गया</string>
+    <string name="req_caste_cert">जाति प्रमाण पत्र</string>
+    <string name="req_caste_date">01 जून 2026 को सबमिट किया गया</string>
+
+    <!-- Emergency Services -->
+    <string name="emergency_title">आपातकालीन सेवाएं</string>
+    <string name="location_status">स्थान स्थिति</string>
+    <string name="location_default">नई दिल्ली, केंद्रीय जिला</string>
+    <string name="status_active">सक्रिय</string>
+    <string name="ambulance">एम्बुलेंस</string>
+    <string name="ambulance_num">108</string>
+    <string name="ambulance_desc">तत्काल चिकित्सा सहायता के लिए टैप करें।</string>
+    <string name="police">पुलिस</string>
+    <string name="police_num">112</string>
+    <string name="police_desc">पुलिस के लिए एकीकृत राष्ट्रीय आपातकालीन नंबर।</string>
+    <string name="women_helpline">महिला हेल्पलाइन</string>
+    <string name="women_num">1091</string>
+    <string name="women_desc">सुरक्षा और संकट के लिए समर्पित सहायता।</string>
+    <string name="call">कॉल करें</string>
+    <string name="sms_112">SMS 112</string>
+    <string name="share_loc">लोकेशन शेयर करें</string>
+    <string name="emergency_guide">आपातकाल के दौरान</string>
+    <string name="guide_1">1</string>
+    <string name="guide_1_text">शांत रहें और अपने सटीक स्थान या निकटतम लैंडमार्क की पहचान करें।</string>
+    <string name="guide_2">2</string>
+    <string name="guide_2_text">डिस्पैचर को आपातकाल की प्रकृति स्पष्ट रूप से बताएं।</string>
+    <string name="guide_3">3</string>
+    <string name="guide_3_text">कॉल करने के बाद अपना फोन खाली रखें यदि उन्हें वापस कॉल करने की आवश्यकता हो।</string>
+    <string name="emergency_sms_body">सहायता: मुझे मेरे स्थान पर तत्काल सहायता चाहिए।</string>
+    <string name="share_location_text">मुझे मदद चाहिए! मेरा स्थान: https://maps.google.com/?q=New+Delhi,Central+District</string>
+    <string name="share_location_chooser">अपना स्थान साझा करें</string>
+    <string name="more_options">और विकल्प जल्द आ रहे हैं</string>
+
+    <!-- Job Alerts -->
+    <string name="job_alerts">नौकरी अलर्ट</string>
+    <string name="job_alerts_desc">अपने गांव के पास सर्वश्रेष्ठ सरकारी और निजी अवसर खोजें।</string>
+    <string name="govt_jobs">सरकारी नौकरियां</string>
+    <string name="private_jobs">निजी नौकरियां</string>
+    <string name="get_notified">सूचित हो जाएं</string>
+    <string name="recent_openings">हाल की रिक्तियां</string>
+    <string name="job_gram_panchayat">ग्राम पंचायत सहायक</string>
+    <string name="job_gram_panchayat_org">ग्राम पंचायत</string>
+    <string name="job_gram_panchayat_loc">चांदपुर गांव</string>
+    <string name="job_gram_panchayat_salary">₹25,000 / माह</string>
+    <string name="job_asha">आशा कार्यकर्ता</string>
+    <string name="job_asha_org">स्वास्थ्य विभाग</string>
+    <string name="job_asha_loc">रामनगर गांव</string>
+    <string name="job_asha_salary">₹18,000 / माह</string>
+    <string name="job_security">ग्राम सुरक्षा गार्ड</string>
+    <string name="job_security_org">पुलिस विभाग</string>
+    <string name="job_security_loc">गोपालपुर</string>
+    <string name="job_security_salary">₹15,000 / माह</string>
+    <string name="job_bank_mitra">बैंक मित्र</string>
+    <string name="job_bank_mitra_org">भारतीय स्टेट बैंक</string>
+    <string name="job_bank_mitra_loc">भिलवाड़ा</string>
+    <string name="job_bank_mitra_salary">₹22,000 / माह</string>
+    <string name="tag_new">नया</string>
+    <string name="tag_closes_soon">जल्द बंद</string>
+    <string name="need_guidance">मार्गदर्शन चाहिए?</string>
+    <string name="guidance_text">सरकारी नौकरियों के लिए आवेदन करने पर चरण-दर-चरण ट्यूटोरियल देखें।</string>
+    <string name="watch_videos">वीडियो देखें</string>
+
+    <!-- Complaints Bottom Nav -->
+    <string name="nav_complaints">शिकायतें</string>
+
+    <!-- Detail Screen -->
+    <string name="detail_title">शीर्षक</string>
+
+    <!-- Emergency strings from EmergencyServicesActivity.java -->
+    <string name="emergency_ambulance_num">108</string>
+    <string name="emergency_police_num">112</string>
+    <string name="emergency_women_num">1091</string>
+    <string name="emergency_sms_to">smsto:112</string>
+    <string name="emergency_sms_body_text">सहायता: मुझे मेरे स्थान पर तत्काल सहायता चाहिए।</string>
+</resources>

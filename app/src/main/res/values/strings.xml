@@ -1,0 +1,488 @@
+<resources>
+    <string name="app_name">GRAMSEVA</string>
+
+    <!-- General -->
+    <string name="home">Home</string>
+    <string name="services">Services</string>
+    <string name="profile">Profile</string>
+    <string name="back">Back</string>
+    <string name="menu">Menu</string>
+    <string name="notifications">Notifications</string>
+    <string name="notifications_coming_soon">Notifications coming soon</string>
+    <string name="language">Language</string>
+    <string name="logout">Logout</string>
+    <string name="saved_schemes">Saved Schemes</string>
+    <string name="emergency_contacts">Emergency Contacts</string>
+    <string name="about_app">About App</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">Empowering villages through digital connection.</string>
+
+    <!-- Login -->
+    <string name="app_title">Gram Seva</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in with your email and password.</string>
+    <string name="email">Email</string>
+    <string name="email_hint">you@example.com</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="create_account">Create Account</string>
+    <string name="terms_notice">By continuing, you agree to our Terms of Service and Privacy Policy.</string>
+    <string name="village_focus">Village Focus</string>
+    <string name="secure_tech">Secure Tech</string>
+    <string name="digital_empowerment">Digital Empowerment</string>
+    <string name="sign_in_google">Sign in with Google</string>
+    <string name="email_required">Email is required</string>
+    <string name="enter_valid_email">Enter a valid email</string>
+    <string name="password_required">Password is required</string>
+    <string name="password_min_length">Password must be at least 6 characters</string>
+
+    <!-- Register -->
+    <string name="register_title">Create Account</string>
+    <string name="register_subtitle">Fill in your details to get started</string>
+    <string name="full_name">Full Name</string>
+    <string name="full_name_hint">Enter your full name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="mobile_hint">+91 98765 43210</string>
+    <string name="village">Village</string>
+    <string name="village_hint">Enter your village name</string>
+    <string name="district">District</string>
+    <string name="district_hint">Enter your district name</string>
+    <string name="already_have_account">Already have an account? Sign In</string>
+    <string name="name_required">Name is required</string>
+    <string name="mobile_required">Mobile number is required</string>
+    <string name="village_required">Village is required</string>
+    <string name="district_required">District is required</string>
+    <string name="password_required_register">Password is required</string>
+    <string name="invalid_credentials">Invalid email or password</string>
+    <string name="profile_saved">Profile saved!</string>
+    <string name="account_created">Account created successfully!</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="back_to_profile">Back to Profile</string>
+
+    <!-- Schemes / Home -->
+    <string name="govt_schemes_portal">Government Schemes Portal</string>
+    <string name="schemes_subtitle">Empowering rural development through transparent digital services.</string>
+
+    <!-- AI Assistant -->
+    <string name="ask_gramseva_ai">Ask GramSeva AI</string>
+    <string name="ask_ai_desc">Ask anything about schemes &amp; services</string>
+    <string name="ai_subtitle">AI Assistant</string>
+    <string name="ai_welcome_hint">Hello! I\'m GramSeva AI Assistant. Ask me anything about government schemes, eligibility, documents, or services.</string>
+    <string name="ai_message_hint">Type your question here&#8230;</string>
+    <string name="search_hint">Search for schemes&#8230;</string>
+    <string name="categories">Categories</string>
+    <string name="education">Education</string>
+    <string name="education_desc">Scholarships &amp; Training</string>
+    <string name="health">Health</string>
+    <string name="health_desc">Medical &amp; Insurance</string>
+    <string name="agriculture">Agriculture</string>
+    <string name="agriculture_desc">Farming &amp; Subsidies</string>
+    <string name="housing">Housing</string>
+    <string name="housing_desc">Affordable Homes</string>
+    <string name="emergency_services">Emergency Services</string>
+    <string name="emergency_desc">Ambulance · Police · Helpline</string>
+    <string name="active_schemes">Active Schemes</string>
+    <string name="tag_agriculture">AGRICULTURE</string>
+    <string name="tag_newly_added">NEWLY ADDED</string>
+    <string name="scheme_pm_kisan">PM Kisan Samman Nidhi</string>
+    <string name="scheme_pm_kisan_desc">Income support of ₹6,000 per year to all landholding farmers.</string>
+    <string name="apply_now">Apply Now</string>
+    <string name="check_eligibility">Check Eligibility</string>
+    <string name="tag_health">HEALTH</string>
+    <string name="tag_popular">POPULAR</string>
+    <string name="scheme_ayushman">Ayushman Bharat</string>
+    <string name="scheme_ayushman_desc">Health insurance cover of ₹5 lakh per family per year.</string>
+    <string name="tag_housing">HOUSING</string>
+    <string name="tag_flagship">FLAGSHIP</string>
+    <string name="scheme_pm_awas">PM Awas Yojana</string>
+    <string name="scheme_pm_awas_desc">Housing for all by providing affordable housing to the poor.</string>
+
+    <!-- Profile -->
+    <string name="my_profile">My Profile</string>
+    <string name="profile_header_name">Ramesh Kumar</string>
+    <string name="profile_header_village">Village: Rampur, District: Saharanpur</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="name_label">Name</string>
+    <string name="mobile_label">Mobile Number</string>
+    <string name="email_label">Email</string>
+    <string name="village_label">Village / District</string>
+    <string name="complete_profile">Complete Your Profile</string>
+    <string name="not_set">Not Set</string>
+    <string name="village_not_set">Village: Not Set</string>
+    <string name="village_format">Village: %s</string>
+    <string name="schemes_saved">Saved Schemes</string>
+    <string name="education_schemes">Education Schemes</string>
+    <string name="health_schemes">Health Schemes</string>
+    <string name="agriculture_schemes">Agriculture Schemes</string>
+    <string name="housing_schemes">Housing Schemes</string>
+    <string name="badge_3">3</string>
+    <string name="badge_2">2</string>
+    <string name="badge_5">5</string>
+    <string name="language_settings">Language Settings</string>
+    <string name="hindi">हिन्दी (Hindi)</string>
+    <string name="english">English</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="disable_notifications">Disable Notifications</string>
+    <string name="account">Account</string>
+    <string name="logout_confirm">Are you sure you want to logout?</string>
+    <string name="yes_logout">Yes, Logout</string>
+    <string name="logging_out">Logging out&#8230;</string>
+    <string name="language_hindi">Language set to Hindi</string>
+    <string name="language_english">Language set to English</string>
+    <string name="notif_enabled">Notifications Enabled</string>
+    <string name="notif_disabled">Notifications Disabled</string>
+
+    <!-- Menu -->
+    <string name="menu_title">Menu</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="menu_saved_schemes">Saved Schemes</string>
+    <string name="menu_complaints">Complaints</string>
+    <string name="menu_emergency">Emergency Contacts</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_about">About App</string>
+    <string name="menu_privacy">Privacy Policy</string>
+    <string name="menu_logout">Logout</string>
+    <string name="select_language">Select Language</string>
+    <string name="lang_option_hindi">Hindi</string>
+    <string name="lang_option_english">English</string>
+    <string name="language_set">Language set to %s</string>
+    <string name="about_app_text">Gram Seva v1.0\nEmpowering villages through digital connection.</string>
+    <string name="about_version">Version 1.0.0</string>
+    <string name="about_desc">Gram Seva ek rural service app hai jo gaon ke logon ko sarkari yojnaon, shiksha, swasthya, kheti aur anya mahatvapurna sevayon ki jankari pradan karti hai. Hamara uddeshya digital madhyam se gaon tak sahi aur upyogi jankari pahunchana hai.</string>
+    <string name="about_features_title">Main Features</string>
+    <string name="about_features">🌾 Agriculture Information\n🎓 Education Schemes\n🏥 Health Services\n🏠 Housing Schemes\n🚨 Emergency Contacts\n🔔 Notifications</string>
+    <string name="about_mission_title">Mission</string>
+    <string name="about_mission">Gaon ke logon tak sahi aur upyogi jankari\ndigital madhyam se pahunchana.</string>
+    <string name="about_developer">Developer: Ankit Kumar</string>
+    <string name="about_disclaimer_title">Disclaimer</string>
+    <string name="about_disclaimer">Gram Seva ek informational platform hai jo Government Schemes, Agriculture, Health, Housing aur Education se sambandhit jankari pradan karta hai.\n\nHum jankari ko satik aur updated rakhne ka prayas karte hain, lekin kisi bhi yojna ya seva ki adhikarik aur naveenatam jankari ke liye sambandhit sarkari website ya vibhag se pushti avashya karein.\n\nGram Seva kisi bhi sarkari sanstha ya vibhag ka adhikarik application nahi hai.</string>
+    <string name="privacy_coming_soon">Privacy Policy coming soon</string>
+
+    <!-- Privacy Policy -->
+    <string name="privacy_last_updated">Last Updated: June 2026</string>
+    <string name="privacy_intro">Gram Seva respects your privacy. This policy explains what information the app collects and how it is used.</string>
+
+    <string name="privacy_section1_title">1. Information We Collect</string>
+    <string name="privacy_section1_body">We may collect the following information:\n\n• Name\n• Mobile Number\n• Email Address\n• Village / District Information</string>
+
+    <string name="privacy_section2_title">2. How We Use Information</string>
+    <string name="privacy_section2_body">Your information is used for:\n\n• Profile management\n• Providing personalized services\n• Sending notifications\n• Improving app experience</string>
+
+    <string name="privacy_section3_title">3. Data Security</string>
+    <string name="privacy_section3_body">We strive to keep your information secure. Data may be stored on Firebase and other trusted services.</string>
+
+    <string name="privacy_section4_title">4. Third-Party Services</string>
+    <string name="privacy_section4_body">The app may use Firebase, Google Notifications, and other trusted services.</string>
+
+    <string name="privacy_section5_title">5. Government Information</string>
+    <string name="privacy_section5_body">Gram Seva provides information about government schemes and services. For official and latest information, please refer to the respective government website.</string>
+
+    <string name="privacy_section6_title">6. User Rights</string>
+    <string name="privacy_section6_body">Users can update or delete their profile information.</string>
+
+    <string name="privacy_section7_title">7. Contact</string>
+    <string name="privacy_section7_body">For any privacy-related questions, please contact the developer:\n\nDeveloper: Ankit Kumar</string>
+
+    <string name="privacy_section8_title">8. Disclaimer</string>
+    <string name="privacy_section8_body">Gram Seva is not an official application of any government agency or department.</string>
+
+    <!-- Agriculture -->
+    <string name="agriculture_title">Agriculture</string>
+    <string name="kisan_seva">Kisan Seva</string>
+    <string name="agriculture_tagline">Smart farming solutions for every farmer</string>
+    <string name="agriculture_services">Agriculture Services</string>
+    <string name="govt_schemes">Government Schemes</string>
+    <string name="govt_schemes_desc">PM Kisan, KCC, Fasal Bima &amp; more</string>
+    <string name="crop_info">Crop Information</string>
+    <string name="crop_info_desc">Wheat, Rice, Mustard, Sugarcane &amp; more</string>
+    <string name="weather_updates">Weather Updates</string>
+    <string name="weather_desc">Temperature, rain forecast &amp; humidity</string>
+    <string name="mandi_rates">Mandi Rates</string>
+    <string name="mandi_rates_desc">Wheat, Rice, Mustard, Sugarcane &amp; more</string>
+    <string name="fertilizer_guide">Fertilizer Guide</string>
+    <string name="fertilizer_desc">Urea, DAP, NPK, Potash &amp; Zinc</string>
+
+    <!-- Agriculture Detail Items -->
+    <string name="pm_kisan">PM Kisan Samman Nidhi</string>
+    <string name="kcc">Kisan Credit Card (KCC)</string>
+    <string name="pm_fasal_bima">PM Fasal Bima Yojana</string>
+    <string name="soil_health_card">Soil Health Card Scheme</string>
+    <string name="crop_wheat">Wheat</string>
+    <string name="crop_rice">Rice</string>
+    <string name="crop_mustard">Mustard</string>
+    <string name="crop_sugarcane">Sugarcane</string>
+    <string name="crop_potato">Potato</string>
+    <string name="crop_maize">Maize</string>
+    <string name="crop_gram">Gram</string>
+    <string name="crop_arhar">Arhar</string>
+    <string name="weather_temp">Current Temperature: 32°C</string>
+    <string name="weather_rain">Rain Forecast: 40% chance</string>
+    <string name="weather_humidity">Humidity: 65%</string>
+    <string name="weather_7day">7 Day Forecast: Partly cloudy</string>
+    <string name="mandi_wheat">Wheat: ₹2,425/quintal</string>
+    <string name="mandi_rice">Rice: ₹2,150/quintal</string>
+    <string name="mandi_mustard">Mustard: ₹5,450/quintal</string>
+    <string name="mandi_sugarcane">Sugarcane: ₹340/quintal</string>
+    <string name="mandi_potato">Potato: ₹1,850/quintal</string>
+    <string name="mandi_maize">Maize: ₹1,975/quintal</string>
+    <string name="fertilizer_urea">Urea: ₹242/bag</string>
+    <string name="fertilizer_dap">DAP: ₹1,350/bag</string>
+    <string name="fertilizer_npk">NPK: ₹1,050/bag</string>
+    <string name="fertilizer_potash">Potash: ₹850/bag</string>
+    <string name="fertilizer_zinc">Zinc: ₹520/kg</string>
+
+    <!-- Education -->
+    <string name="education_title">Education</string>
+    <string name="shiksha_seva">Shiksha Seva</string>
+    <string name="education_tagline">Empowering education for every student</string>
+    <string name="education_services">Education Services</string>
+    <string name="education_scholarships">Education Scholarships</string>
+    <string name="scholarships_desc">UP Scholarship, National &amp; Post Matric</string>
+    <string name="courses">Courses</string>
+    <string name="courses_desc">Computer, Digital Marketing &amp; English</string>
+    <string name="govt_exams">Government Exams</string>
+    <string name="exams_desc">PET, SSC, Railway &amp; Police</string>
+    <string name="study_material">Study Material</string>
+    <string name="study_material_desc">Notes, Syllabus, Papers &amp; PDF Books</string>
+    <string name="career_guidance">Career Guidance</string>
+    <string name="career_desc">After 10th, 12th &amp; Graduation</string>
+    <string name="scholarship_up">UP Scholarship</string>
+    <string name="scholarship_national">National Scholarship</string>
+    <string name="scholarship_post_matric">Post Matric Scholarship</string>
+    <string name="course_computer">Computer Course</string>
+    <string name="course_dm">Digital Marketing</string>
+    <string name="course_english">Spoken English</string>
+    <string name="exam_pet">PET</string>
+    <string name="exam_ssc">SSC</string>
+    <string name="exam_railway">Railway</string>
+    <string name="exam_police">Police</string>
+    <string name="study_notes">Notes</string>
+    <string name="study_syllabus">Syllabus</string>
+    <string name="study_previous_papers">Previous Year Papers</string>
+    <string name="study_pdf_books">PDF Books</string>
+    <string name="career_after_10th">After 10th</string>
+    <string name="career_after_12th">After 12th</string>
+    <string name="career_graduation">Graduation</string>
+
+    <!-- Housing -->
+    <string name="housing_title">Housing</string>
+    <string name="awas_seva">Awas Seva</string>
+    <string name="housing_tagline">Affordable housing for every family</string>
+    <string name="housing_services">Housing Services</string>
+    <string name="housing_schemes_card">Housing Schemes</string>
+    <string name="housing_schemes_desc">PM Awas Yojana</string>
+    <string name="housing_documents">Housing Documents</string>
+    <string name="housing_documents_desc">Aadhaar, Bank Book, Income &amp; Residence</string>
+    <string name="beneficiary_lists">Beneficiary Lists</string>
+    <string name="beneficiary_desc">PMAY Beneficiary List</string>
+    <string name="apply_process">Apply Process</string>
+    <string name="apply_process_desc">PMAY Apply Guide</string>
+    <string name="pm_awas">PM Awas Yojana</string>
+    <string name="doc_aadhaar">Aadhaar Card</string>
+    <string name="doc_bank_passbook">Bank Passbook</string>
+    <string name="doc_income">Income Certificate</string>
+    <string name="doc_residence">Residence Proof</string>
+    <string name="pmay_beneficiary">PMAY Beneficiary List</string>
+    <string name="pmay_apply_guide">PMAY Apply Guide</string>
+
+    <!-- Health Card -->
+    <string name="health_card">Health Card</string>
+    <string name="ayushman_bharat">Ayushman Bharat</string>
+    <string name="pmjay">Pradhan Mantri Jan Arogya Yojana</string>
+    <string name="not_activated">● NOT ACTIVATED</string>
+    <string name="enter_details">Enter Your Details</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="dob_hint">DD-MM-YYYY</string>
+    <string name="aadhaar_number">Aadhaar Number</string>
+    <string name="aadhaar_hint">XXXX XXXX XXXX</string>
+    <string name="address_label">Village / Address</string>
+    <string name="address_hint">Enter your village / address</string>
+    <string name="activate_now">Activate Now</string>
+    <string name="your_health_card">Your Health Card</string>
+    <string name="name_card_label">Name</string>
+    <string name="gender_card_label">Gender</string>
+    <string name="dob_card_label">DOB</string>
+    <string name="address_card_label">Address</string>
+    <string name="valid_upto">Valid Upto</string>
+    <string name="coverage_amount">Coverage Amount</string>
+    <string name="coverage_value">₹5,00,000</string>
+    <string name="per_family">per family per year</string>
+    <string name="coverage_benefits">Coverage Benefits</string>
+    <string name="benefit_hospitalization">  Hospitalization expenses</string>
+    <string name="benefit_pre_post">  Pre &amp; post hospitalization</string>
+    <string name="benefit_medicine">  Medicine &amp; diagnostic coverage</string>
+    <string name="deactivate_card">Deactivate Card</string>
+    <string name="no_notifications">No new notifications</string>
+    <string name="select_gender">Please select your gender</string>
+    <string name="dob_required">Date of birth is required</string>
+    <string name="aadhaar_required">Valid 12-digit Aadhaar is required</string>
+    <string name="address_required">Address is required</string>
+    <string name="card_activated">Health card activated successfully!</string>
+    <string name="card_deactivated">Card deactivated</string>
+    <string name="status_live_active">● LIVE / ACTIVE</string>
+
+    <!-- Complaints -->
+    <string name="complaint_portal">Complaint Portal</string>
+    <string name="complaint_desc">Raise your concerns directly to the village council. We aim to resolve issues within 7 working days.</string>
+    <string name="submit_new">Submit New Complaint</string>
+    <string name="issue_category">Issue Category</string>
+    <string name="road">Road</string>
+    <string name="water">Water</string>
+    <string name="electricity">Electricity</string>
+    <string name="other">Other</string>
+    <string name="description">Description</string>
+    <string name="description_hint">Describe your issue in detail&#8230;</string>
+    <string name="attach_photo">Attach Photo</string>
+    <string name="tap_to_upload">Tap to upload a photo</string>
+    <string name="submit_complaint">Submit Complaint</string>
+    <string name="recent_status">Recent Complaints</string>
+    <string name="complaint_road">Main Street Leakage</string>
+    <string name="complaint_road_detail">2 days ago | ID: #CMP-2024-089</string>
+    <string name="complaint_road_desc">Pipeline leakage near the main junction causing water wastage&#8230;</string>
+    <string name="status_approved">Approved</string>
+    <string name="complaint_light">Street Light Off</string>
+    <string name="complaint_light_detail">5 days ago | ID: #CMP-2024-076</string>
+    <string name="complaint_light_desc">Street light on the corner of Main Road has not been working&#8230;</string>
+    <string name="status_pending">Pending</string>
+    <string name="complaint_blockage">Road Blockage</string>
+    <string name="complaint_blockage_detail">1 week ago | ID: #CMP-2024-054</string>
+    <string name="complaint_blockage_desc">Debris and fallen branches blocking the main village road near&#8230;</string>
+    <string name="status_action_required">Action Required</string>
+    <string name="urgent_help">Need urgent help?</string>
+    <string name="helpline">Call helpline: 1800-123-4567</string>
+    <string name="village_community">Village Community</string>
+    <string name="complaint_submitted">Complaint submitted successfully!</string>
+    <string name="select_category">Please select a category</string>
+    <string name="describe_issue">Please describe your issue</string>
+    <string name="no_complaints">No complaints yet</string>
+    <string name="photo_attached">Photo attached</string>
+    <string name="road_complaint">Road Issue</string>
+    <string name="water_complaint">Water Issue</string>
+    <string name="electricity_complaint">Electricity Issue</string>
+    <string name="other_complaint">Other Issue</string>
+    <string name="complaint_date_id">%1$s | ID: %2$s</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="photo_error">Could not create photo file</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="tap_to_add_location">Tap to add your location</string>
+    <string name="get_location">Get Location</string>
+    <string name="change_location">Change</string>
+    <string name="getting_location">Getting location&#8230;</string>
+    <string name="location_found">Location: %1$s, %2$s</string>
+    <string name="enable_gps">Please enable GPS</string>
+    <string name="location_error">Could not get location</string>
+    <string name="location_abbr">Loc</string>
+    <string name="other_category_hint">Enter your issue type…</string>
+
+    <!-- Documents -->
+    <string name="document_services">Document Services</string>
+    <string name="documents_desc">Access and manage all your government documents in one secure place.</string>
+    <string name="new_service_ration">New Service: Digital Ration Card Link</string>
+    <string name="aadhaar_service">Aadhaar Service</string>
+    <string name="aadhaar_service_desc">Update or Download your UID</string>
+    <string name="active">ACTIVE</string>
+    <string name="download_form">Download Form</string>
+    <string name="track_status">Track Status</string>
+    <string name="pan_card">PAN Card</string>
+    <string name="pan_card_desc">Apply for Permanent Account Number</string>
+    <string name="income_certificate">Income Certificate</string>
+    <string name="income_certificate_desc">Official revenue documentation</string>
+    <string name="caste_certificate">Caste Certificate</string>
+    <string name="caste_certificate_desc">Community category verification</string>
+    <string name="recent_requests">Recent Requests</string>
+    <string name="req_aadhaar_verify">Aadhaar Verification</string>
+    <string name="req_aadhaar_date">Submitted on 15 Jun 2026</string>
+    <string name="req_income_cert">Income Certificate</string>
+    <string name="req_income_date">Submitted on 10 Jun 2026</string>
+    <string name="status_approved_doc">Approved</string>
+    <string name="req_pan_update">PAN Card Update</string>
+    <string name="req_pan_date">Submitted on 05 Jun 2026</string>
+    <string name="req_caste_cert">Caste Certificate</string>
+    <string name="req_caste_date">Submitted on 01 Jun 2026</string>
+
+    <!-- Emergency Services -->
+    <string name="emergency_title">Emergency Services</string>
+    <string name="location_status">LOCATION STATUS</string>
+    <string name="location_default">New Delhi, Central District</string>
+    <string name="status_active">Active</string>
+    <string name="ambulance">Ambulance</string>
+    <string name="ambulance_num">108</string>
+    <string name="ambulance_desc">Tap to trigger immediate medical assistance.</string>
+    <string name="police">Police</string>
+    <string name="police_num">112</string>
+    <string name="police_desc">Unified national emergency number for police.</string>
+    <string name="women_helpline">Women Helpline</string>
+    <string name="women_num">1091</string>
+    <string name="women_desc">Dedicated support for safety and distress.</string>
+    <string name="call">Call</string>
+    <string name="sms_112">SMS 112</string>
+    <string name="share_loc">Share Loc</string>
+    <string name="emergency_guide">During an Emergency</string>
+    <string name="guide_1">1</string>
+    <string name="guide_1_text">Stay calm and identify your exact location or nearest landmark.</string>
+    <string name="guide_2">2</string>
+    <string name="guide_2_text">State the nature of the emergency clearly to the dispatcher.</string>
+    <string name="guide_3">3</string>
+    <string name="guide_3_text">Keep your phone line free after calling in case they need to call back.</string>
+    <string name="emergency_sms_body">HELP: I need immediate assistance at my location.</string>
+    <string name="share_location_text">I need help! My location: https://maps.google.com/?q=New+Delhi,Central+District</string>
+    <string name="share_location_chooser">Share your location</string>
+    <string name="more_options">More options coming soon</string>
+
+    <!-- Job Alerts -->
+    <string name="job_alerts">Job Alerts</string>
+    <string name="job_alerts_desc">Find the best government and private opportunities near your village.</string>
+    <string name="govt_jobs">Government Jobs</string>
+    <string name="private_jobs">Private Jobs</string>
+    <string name="get_notified">Get Notified</string>
+    <string name="recent_openings">Recent Openings</string>
+    <string name="job_gram_panchayat">Gram Panchayat Assistant</string>
+    <string name="job_gram_panchayat_org">Gram Panchayat</string>
+    <string name="job_gram_panchayat_loc">Chandpur Village</string>
+    <string name="job_gram_panchayat_salary">₹25,000 / mo</string>
+    <string name="job_asha">ASHA Worker</string>
+    <string name="job_asha_org">Health Department</string>
+    <string name="job_asha_loc">Ramnagar Village</string>
+    <string name="job_asha_salary">₹18,000 / mo</string>
+    <string name="job_security">Village Security Guard</string>
+    <string name="job_security_org">Police Department</string>
+    <string name="job_security_loc">Gopalpur</string>
+    <string name="job_security_salary">₹15,000 / mo</string>
+    <string name="job_bank_mitra">Bank Mitra</string>
+    <string name="job_bank_mitra_org">State Bank of India</string>
+    <string name="job_bank_mitra_loc">Bhilwara</string>
+    <string name="job_bank_mitra_salary">₹22,000 / mo</string>
+    <string name="tag_new">New</string>
+    <string name="tag_closes_soon">Closes Soon</string>
+    <string name="need_guidance">Need Guidance?</string>
+    <string name="guidance_text">Watch step-by-step tutorials on applying for government jobs.</string>
+    <string name="watch_videos">Watch Videos</string>
+
+    <!-- Complaints Bottom Nav -->
+    <string name="nav_complaints">Complaints</string>
+
+    <!-- Detail Screen -->
+    <string name="detail_title">Title</string>
+
+    <!-- Emergency strings from EmergencyServicesActivity.java -->
+    <string name="emergency_ambulance_num">108</string>
+    <string name="emergency_police_num">112</string>
+    <string name="emergency_women_num">1091</string>
+    <string name="emergency_sms_to">smsto:112</string>
+    <string name="emergency_sms_body_text">HELP: I need immediate assistance at my location.</string>
+</resources>

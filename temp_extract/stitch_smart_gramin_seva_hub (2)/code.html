@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gram Seva - Sarkari Yojana Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        @media (min-width: 768px) {
+            .bento-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1b1c1c",
+                        "error-container": "#ffdad6",
+                        "background": "#fbf9f8",
+                        "surface-variant": "#e4e2e1",
+                        "tertiary-container": "#006eca",
+                        "primary-fixed-dim": "#88d982",
+                        "surface-container": "#f0eded",
+                        "tertiary": "#00569f",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-tertiary-fixed": "#001c3a",
+                        "on-surface-variant": "#40493d",
+                        "secondary-fixed-dim": "#ffb786",
+                        "secondary-container": "#fc820c",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#005312",
+                        "on-background": "#1b1c1c",
+                        "tertiary-fixed": "#d4e3ff",
+                        "surface-container-high": "#eae8e7",
+                        "on-secondary-fixed": "#311300",
+                        "surface": "#fbf9f8",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-bright": "#fbf9f8",
+                        "surface-container-highest": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#2e7d32",
+                        "inverse-surface": "#303030",
+                        "on-tertiary-container": "#ebf1ff",
+                        "on-tertiary-fixed-variant": "#004786",
+                        "on-primary-container": "#cbffc2",
+                        "primary": "#0d631b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#5e2c00",
+                        "surface-tint": "#1b6d24",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#a3f69c",
+                        "on-primary": "#ffffff",
+                        "outline": "#707a6c",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "inverse-primary": "#88d982",
+                        "on-primary-fixed": "#002204",
+                        "secondary-fixed": "#ffdcc6",
+                        "outline-variant": "#bfcaba",
+                        "secondary": "#964900",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#723600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-margin-desktop": "32px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px",
+                        "base": "8px",
+                        "container-margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Atkinson Hyperlegible Next"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Atkinson Hyperlegible Next"],
+                        "label-sm": ["Atkinson Hyperlegible Next"],
+                        "label-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky z-40 shadow-sm flex items-center justify-between px-gutter h-16">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-highest transition-colors p-2 rounded-full active:scale-95 duration-200" onclick="toggleDrawer()">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Gram Seva</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-surface-container-highest transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<!-- Navigation Drawer (Hidden by default) -->
+<div class="fixed inset-0 bg-black/60 z-[55] hidden transition-opacity duration-300 opacity-0" id="drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="fixed inset-y-0 left-0 z-[60] flex flex-col p-4 bg-surface dark:bg-surface-dim h-full w-80 rounded-r-xl shadow-xl -translate-x-full transition-transform duration-300 ease-in-out" id="nav-drawer">
+<div class="flex flex-col items-start gap-1 p-4 mb-6">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container mb-2">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<p class="font-headline-md text-headline-md font-bold text-primary">Gram Seva User</p>
+<p class="font-label-sm text-on-surface-variant">Village ID: 45231</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="bg-secondary-container text-on-secondary-container font-bold rounded-lg m-2 p-3 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">policy</span> Sarkari Yojana
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 p-3 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">work</span> Job Alerts
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 p-3 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">description</span> Documents
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 p-3 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">report_problem</span> Complaints
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 p-3 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">newspaper</span> Village News
+            </a>
+</nav>
+</aside>
+<main class="max-w-7xl mx-auto px-gutter py-stack-lg">
+<!-- Hero Search Section -->
+<section class="mb-stack-lg">
+<div class="relative overflow-hidden rounded-xl bg-primary-container p-8 text-on-primary-container mb-stack-md shadow-lg min-h-[200px] flex flex-col justify-center">
+<!-- Atmospheric Background Elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-2 relative z-10">Government Schemes Portal</h2>
+<p class="font-body-md opacity-90 mb-6 relative z-10">Empowering rural development through transparent digital services.</p>
+<div class="relative w-full max-w-2xl z-10">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary">search</span>
+<input class="w-full h-14 pl-12 pr-4 rounded-full border-none bg-surface text-on-surface focus:ring-4 focus:ring-primary/20 shadow-sm font-body-md" placeholder="Search for schemes (e.g., PM Kisan, Ration Card)" type="text"/>
+</div>
+</div>
+</section>
+<!-- Categories Bento Grid -->
+<section class="mb-stack-lg">
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md text-primary">Browse Categories</h3>
+<button class="text-primary font-label-lg hover:underline">View All</button>
+</div>
+<div class="bento-grid">
+<!-- Education -->
+<div class="bg-surface p-6 rounded-xl border border-surface-variant hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-4 group">
+<div class="w-12 h-12 bg-tertiary-container/10 text-tertiary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold">Education</h4>
+<p class="text-label-sm text-on-surface-variant">Scholarships &amp; Training</p>
+</div>
+</div>
+<!-- Health -->
+<div class="bg-surface p-6 rounded-xl border border-surface-variant hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-4 group">
+<div class="w-12 h-12 bg-red-100 text-error rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">health_and_safety</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold">Health</h4>
+<p class="text-label-sm text-on-surface-variant">Insurance &amp; Wellness</p>
+</div>
+</div>
+<!-- Agriculture -->
+<div class="bg-surface p-6 rounded-xl border border-surface-variant hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-4 group">
+<div class="w-12 h-12 bg-primary-container/10 text-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">agriculture</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold">Agriculture</h4>
+<p class="text-label-sm text-on-surface-variant">Subsidies &amp; Equipment</p>
+</div>
+</div>
+<!-- Housing -->
+<div class="bg-surface p-6 rounded-xl border border-surface-variant hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-4 group">
+<div class="w-12 h-12 bg-secondary-fixed/50 text-secondary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">home</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold">Housing</h4>
+<p class="text-label-sm text-on-surface-variant">Pradhan Mantri Awas</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Schemes List -->
+<section class="mb-stack-lg">
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md text-primary">Active Schemes</h3>
+<div class="flex gap-2">
+<span class="bg-primary text-on-primary text-label-sm px-3 py-1 rounded-full">Recent</span>
+<span class="bg-surface-variant text-on-surface-variant text-label-sm px-3 py-1 rounded-full">Trending</span>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Scheme Card 1 -->
+<article class="bg-surface-container-lowest p-5 rounded-xl border border-surface-variant flex flex-col md:flex-row gap-6 hover:shadow-lg transition-all duration-300">
+<div class="w-full md:w-48 h-32 rounded-lg bg-surface-dim overflow-hidden flex-shrink-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="A photograph showing a vibrant green agricultural field in rural India with a modern tractor in the distance, captured during the golden hour with soft sunlight. The composition is clean and trustworthy, highlighting modern farming equipment and sustainable agriculture practices. The aesthetic is warm and community-focused." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChPN0vs3fmSA2N-6BVfAag8Zp42L6DkuZRFxu83Hmp6HVRMpCbono9Ai1Ozxug3dIMzGdZdnKB5cik4MTU3z0J4hYfkym3OByuo6UuUy89MdWffoNDVFcsJbrN5eWFQtNC_HmrpaKTCtfwpD8VSApOd7EZEv42Rhpy_bRCBUnz6xujEZGkXe_3BBDZ_zqp6rEE2LdKcQbFl4zgB8l6PzwGWrMxF2BxjFF0TBfo3H03hoORYKtapyieOw3DMSDkere4TqMeWzmo_SQ')"></div>
+</div>
+<div class="flex-grow">
+<div class="flex flex-wrap gap-2 mb-2">
+<span class="bg-primary/10 text-primary text-label-sm px-2 py-0.5 rounded-full font-bold">AGRICULTURE</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-label-sm px-2 py-0.5 rounded-full font-bold">NEWLY ADDED</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold mb-1">PM Kisan Samman Nidhi</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Direct income support of ₹6,000 per year to all landholding farmer families across the country.</p>
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary text-on-primary font-label-lg px-6 py-2.5 rounded-lg active:scale-95 transition-transform">Apply Now</button>
+<button class="border-2 border-primary text-primary font-label-lg px-6 py-2.5 rounded-lg hover:bg-primary/5 active:scale-95 transition-transform">Check Eligibility</button>
+</div>
+</div>
+</article>
+<!-- Scheme Card 2 -->
+<article class="bg-surface-container-lowest p-5 rounded-xl border border-surface-variant flex flex-col md:flex-row gap-6 hover:shadow-lg transition-all duration-300">
+<div class="w-full md:w-48 h-32 rounded-lg bg-surface-dim overflow-hidden flex-shrink-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="An artistic illustration of a family standing outside a modern, well-constructed rural home under a clear blue sky. The home has clean white walls and a sturdy roof, representing housing security and prosperity. The lighting is bright and optimistic, emphasizing safety and progress within a rural setting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMLLrZ0afb91_qekK6eLegsOE715rQbDNMDAreYjsbYiz5KTUXt2v9m_rfrITM-sdfIKfpMxadYpQZOEzUZ0BkE3wV-oDZJeplG8IZ22O5AkBve85GV5MhC7IusFR8yVJg35iVVsu3qUF0-lGpV-cCD7R9C1ogyfEhIKxxPFMEt3auYjCzg_EfytZE3wMKoUHCgevT_gINrkxFEvoxSsArK-6HOOt72CBsbksZq3yuYXA3s3ui5hjgiYH_wUl9sV1tpS5hL2BFE5s')"></div>
+</div>
+<div class="flex-grow">
+<div class="flex flex-wrap gap-2 mb-2">
+<span class="bg-primary/10 text-primary text-label-sm px-2 py-0.5 rounded-full font-bold">HOUSING</span>
+<span class="bg-orange-100 text-orange-800 text-label-sm px-2 py-0.5 rounded-full font-bold">POPULAR</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold mb-1">PMAY - Gramin Housing</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Financial assistance for construction of pucca houses for homeless rural households.</p>
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary text-on-primary font-label-lg px-6 py-2.5 rounded-lg active:scale-95 transition-transform">Apply Now</button>
+<button class="border-2 border-primary text-primary font-label-lg px-6 py-2.5 rounded-lg hover:bg-primary/5 active:scale-95 transition-transform">Check Eligibility</button>
+</div>
+</div>
+</article>
+<!-- Scheme Card 3 -->
+<article class="bg-surface-container-lowest p-5 rounded-xl border border-surface-variant flex flex-col md:flex-row gap-6 hover:shadow-lg transition-all duration-300">
+<div class="w-full md:w-48 h-32 rounded-lg bg-surface-dim overflow-hidden flex-shrink-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="A clean, professional medical setting showing a doctor using a digital tablet to record patient information. The environment is bright and sterile, with soft blue and green accents. This visual communicates advanced healthcare access and digital health management for rural communities." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuANi4CAEjDjWYj_KwTs2QTqFtj5Gf_JiD4nKs-SpF6UkTs5MmMgk5q8ratL6oyv38tWQ1UGEo07xbZbGbOxhKMXmY0P4sUzxmt2XCQLpzUiZq9i0h5xI52aoXK-BuSrgzF9ZfHdTC8Y2UD-0iqHwzi30cfEcIJ3Y3M0eTw5lpJpVsw1DM1iSIuugJQpV68vMSHnshQpaBIjonNvXDN3s4x0qINsI-e-hRQoSMXVcLLlzop71uKD2nXl4sPy252-MZZV1mIU5STfmhk')"></div>
+</div>
+<div class="flex-grow">
+<div class="flex flex-wrap gap-2 mb-2">
+<span class="bg-primary/10 text-primary text-label-sm px-2 py-0.5 rounded-full font-bold">HEALTH</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold mb-1">Ayushman Bharat Yojana</h4>
+<p class="text-on-surface-variant text-body-md mb-4">World's largest health insurance scheme providing coverage of ₹5 lakh per family per year.</p>
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary text-on-primary font-label-lg px-6 py-2.5 rounded-lg active:scale-95 transition-transform">Apply Now</button>
+<button class="border-2 border-primary text-primary font-label-lg px-6 py-2.5 rounded-lg hover:bg-primary/5 active:scale-95 transition-transform">Check Eligibility</button>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="text-primary font-label-lg flex items-center gap-2 px-8 py-3 rounded-full hover:bg-primary/10 transition-colors">
+                    Load More Schemes <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 bg-surface dark:bg-surface-dim px-4 pb-safe z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant dark:hover:bg-on-surface-variant/10 rounded-full transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined fill-icon">apps</span>
+<span class="font-label-sm text-label-sm">Services</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant dark:hover:bg-on-surface-variant/10 rounded-full transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-2xl shadow-xl flex items-center justify-center z-40 active:scale-90 transition-transform md:bottom-8">
+<span class="material-symbols-outlined text-3xl">chat</span>
+</button>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('nav-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            const isOpen = !drawer.classList.contains('-translate-x-full');
+
+            if (isOpen) {
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                overlay.classList.remove('opacity-100');
+                overlay.classList.add('opacity-0');
+            } else {
+                drawer.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    overlay.classList.add('opacity-100');
+                }, 10);
+            }
+        }
+
+        // Add smooth interaction for cards
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>
