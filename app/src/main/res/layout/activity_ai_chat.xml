@@ -64,6 +64,18 @@
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
+
+        <!-- Clear History Button -->
+        <ImageButton
+            android:id="@+id/btn_clear_history"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Clear chat history"
+            android:scaleType="center"
+            android:src="@drawable/ic_delete"
+            android:tint="@color/on_surface_variant" />
+
     </LinearLayout>
 
     <!-- Divider -->

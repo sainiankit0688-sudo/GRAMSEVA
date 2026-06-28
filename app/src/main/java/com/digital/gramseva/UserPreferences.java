@@ -137,4 +137,49 @@ public class UserPreferences {
                 .putString(KEY_REFRESH_TOKEN, "")
                 .apply();
     }
+
+    // ─── Chat History ───────────────────────────────────────────────────────────
+
+    private static final String KEY_CHAT_COUNT = "chat_msg_count";
+    private static final String KEY_CHAT_PREFIX = "chat_msg_";
+    private static final int MAX_CHAT_HISTORY = 100; // max messages to keep
+
+    public void saveChatMessage(ChatMessage msg) {
+        int count = prefs.getInt(KEY_CHAT_COUNT, 0) + 1;
+        // Store as "type||timestamp||message"
+        String data = msg.getType() + "||" + msg.getTimestamp() + "||" + msg.getMessage().replace("||", "|");
+        prefs.edit()
+                .putString(KEY_CHAT_PREFIX + count, data)
+                .putInt(KEY_CHAT_COUNT, Math.min(count, MAX_CHAT_HISTORY))
+                .apply();
+    }
+
+    public List<ChatMessage> getChatHistory() {
+        List<ChatMessage> list = new ArrayList<>();
+        int count = prefs.getInt(KEY_CHAT_COUNT, 0);
+        for (int i = 1; i <= count; i++) {
+            String data = prefs.getString(KEY_CHAT_PREFIX + i, "");
+            if (!data.isEmpty()) {
+                String[] parts = data.split("\\|\\|", 3);
+                if (parts.length == 3) {
+                    try {
+                        int type = Integer.parseInt(parts[0]);
+                        long timestamp = Long.parseLong(parts[1]);
+                        String message = parts[2];
+                        list.add(new ChatMessage(message, type, timestamp));
+                    } catch (Exception ignored) {}
+                }
+            }
+        }
+        return list;
+    }
+
+    public void clearChatHistory() {
+        int count = prefs.getInt(KEY_CHAT_COUNT, 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        for (int i = 1; i <= count; i++) {
+            editor.remove(KEY_CHAT_PREFIX + i);
+        }
+        editor.putInt(KEY_CHAT_COUNT, 0).apply();
+    }
 }

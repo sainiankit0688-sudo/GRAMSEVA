@@ -99,6 +99,10 @@
             android:name=".MenuActivity"
             android:exported="false"
             android:theme="@style/Theme.GRAMSEVA.Menu" />
+        <activity
+            android:name=".WeatherActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

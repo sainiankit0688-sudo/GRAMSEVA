@@ -15,6 +15,12 @@ public class ChatMessage {
         this.timestamp = System.currentTimeMillis();
     }
 
+    public ChatMessage(String message, int type, long timestamp) {
+        this.message = message;
+        this.type = type;
+        this.timestamp = timestamp;
+    }
+
     public String getMessage() {
         return message;
     }

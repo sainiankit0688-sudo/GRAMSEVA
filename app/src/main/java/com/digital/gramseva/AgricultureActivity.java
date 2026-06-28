@@ -50,12 +50,7 @@ public class AgricultureActivity extends BaseActivity {
         );
 
         findViewById(R.id.card_weather).setOnClickListener(v ->
-                openDetail(getString(R.string.weather_updates), new String[]{
-                        getString(R.string.weather_temp),
-                        getString(R.string.weather_rain),
-                        getString(R.string.weather_humidity),
-                        getString(R.string.weather_7day)
-                })
+                startActivity(new Intent(this, WeatherActivity.class))
         );
 
         findViewById(R.id.card_mandi_rates).setOnClickListener(v ->

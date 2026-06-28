@@ -3,10 +3,12 @@ package com.digital.gramseva;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,30 +28,52 @@ public class AiChatActivity extends BaseActivity {
     private ChatAdapter adapter;
     private final List<ChatMessage> messages = new ArrayList<>();
     private final GeminiClient geminiClient = new GeminiClient();
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ai_chat);
 
+        userPreferences = new UserPreferences(this);
+
         recyclerChat = findViewById(R.id.recycler_chat);
-        etMessage = findViewById(R.id.et_message);
-        btnSend = findViewById(R.id.btn_send);
+        etMessage    = findViewById(R.id.et_message);
+        btnSend      = findViewById(R.id.btn_send);
         progressTyping = findViewById(R.id.progress_typing);
-        tvWelcomeHint = findViewById(R.id.tv_welcome_hint);
+        tvWelcomeHint  = findViewById(R.id.tv_welcome_hint);
 
         adapter = new ChatAdapter(messages);
         recyclerChat.setLayoutManager(new LinearLayoutManager(this));
         recyclerChat.setAdapter(adapter);
 
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
-
         btnSend.setOnClickListener(v -> sendMessage());
 
         etMessage.setOnEditorActionListener((v, actionId, event) -> {
             sendMessage();
             return true;
         });
+
+        // Clear history button
+        ImageButton btnClear = findViewById(R.id.btn_clear_history);
+        if (btnClear != null) {
+            btnClear.setOnClickListener(v -> confirmClearHistory());
+        }
+
+        // Load saved chat history
+        loadChatHistory();
+    }
+
+    private void loadChatHistory() {
+        List<ChatMessage> history = userPreferences.getChatHistory();
+        if (!history.isEmpty()) {
+            tvWelcomeHint.setVisibility(View.GONE);
+            messages.addAll(history);
+            adapter.notifyDataSetChanged();
+            // Scroll to bottom
+            recyclerChat.scrollToPosition(messages.size() - 1);
+        }
     }
 
     private void sendMessage() {
@@ -59,7 +83,9 @@ public class AiChatActivity extends BaseActivity {
         etMessage.setText("");
         tvWelcomeHint.setVisibility(View.GONE);
 
-        messages.add(new ChatMessage(text, ChatMessage.TYPE_SENT));
+        ChatMessage sentMsg = new ChatMessage(text, ChatMessage.TYPE_SENT);
+        messages.add(sentMsg);
+        userPreferences.saveChatMessage(sentMsg);
         adapter.notifyItemInserted(messages.size() - 1);
         recyclerChat.smoothScrollToPosition(messages.size() - 1);
 
@@ -69,7 +95,9 @@ public class AiChatActivity extends BaseActivity {
             @Override
             public void onSuccess(String response) {
                 progressTyping.setVisibility(View.GONE);
-                messages.add(new ChatMessage(response, ChatMessage.TYPE_RECEIVED));
+                ChatMessage receivedMsg = new ChatMessage(response, ChatMessage.TYPE_RECEIVED);
+                messages.add(receivedMsg);
+                userPreferences.saveChatMessage(receivedMsg);
                 adapter.notifyItemInserted(messages.size() - 1);
                 recyclerChat.smoothScrollToPosition(messages.size() - 1);
             }
@@ -78,10 +106,29 @@ public class AiChatActivity extends BaseActivity {
             public void onError(String error) {
                 progressTyping.setVisibility(View.GONE);
                 Toast.makeText(AiChatActivity.this, error, Toast.LENGTH_SHORT).show();
-                messages.add(new ChatMessage("Sorry, I couldn't process your request. Please try again.", ChatMessage.TYPE_RECEIVED));
+                ChatMessage errMsg = new ChatMessage(
+                        "Sorry, I couldn't process your request. Please try again.",
+                        ChatMessage.TYPE_RECEIVED);
+                messages.add(errMsg);
+                userPreferences.saveChatMessage(errMsg);
                 adapter.notifyItemInserted(messages.size() - 1);
                 recyclerChat.smoothScrollToPosition(messages.size() - 1);
             }
         });
+    }
+
+    private void confirmClearHistory() {
+        new AlertDialog.Builder(this)
+                .setTitle("Clear Chat History")
+                .setMessage("Are you sure you want to delete all chat history?")
+                .setPositiveButton("Clear", (dialog, which) -> {
+                    userPreferences.clearChatHistory();
+                    messages.clear();
+                    adapter.notifyDataSetChanged();
+                    tvWelcomeHint.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, "Chat history cleared", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }

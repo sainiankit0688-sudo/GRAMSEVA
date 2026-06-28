@@ -4,11 +4,7 @@ plugins {
 
 android {
     namespace 'com.digital.gramseva'
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.digital.gramseva"
@@ -39,6 +35,7 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.material
     implementation libs.google.auth
+    implementation libs.play.services.location
     implementation libs.okhttp
     implementation libs.gson
     implementation libs.recyclerview
