@@ -1,48 +1,129 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const axios = require("axios");
+const https = require("https");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/config', (req, res) => {
+const PORT = process.env.PORT || 3000;
+
+const TIMEOUT_MS = 10000; // 10 seconds
+const MAX_RETRIES = 2;
+
+// In-memory cache: key = `${state}|${commodity}|${limit}` -> { data, timestamp }
+const responseCache = new Map();
+
+// Custom HTTPS agent for data.gov.in — avoids connection reuse issues
+const dataGovAgent = new https.Agent({
+  keepAlive: false,
+  rejectUnauthorized: false,
+});
+
+function cacheKey(state, commodity, limit) {
+  return `${state}|${commodity}|${limit}`;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Fetch from Data.gov.in with retry & exponential backoff
+async function fetchMarketPrices(state, commodity, limit) {
+  const url =
+    `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070` +
+    `?api-key=${process.env.DATA_GOV_API_KEY}` +
+    `&format=json` +
+    `&limit=${limit}` +
+    `&filters[state]=${encodeURIComponent(state)}` +
+    `&filters[commodity]=${encodeURIComponent(commodity)}`;
+
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const response = await axios.get(url, {
+        timeout: TIMEOUT_MS,
+        httpsAgent: dataGovAgent,
+        proxy: false,
+        headers: {
+          "Connection": "close",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          "Accept": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      lastError = error;
+      console.error(
+        `Attempt ${attempt}/${MAX_RETRIES} failed:`,
+        error?.response?.data || error.message,
+      );
+      console.error("Stack:", error.stack);
+
+      if (attempt < MAX_RETRIES) {
+        const delay = Math.pow(2, attempt - 1) * 1000;
+        await sleep(delay);
+      }
+    }
+  }
+
+  throw lastError;
+}
+
+// Health Check
+app.get("/", (req, res) => {
   res.json({
-    supabaseUrl: process.env.SUPABASE_URL,
-    supabaseAnonKey: process.env.SUPABASE_ANON_KEY
+    success: true,
+    message: "GramSeva Backend Running"
   });
 });
 
-app.post('/api/gemini', async (req, res) => {
+// Data.gov.in API with cache fallback
+app.get("/api/market-prices", async (req, res) => {
   try {
-    const { message } = req.body;
-    if (!message) {
-      return res.status(400).json({ error: 'Message is required' });
+    const state = req.query.state || "Uttar Pradesh";
+    const commodity = req.query.commodity || "Potato";
+    const limit = parseInt(req.query.limit) || 20;
+
+    const key = cacheKey(state, commodity, limit);
+    const data = await fetchMarketPrices(state, commodity, limit);
+
+    if (data && data.status === "ok") {
+      data.success = true;
+      responseCache.set(key, { data, timestamp: Date.now() });
     }
 
-    const { GoogleGenerativeAI } = require('@google/generative-ai');
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-
-    const prompt = `You are GramSeva AI Assistant, a helpful assistant for a rural governance app called GramSeva. Answer questions about Indian government schemes, eligibility, documents, and rural services. Keep answers concise, helpful, and in simple language. Question: ${message}`;
-
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const reply = response.text();
-
-    res.json({ reply });
+    return res.json(data);
   } catch (error) {
-    console.error('Gemini API error:', error);
-    res.status(500).json({ error: 'Failed to get AI response' });
+    const state = req.query.state || "Uttar Pradesh";
+    const commodity = req.query.commodity || "Potato";
+    const limit = parseInt(req.query.limit) || 20;
+    const key = cacheKey(state, commodity, limit);
+
+    const cached = responseCache.get(key);
+
+    if (cached) {
+      console.log("Returning cached response for", key);
+      return res.json(cached.data);
+    }
+
+    if (error.code === "ECONNABORTED") {
+      return res.status(504).json({ status: "error", message: "Data.gov.in API timed out" });
+    }
+
+    return res.status(500).json({
+      success: false,
+      status: "error",
+      message: error.message
+    });
   }
 });
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
-});
-
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`GRAMSEVA Backend running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server Running on Port ${PORT}`);
 });
