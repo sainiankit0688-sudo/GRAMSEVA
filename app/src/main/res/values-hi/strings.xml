@@ -76,7 +76,7 @@
     <string name="agriculture_desc">खेती और सब्सिडी</string>
     <string name="housing">आवास</string>
     <string name="housing_desc">किफायती घर</string>
-    <string name="emergency_services">आपातकालीन सेवाएं</string>
+    <string name="emergency_services">आपातकाल</string>
     <string name="emergency_desc">एम्बुलेंस · पुलिस · हेल्पलाइन</string>
     <string name="active_schemes">सक्रिय योजनाएं</string>
     <string name="tag_agriculture">कृषि</string>
@@ -109,10 +109,6 @@
     <string name="village_not_set">गांव: सेट नहीं है</string>
     <string name="village_format">गांव: %s</string>
     <string name="schemes_saved">सहेजी गई योजनाएं</string>
-    <string name="education_schemes">शिक्षा योजनाएं</string>
-    <string name="health_schemes">स्वास्थ्य योजनाएं</string>
-    <string name="agriculture_schemes">कृषि योजनाएं</string>
-    <string name="housing_schemes">आवास योजनाएं</string>
     <string name="badge_3">३</string>
     <string name="badge_2">२</string>
     <string name="badge_5">५</string>
@@ -202,6 +198,44 @@
     <string name="mandi_rates_desc">गेहूं, चावल, सरसों, गन्ना और अधिक</string>
     <string name="fertilizer_guide">उर्वरक गाइड</string>
     <string name="fertilizer_desc">यूरिया, डीएपी, एनपीके, पोटाश और जिंक</string>
+
+    <!-- Government Schemes Categories -->
+    <string name="agriculture_schemes">कृषि योजनाएं</string>
+    <string name="housing_schemes">आवास योजनाएं</string>
+    <string name="health_schemes">स्वास्थ्य योजनाएं</string>
+    <string name="education_schemes">शिक्षा योजनाएं</string>
+    <string name="women_child_welfare">महिला एवं बाल कल्याण</string>
+    <string name="pension_schemes">पेंशन योजनाएं</string>
+    <string name="financial_schemes">वित्तीय योजनाएं</string>
+    <string name="social_welfare">सामाजिक कल्याण</string>
+
+    <!-- Scheme Sub-items -->
+    <string name="pm_krishi_sinchai">पीएम कृषि सिंचाई योजना</string>
+    <string name="enam">ई-नाम</string>
+    <string name="pm_awas_rural">पीएम आवास योजना (ग्रामीण)</string>
+    <string name="pm_awas_urban">पीएम आवास योजना (शहरी)</string>
+    <string name="housing_subsidy">आवास सब्सिडी</string>
+    <string name="abha_health_id">आभा स्वास्थ्य आईडी</string>
+    <string name="jan_aushadhi">जन औषधि</string>
+    <string name="nsp">राष्ट्रीय छात्रवृत्ति पोर्टल</string>
+    <string name="pre_matric">प्री-मैट्रिक छात्रवृत्ति</string>
+    <string name="ews_scholarship">ईडब्ल्यूएस छात्रवृत्ति</string>
+    <string name="minority_scholarship">अल्पसंख्यक छात्रवृत्ति</string>
+    <string name="sukanya_samriddhi">सुकन्या समृद्धि योजना</string>
+    <string name="beti_bachao">बेटी बचाओ बेटी पढ़ाओ</string>
+    <string name="pm_matru_vandana">पीएम मातृ वंदना योजना</string>
+    <string name="old_age_pension">वृद्धावस्था पेंशन</string>
+    <string name="widow_pension">विधवा पेंशन</string>
+    <string name="disability_pension">दिव्यांग पेंशन</string>
+    <string name="atal_pension">अटल पेंशन योजना</string>
+    <string name="pm_jan_dhan">पीएम जन धन योजना</string>
+    <string name="pm_mudra">पीएम मुद्रा योजना</string>
+    <string name="stand_up_india">स्टैंड-अप इंडिया</string>
+    <string name="startup_india">स्टार्टअप इंडिया</string>
+    <string name="ration_card">राशन कार्ड</string>
+    <string name="ujjwala">उज्ज्वला योजना</string>
+    <string name="jal_jeevan">जल जीवन मिशन</string>
+    <string name="swachh_bharat">स्वच्छ भारत मिशन</string>
 
     <!-- Agriculture Detail Items -->
     <string name="pm_kisan">पीएम किसान सम्मान निधि</string>
@@ -356,6 +390,8 @@
     <string name="helpline">हेल्पलाइन पर कॉल करें: 1800-123-4567</string>
     <string name="village_community">ग्राम समुदाय</string>
     <string name="complaint_submitted">शिकायत सफलतापूर्वक दर्ज की गई!</string>
+    <string name="submitting">शिकायत दर्ज की जा रही है…</string>
+    <string name="photo_upload_failed">फोटो अपलोड विफल रहा</string>
     <string name="select_category">कृपया एक श्रेणी चुनें</string>
     <string name="describe_issue">कृपया अपनी समस्या का वर्णन करें</string>
     <string name="no_complaints">अभी तक कोई शिकायत नहीं</string>
@@ -377,6 +413,13 @@
     <string name="enable_gps">कृपया GPS चालू करें</string>
     <string name="location_error">स्थान नहीं मिल सका</string>
     <string name="location_abbr">स्थान</string>
+    <string name="status_cancelled">रद्द</string>
+    <string name="cancel_complaint">रद्द करें</string>
+    <string name="cancel_complaint_title">शिकायत रद्द करें</string>
+    <string name="cancel_complaint_message">क्या आप वाकई इस शिकायत को रद्द करना चाहते हैं?</string>
+    <string name="yes_cancel">हाँ, रद्द करें</string>
+    <string name="no">नहीं</string>
+    <string name="complaint_cancelled">शिकायत सफलतापूर्वक रद्द कर दी गई!</string>
 
     <!-- Documents -->
     <string name="document_services">दस्तावेज़ सेवाएं</string>
@@ -474,4 +517,105 @@
     <string name="emergency_women_num">1091</string>
     <string name="emergency_sms_to">smsto:112</string>
     <string name="emergency_sms_body_text">सहायता: मुझे मेरे स्थान पर तत्काल सहायता चाहिए।</string>
+    <string name="login_required">कृपया शिकायत दर्ज करने के लिए लॉग इन करें</string>
+
+    <!-- Market Prices -->
+    <string name="market_prices_title">मंडी भाव</string>
+    <string name="state_hint">राज्य</string>
+    <string name="commodity_hint">वस्तु</string>
+    <string name="min_price_label">न्यूनतम मूल्य</string>
+    <string name="max_price_label">अधिकतम मूल्य</string>
+    <string name="modal_price_label">मॉडल मूल्य</string>
+    <string name="loading_market_prices">मंडी भाव लोड हो रहे हैं…</string>
+    <string name="error_loading">मूल्य लोड करने में विफल</string>
+    <string name="error_loading_schemes">योजना डेटा लोड करने में असमर्थ।\nकृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।</string>
+    <string name="no_data_found">कोई मंडी भाव उपलब्ध नहीं</string>
+    <string name="error_icon">⚠️</string>
+    <string name="empty_icon">📭</string>
+
+    <!-- Emergency Services - New Helplines -->
+    <string name="fire_brigade">अग्निशमन सेवा</string>
+    <string name="fire_num">101</string>
+    <string name="fire_desc">आग की आपात स्थिति की रिपोर्ट करें और अग्निशमन सहायता का अनुरोध करें।</string>
+    <string name="child_helpline">बाल हेल्पलाइन</string>
+    <string name="child_num">1098</string>
+    <string name="child_desc">देखभाल और संरक्षण की आवश्यकता वाले बच्चों के लिए समर्पित हेल्पलाइन।</string>
+    <string name="health_helpline">स्वास्थ्य हेल्पलाइन</string>
+    <string name="health_helpline_num">104</string>
+    <string name="health_helpline_desc">मुफ्त चिकित्सा सलाह और स्वास्थ्य जानकारी हेल्पलाइन।</string>
+    <string name="kisan_call_center">किसान कॉल सेंटर</string>
+    <string name="kisan_num">1800-180-1551</string>
+    <string name="kisan_desc">किसानों को विशेषज्ञ सलाह प्राप्त करने के लिए कृषि हेल्पलाइन।</string>
+    <string name="railway_helpline">रेलवे हेल्पलाइन</string>
+    <string name="railway_num">139</string>
+    <string name="railway_desc">यात्रियों के लिए रेलवे पूछताछ और आपातकालीन हेल्पलाइन।</string>
+    <string name="cyber_crime">साइबर क्राइम</string>
+    <string name="cyber_num">1930</string>
+    <string name="cyber_desc">साइबर अपराध और ऑनलाइन धोखाधड़ी की घटनाओं की रिपोर्ट करें।</string>
+    <string name="nearby_hospital">नजदीकी अस्पताल</string>
+    <string name="nearby_police_station">नजदीकी पुलिस स्टेशन</string>
+    <string name="open_maps">मानचित्र खोलें</string>
+    <string name="additional_services">अतिरिक्त हेल्पलाइन</string>
+    <string name="nearby_services">आस-पास की सेवाएं</string>
+
+    <!-- Scheme Detail Sections -->
+    <string name="section_about">योजना के बारे में</string>
+    <string name="section_objective">उद्देश्य</string>
+    <string name="section_who_can_apply">कौन आवेदन कर सकता है</string>
+    <string name="section_eligibility">पात्रता</string>
+    <string name="section_not_eligible">कौन पात्र नहीं है</string>
+    <string name="section_documents">आवश्यक दस्तावेज</string>
+    <string name="section_benefits">लाभ</string>
+    <string name="section_process">चरण-दर-चरण आवेदन प्रक्रिया</string>
+    <string name="section_apply_online">ऑनलाइन आवेदन करें</string>
+
+    <!-- Admin Scheme Management -->
+    <string name="manage_schemes">योजनाएं प्रबंधित करें</string>
+    <string name="manage_schemes_desc">योजनाएं जोड़ें, संपादित करें और प्रबंधित करें</string>
+    <string name="scheme_management">योजना प्रबंधन</string>
+    <string name="add_scheme">योजना जोड़ें</string>
+    <string name="edit_scheme">योजना संपादित करें</string>
+    <string name="delete_scheme">योजना हटाएं</string>
+    <string name="delete_scheme_confirm">क्या आप वाकई इस योजना को स्थायी रूप से हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।</string>
+    <string name="scheme_deleted">योजना सफलतापूर्वक हटा दी गई</string>
+    <string name="scheme_saved">योजना सफलतापूर्वक सहेज ली गई</string>
+    <string name="scheme_id">योजना आईडी</string>
+    <string name="scheme_category">श्रेणी</string>
+    <string name="scheme_about">विवरण</string>
+    <string name="scheme_objective">उद्देश्य</string>
+    <string name="scheme_benefits">लाभ</string>
+    <string name="scheme_documents">आवश्यक दस्तावेज</string>
+    <string name="scheme_eligibility">पात्रता</string>
+    <string name="scheme_who_can_apply">कौन आवेदन कर सकता है</string>
+    <string name="scheme_apply_process">आवेदन चरण</string>
+    <string name="scheme_apply_online_url">ऑनलाइन आवेदन यूआरएल</string>
+    <string name="scheme_apply_offline">ऑफलाइन आवेदन</string>
+    <string name="scheme_last_date">अंतिम तिथि</string>
+    <string name="scheme_helpline">हेल्पलाइन नंबर</string>
+    <string name="scheme_official_website">आधिकारिक वेबसाइट यूआरएल</string>
+    <string name="scheme_image">योजना छवि</string>
+    <string name="upload_image">छवि अपलोड करें</string>
+    <string name="manage_faqs">FAQ प्रबंधित करें</string>
+    <string name="add_faq">FAQ जोड़ें</string>
+    <string name="manage_steps">आवेदन चरण प्रबंधित करें</string>
+    <string name="manage_documents">दस्तावेज़ प्रबंधित करें</string>
+    <string name="manage_related">संबंधित योजनाएं प्रबंधित करें</string>
+    <string name="add_item">जोड़ें</string>
+    <string name="remove">हटाएं</string>
+    <string name="send_notification">सूचना भेजें</string>
+    <string name="notification_sent">सूचना सफलतापूर्वक भेज दी गई</string>
+    <string name="step_text">चरण विवरण</string>
+    <string name="faq_question">प्रश्न</string>
+    <string name="faq_answer">उत्तर</string>
+    <string name="no_schemes_found">कोई योजना नहीं मिली</string>
+    <string name="section_apply_offline">ऑफलाइन आवेदन करें</string>
+    <string name="section_last_date">अंतिम तिथि</string>
+    <string name="section_helpline">हेल्पलाइन नंबर</string>
+    <string name="section_faqs">सामान्य प्रश्न</string>
+    <string name="section_save">सेव करें</string>
+    <string name="section_share">शेयर करें</string>
+    <string name="section_updates">अपडेट प्राप्त करें</string>
+    <string name="section_related">संबंधित योजनाएं</string>
+    <string name="section_website">आधिकारिक वेबसाइट</string>
+    <string name="view_full_process">पूरी प्रक्रिया देखें</string>
 </resources>

@@ -285,66 +285,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/card_study_material"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_gutter"
-                android:layout_marginTop="@dimen/spacing_stack_sm"
-                android:background="@drawable/bg_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/spacing_stack_md">
-
-                <LinearLayout
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_card"
-                    android:backgroundTint="@color/primary_container"
-                    android:gravity="center"
-                    android:padding="12dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_description"
-                        android:tint="@color/on_primary_container" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_stack_md"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/study_material"
-                        android:textColor="@color/on_surface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/study_material_desc"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/ic_arrow_forward"
-                    android:tint="@color/on_surface_variant" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/card_career"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -470,7 +410,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/nav_services"
+            android:id="@+id/nav_emergency"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -481,14 +421,14 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_apps"
+                android:src="@drawable/ic_emergency"
                 android:tint="@color/on_surface_variant" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/services"
+                android:text="@string/emergency_services"
                 android:textColor="@color/on_surface_variant"
                 android:textSize="12sp" />
         </LinearLayout>

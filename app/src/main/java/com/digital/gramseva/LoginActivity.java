@@ -22,8 +22,7 @@ import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // TODO: Replace with your Google Web Client ID from Google Cloud Console
-    private static final String GOOGLE_CLIENT_ID = "YOUR_GOOGLE_WEB_CLIENT_ID.apps.googleusercontent.com";
+    private static final String GOOGLE_CLIENT_ID = "99762471249-hc3g7ooj80um18vt9ga0rqostef1csc4.apps.googleusercontent.com";
 
     private EditText inputEmail, inputPassword;
     private GoogleSignInClient googleSignInClient;
@@ -38,7 +37,9 @@ public class LoginActivity extends AppCompatActivity {
                         GoogleSignInAccount account = task.getResult(ApiException.class);
                         handleGoogleSignInResult(account);
                     } catch (ApiException e) {
-                        Toast.makeText(this, "Google Sign-In failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        String errorMsg = "Google Sign-In failed. Code: " + e.getStatusCode() + " - " + e.getMessage();
+                        android.util.Log.e("GRAMSEVA_AUTH", errorMsg);
+                        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        supabaseClient = new SupabaseClient();
+        supabaseClient = SupabaseClient.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(GOOGLE_CLIENT_ID)
@@ -74,9 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             googleSignInLauncher.launch(signInIntent);
         });
 
-        findViewById(R.id.btn_create_account).setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
     }
 
     private void handleGoogleSignInResult(GoogleSignInAccount account) {
@@ -94,7 +92,9 @@ public class LoginActivity extends AppCompatActivity {
                 UserPreferences prefs = new UserPreferences(LoginActivity.this);
                 String fullName = account.getDisplayName() != null ? account.getDisplayName() : name;
                 prefs.saveUser(fullName, "", email != null ? email : "", "", "", "");
+                // Save to both prefs AND singleton
                 prefs.setSupabaseSession(accessToken, refreshToken);
+                SupabaseClient.getInstance().setSession(accessToken, refreshToken);
 
                 Toast.makeText(LoginActivity.this, "Welcome, " + fullName + "!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, SchemesActivity.class));
@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (savedEmail.equals(email) && !TextUtils.isEmpty(savedPassword)) {
             if (savedPassword.equals(password)) {
+                // Email/password login — no Supabase token, use local session
                 startActivity(new Intent(LoginActivity.this, SchemesActivity.class));
                 finish();
             } else {

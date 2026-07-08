@@ -13,8 +13,8 @@ public class SchemesActivity extends BaseActivity {
 
         findViewById(R.id.nav_home).setOnClickListener(v -> {
         });
-        findViewById(R.id.nav_services).setOnClickListener(v -> {
-            startActivity(new Intent(this, JobAlertsActivity.class));
+        findViewById(R.id.nav_emergency).setOnClickListener(v -> {
+            startActivity(new Intent(this, EmergencyServicesActivity.class));
             overridePendingTransition(0, 0);
         });
         findViewById(R.id.nav_complaints).setOnClickListener(v -> {
@@ -40,6 +40,12 @@ public class SchemesActivity extends BaseActivity {
         });
         findViewById(R.id.category_emergency).setOnClickListener(v -> {
             startActivity(new Intent(this, EmergencyServicesActivity.class));
+        });
+        findViewById(R.id.category_weather).setOnClickListener(v -> {
+            startActivity(new Intent(this, WeatherActivity.class));
+        });
+        findViewById(R.id.category_government_schemes).setOnClickListener(v -> {
+            startActivity(new Intent(this, GovernmentSchemesActivity.class));
         });
 
         findViewById(R.id.btn_menu).setOnClickListener(v -> {

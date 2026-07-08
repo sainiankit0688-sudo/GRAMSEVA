@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/on_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:text="🌱 Crop Information"
+            android:textColor="@color/on_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🌱 CROP INFORMATION"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/on_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Complete information about different crops\nfor better farming"
+                    android:textSize="13sp"
+                    android:textColor="@color/on_primary"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Cereals -->
+            <LinearLayout android:id="@+id/card_cereals" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="1" android:backgroundTint="#F57F17" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🌾 Cereals (अनाज)" />
+                    <TextView style="@style/ExamCardSub" android:text="Wheat • Rice • Maize • Barley • Bajra • Jowar" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Pulses -->
+            <LinearLayout android:id="@+id/card_pulses" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="2" android:backgroundTint="#E65100" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🫘 Pulses (दलहन)" />
+                    <TextView style="@style/ExamCardSub" android:text="Chana • Arhar • Masoor • Urad • Moong" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Oilseeds -->
+            <LinearLayout android:id="@+id/card_oilseeds" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="3" android:backgroundTint="#2E7D32" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🌻 Oilseeds (तिलहन)" />
+                    <TextView style="@style/ExamCardSub" android:text="Mustard • Soybean • Groundnut • Sesame" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Cash Crops -->
+            <LinearLayout android:id="@+id/card_cash_crops" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="4" android:backgroundTint="#1565C0" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="💰 Cash Crops (नकदी फसलें)" />
+                    <TextView style="@style/ExamCardSub" android:text="Sugarcane • Cotton • Jute • Tobacco" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Vegetables -->
+            <LinearLayout android:id="@+id/card_vegetables" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="5" android:backgroundTint="#00695C" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🥦 Vegetables (सब्जियां)" />
+                    <TextView style="@style/ExamCardSub" android:text="Potato • Tomato • Onion • Cabbage • Chili" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Fruits -->
+            <LinearLayout android:id="@+id/card_fruits" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="6" android:backgroundTint="#6A1B9A" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🍎 Fruits (फल)" />
+                    <TextView style="@style/ExamCardSub" android:text="Mango • Banana • Guava • Apple • Papaya" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

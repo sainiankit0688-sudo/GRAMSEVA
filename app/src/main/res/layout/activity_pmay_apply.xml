@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Toolbar -->
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/on_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:text="🏠 PM Awas Yojana - आवेदन प्रक्रिया"
+            android:textColor="@color/on_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header Banner -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PM Awas Yojana (Gramin)"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/on_primary"
+                    android:gravity="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="आवेदन करने की पूरी प्रक्रिया"
+                    android:textSize="14sp"
+                    android:textColor="@color/on_primary"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Step 1 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#4CAF50">
+                    <TextView style="@style/StepNumberText" android:text="1" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="✅ Eligibility Check – पात्रता जांचें" />
+                    <TextView style="@style/StepDesc" android:text="• आवेदक PMAY (U/Gramin) की पात्रता चेक करें\n• आय सीमा, आवास की स्थिति, अन्य शर्तें देखें\n• पात्रता पूरी होने पर ही आगे बढ़ें" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 2 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#2196F3">
+                    <TextView style="@style/StepNumberText" android:text="2" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="📄 Required Documents – दस्तावेज तैयार करें" />
+                    <TextView style="@style/StepDesc" android:text="• Aadhaar Card\n• Income Certificate\n• Residence Certificate\n• Caste Certificate (यदि लागू हो)\n• Bank Passbook / Account Details\n• Mobile Number\n• Passport Size Photo" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 3 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#9C27B0">
+                    <TextView style="@style/StepNumberText" android:text="3" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="🔐 Register / Login – रजिस्ट्रेशन करें" />
+                    <TextView style="@style/StepDesc" android:text="• PMAY की आधिकारिक वेबसाइट पर जाएं\n• pmaymis.gov.in\n• 'Citizen Assessment' पर क्लिक करें\n• New User Registration करें या Login करें" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 4 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#FF9800">
+                    <TextView style="@style/StepNumberText" android:text="4" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="📝 Fill Application Form – फॉर्म भरें" />
+                    <TextView style="@style/StepDesc" android:text="• व्यक्तिगत जानकारी भरें (नाम, पता, मोबाइल, आदि)\n• परिवार के सदस्यों की जानकारी भरें\n• आय, रोजगार, आवास की जानकारी भरें\n• ग्राम पंचायत / ULB / City का चयन करें" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 5 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#00BCD4">
+                    <TextView style="@style/StepNumberText" android:text="5" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="📤 Upload Documents – दस्तावेज अपलोड करें" />
+                    <TextView style="@style/StepDesc" android:text="• सभी आवश्यक दस्तावेजों की स्कैन कॉपी अपलोड करें\n• दस्तावेज स्पष्ट और सही फॉर्मेट में हों (PDF / JPG)\n• अपलोड से पहले डॉक्यूमेंट साइज और फॉर्मेट चेक करें" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 6 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#3F51B5">
+                    <TextView style="@style/StepNumberText" android:text="6" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="📨 Submit Application – आवेदन सबमिट करें" />
+                    <TextView style="@style/StepDesc" android:text="• सभी जानकारी चेक करने के बाद फॉर्म सबमिट करें\n• सबमिट करने के बाद आवेदन लॉक हो जाएगा\n• आवेदन में सुधार करना हो तो नियम अनुसार करें" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 7 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#009688">
+                    <TextView style="@style/StepNumberText" android:text="7" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="🧾 Application Number – आवेदन संख्या प्राप्त करें" />
+                    <TextView style="@style/StepDesc" android:text="• सफल सबमिशन के बाद Application Number मिलेगा\n• रसीद डाउनलोड करें और प्रिंट कर लें\n• यह संख्या आगे की प्रक्रिया में उपयोग होगी" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 8 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#FF5722">
+                    <TextView style="@style/StepNumberText" android:text="8" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="🔍 Verification – सत्यापन प्रक्रिया" />
+                    <TextView style="@style/StepDesc" android:text="• ग्राम पंचायत / ULB द्वारा आपके आवेदन की जांच होगी\n• दस्तावेजों और जानकारी का सत्यापन किया जाएगा\n• कोई कमी होने पर सुधार के लिए वापस भेजा जा सकता है" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 9 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#607D8B">
+                    <TextView style="@style/StepNumberText" android:text="9" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="📊 Application Status – स्थिति जांचें" />
+                    <TextView style="@style/StepDesc" android:text="• वेबसाइट पर जाकर 'Track Your Assessment Status' पर क्लिक करें\n• Application Number या मोबाइल नंबर से स्टेटस देखें\n• स्थिति: Submitted / Under Verification / Approved / Rejected" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 10 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#795548">
+                    <TextView style="@style/StepNumberText" android:text="10" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="👥 Beneficiary List – लाभार्थी सूची में नाम देखें" />
+                    <TextView style="@style/StepDesc" android:text="• स्वीकृत आवेदनों की सूची वेबसाइट पर जारी होगी\n• नाम, रजिस्ट्रेशन नंबर या अन्य जानकारी से खोजें\n• सूची में नाम होने पर अगले चरण की प्रक्रिया शुरू होगी" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 11 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#E91E63">
+                    <TextView style="@style/StepNumberText" android:text="11" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="📜 Sanction Letter – स्वीकृति पत्र प्राप्त करें" />
+                    <TextView style="@style/StepDesc" android:text="• स्वीकृति के बाद Sanction Letter जारी होगा\n• इसमें आवास की किस्तों की जानकारी और स्वीकृत राशि होगी\n• Sanction Letter डाउनलोड करें/प्रिंट कर लें" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Step 12 -->
+            <LinearLayout style="@style/StepCard">
+                <LinearLayout style="@style/StepNumber" android:background="#4CAF50">
+                    <TextView style="@style/StepNumberText" android:text="12" />
+                </LinearLayout>
+                <LinearLayout style="@style/StepContent">
+                    <TextView style="@style/StepTitle" android:text="🏠 Fund Release – राशि जारी / मकान निर्माण" />
+                    <TextView style="@style/StepDesc" android:text="• किस्तों में राशि सीधे लाभार्थी के बैंक खाते में आएगी\n• निर्धारित समय में मकान निर्माण पूरा करें\n• शिथि-टैगिंग / निरीक्षण के बाद अगली किस्त जारी होगी" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Final Outcome -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="अंतिम परिणाम (Final Outcome)"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="#E8F5E9"
+                    android:padding="12dp"
+                    android:layout_marginEnd="4dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="✅ स्वीकृत" android:textColor="#4CAF50" android:textStyle="bold" android:gravity="center" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="आवेदन स्वीकृत हो गया है" android:textSize="11sp" android:gravity="center" android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="#FFF8E1"
+                    android:padding="12dp"
+                    android:layout_marginHorizontal="4dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="⏳ Verification" android:textColor="#FF9800" android:textStyle="bold" android:gravity="center" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="सत्यापन जारी है" android:textSize="11sp" android:gravity="center" android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="#FFEBEE"
+                    android:padding="12dp"
+                    android:layout_marginStart="4dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="❌ अस्वीकृत" android:textColor="#F44336" android:textStyle="bold" android:gravity="center" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="पुनः आवेदन करें" android:textSize="11sp" android:gravity="center" android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Action Buttons -->
+            <Button
+                android:id="@+id/btn_apply_now"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_primary_button"
+                android:text="🌐 अभी आवेदन करें - pmaymis.gov.in"
+                android:textColor="@color/on_primary"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_track_status"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_outline_button"
+                android:text="📊 आवेदन स्थिति जांचें"
+                android:textColor="@color/primary"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_helpline"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_outline_button"
+                android:text="📞 Helpline: 1800-11-6446"
+                android:textColor="@color/primary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

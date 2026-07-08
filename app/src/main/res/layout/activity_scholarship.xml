@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/on_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:text="🎓 Education Scholarships"
+            android:textColor="@color/on_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎓 EDUCATION SCHOLARSHIPS"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/on_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="सभी छात्रवृत्तियों की जानकारी एक जगह"
+                    android:textSize="13sp"
+                    android:textColor="@color/on_primary"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- UP Scholarship -->
+            <LinearLayout android:id="@+id/card_up_scholarship" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="1" android:backgroundTint="#1565C0" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🎓 UP Scholarship" />
+                    <TextView style="@style/ExamCardSub" android:text="Notification • Eligibility • Apply • Status • Helpline" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- NSP -->
+            <LinearLayout android:id="@+id/card_nsp" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="2" android:backgroundTint="#2E7D32" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🏛️ National Scholarship (NSP)" />
+                    <TextView style="@style/ExamCardSub" android:text="scholarships.gov.in • All categories" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Post Matric -->
+            <LinearLayout android:id="@+id/card_post_matric" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="3" android:backgroundTint="#6A1B9A" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="📚 Post Matric Scholarship" />
+                    <TextView style="@style/ExamCardSub" android:text="Class 11 onwards • State &amp; Central" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Pre Matric -->
+            <LinearLayout android:id="@+id/card_pre_matric" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="4" android:backgroundTint="#E65100" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="📖 Pre Matric Scholarship" />
+                    <TextView style="@style/ExamCardSub" android:text="Class 1-10 • State &amp; Central" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Minority -->
+            <LinearLayout android:id="@+id/card_minority" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="5" android:backgroundTint="#00695C" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🕌 Minority Scholarship" />
+                    <TextView style="@style/ExamCardSub" android:text="Muslim • Christian • Sikh • Buddhist • Jain" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- SC/ST -->
+            <LinearLayout android:id="@+id/card_sc_st" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="6" android:backgroundTint="#C62828" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🤝 SC/ST Scholarship" />
+                    <TextView style="@style/ExamCardSub" android:text="Scheduled Caste &amp; Scheduled Tribe" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- OBC -->
+            <LinearLayout android:id="@+id/card_obc" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="7" android:backgroundTint="#F57F17" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🤝 OBC Scholarship" />
+                    <TextView style="@style/ExamCardSub" android:text="Other Backward Classes" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- EWS -->
+            <LinearLayout android:id="@+id/card_ews" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="8" android:backgroundTint="#37474F" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="💼 EWS Scholarship" />
+                    <TextView style="@style/ExamCardSub" android:text="Economically Weaker Section • Income below 8L" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Private -->
+            <LinearLayout android:id="@+id/card_private" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="9" android:backgroundTint="#1A237E" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🏢 Private Scholarships" />
+                    <TextView style="@style/ExamCardSub" android:text="Tata • Reliance • Jindal • HDFC • SBI" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

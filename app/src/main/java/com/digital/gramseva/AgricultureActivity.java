@@ -24,8 +24,8 @@ public class AgricultureActivity extends BaseActivity {
             startActivity(new Intent(this, ComplaintsActivity.class));
             overridePendingTransition(0, 0);
         });
-        findViewById(R.id.nav_services).setOnClickListener(v -> {
-            startActivity(new Intent(this, JobAlertsActivity.class));
+        findViewById(R.id.nav_emergency).setOnClickListener(v -> {
+            startActivity(new Intent(this, EmergencyServicesActivity.class));
             overridePendingTransition(0, 0);
         });
         findViewById(R.id.nav_profile).setOnClickListener(v -> {
@@ -33,20 +33,8 @@ public class AgricultureActivity extends BaseActivity {
             overridePendingTransition(0, 0);
         });
 
-        findViewById(R.id.card_govt_schemes).setOnClickListener(v ->
-                openDetail(getString(R.string.govt_schemes), new String[]{
-                        getString(R.string.pm_kisan),
-                        getString(R.string.kcc),
-                        getString(R.string.pm_fasal_bima),
-                        getString(R.string.soil_health_card)
-                })
-        );
-
         findViewById(R.id.card_crop_info).setOnClickListener(v ->
-                openDetail(getString(R.string.crop_info), new String[]{
-                        getString(R.string.crop_wheat), getString(R.string.crop_rice), getString(R.string.crop_mustard), getString(R.string.crop_sugarcane),
-                        getString(R.string.crop_potato), getString(R.string.crop_maize), getString(R.string.crop_gram), getString(R.string.crop_arhar)
-                })
+                startActivity(new Intent(this, CropInfoActivity.class))
         );
 
         findViewById(R.id.card_weather).setOnClickListener(v ->
@@ -54,24 +42,11 @@ public class AgricultureActivity extends BaseActivity {
         );
 
         findViewById(R.id.card_mandi_rates).setOnClickListener(v ->
-                openDetail(getString(R.string.mandi_rates), new String[]{
-                        getString(R.string.mandi_wheat),
-                        getString(R.string.mandi_rice),
-                        getString(R.string.mandi_mustard),
-                        getString(R.string.mandi_sugarcane),
-                        getString(R.string.mandi_potato),
-                        getString(R.string.mandi_maize)
-                })
+                startActivity(new Intent(this, MarketPricesActivity.class))
         );
 
         findViewById(R.id.card_fertilizer).setOnClickListener(v ->
-                openDetail(getString(R.string.fertilizer_guide), new String[]{
-                        getString(R.string.fertilizer_urea),
-                        getString(R.string.fertilizer_dap),
-                        getString(R.string.fertilizer_npk),
-                        getString(R.string.fertilizer_potash),
-                        getString(R.string.fertilizer_zinc)
-                })
+                startActivity(new Intent(this, FertilizerGuideActivity.class))
         );
     }
 

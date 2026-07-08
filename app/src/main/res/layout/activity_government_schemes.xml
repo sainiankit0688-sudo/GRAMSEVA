@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/surface_container_lowest"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_gutter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:scaleType="center"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/govt_schemes"
+            android:textColor="@color/primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/scroll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_gutter">
+
+                <!-- Agriculture Schemes -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/primary_container"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_agriculture"
+                                android:tint="@color/on_primary_container" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/agriculture_schemes"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_kisan" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_fasal_bima" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/kcc" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/soil_health_card" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_krishi_sinchai" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/enam" />
+                </LinearLayout>
+
+                <!-- Housing Schemes -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_stack_md"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/secondary"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_village"
+                                android:tint="@color/on_secondary" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/housing_schemes"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_awas_rural" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_awas_urban" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/housing_subsidy" />
+                </LinearLayout>
+
+                <!-- Health Schemes -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_stack_md"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/tertiary"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_medical"
+                                android:tint="@color/on_tertiary" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/health_schemes"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/ayushman_bharat" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/abha_health_id" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/jan_aushadhi" />
+                </LinearLayout>
+
+                <!-- Education Schemes -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_stack_md"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/secondary_container"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_support"
+                                android:tint="@color/on_secondary_container" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/education_schemes"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/nsp" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pre_matric" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/scholarship_post_matric" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/ews_scholarship" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/minority_scholarship" />
+                </LinearLayout>
+
+                <!-- Women & Child Welfare -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_stack_md"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/primary_container"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_person"
+                                android:tint="@color/on_primary_container" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/women_child_welfare"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/sukanya_samriddhi" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/beti_bachao" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_matru_vandana" />
+                </LinearLayout>
+
+                <!-- Pension Schemes -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_stack_md"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/tertiary"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_policy"
+                                android:tint="@color/on_tertiary" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/pension_schemes"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/old_age_pension" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/widow_pension" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/disability_pension" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/atal_pension" />
+                </LinearLayout>
+
+                <!-- Financial Schemes -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_stack_md"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/secondary"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_bolt"
+                                android:tint="@color/on_secondary" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/financial_schemes"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_jan_dhan" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/pm_mudra" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/stand_up_india" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/startup_india" />
+                </LinearLayout>
+
+                <!-- Social Welfare -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_stack_md"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_stack_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_card"
+                            android:backgroundTint="@color/primary"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_home"
+                                android:tint="@color/on_primary" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_stack_md"
+                            android:text="@string/social_welfare"
+                            android:textColor="@color/on_surface"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/spacing_stack_sm"
+                        android:background="@color/outline_variant" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/ration_card" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/ujjwala" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/jal_jeevan" />
+
+                    <TextView
+                        style="@style/SchemeItem"
+                        android:text="@string/swachh_bharat" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Loading overlay -->
+    <FrameLayout
+        android:id="@+id/loading_overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <!-- Error overlay -->
+    <FrameLayout
+        android:id="@+id/error_overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_gutter">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_warning"
+                android:tint="@color/error" />
+
+            <TextView
+                android:id="@+id/error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_stack_md"
+                android:gravity="center"
+                android:text="@string/error_loading_schemes"
+                android:textColor="@color/on_surface"
+                android:textSize="16sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_gutter"
+                android:text="@string/retry" />
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

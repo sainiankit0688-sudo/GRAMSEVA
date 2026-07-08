@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_card">
+
+    <!-- Video Number -->
+    <TextView
+        android:id="@+id/tv_video_number"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:textColor="@color/on_primary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="1" />
+
+    <!-- YouTube Icon -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="24sp"
+        android:text="▶" 
+        android:textColor="#FF0000"/>
+
+    <!-- Title + Duration -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_video_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/on_surface"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="Video Title" />
+
+        <TextView
+            android:id="@+id/tv_video_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="12sp"
+            android:textColor="@color/on_surface_variant"
+            android:text="10:00" />
+    </LinearLayout>
+
+</LinearLayout>

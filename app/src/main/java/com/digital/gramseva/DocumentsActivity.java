@@ -19,8 +19,8 @@ public class DocumentsActivity extends BaseActivity {
             startActivity(new Intent(this, ComplaintsActivity.class));
             overridePendingTransition(0, 0);
         });
-        findViewById(R.id.nav_services).setOnClickListener(v -> {
-            startActivity(new Intent(this, JobAlertsActivity.class));
+        findViewById(R.id.nav_emergency).setOnClickListener(v -> {
+            startActivity(new Intent(this, EmergencyServicesActivity.class));
             overridePendingTransition(0, 0);
         });
         findViewById(R.id.nav_profile).setOnClickListener(v -> {

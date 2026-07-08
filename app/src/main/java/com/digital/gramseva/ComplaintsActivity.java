@@ -3,7 +3,6 @@ package com.digital.gramseva;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
@@ -16,11 +15,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,8 +28,9 @@ import android.widget.Toast;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,9 +38,17 @@ import java.util.Locale;
 
 public class ComplaintsActivity extends BaseActivity {
 
+    private static final String TAG = "ComplaintsActivity";
+    private static final int REQUEST_CAMERA = 1001;
+    private static final int REQUEST_GALLERY = 1002;
+    private static final int REQUEST_LOCATION_PERM = 1003;
+    private static final int REQUEST_CAMERA_PERM = 1004;
+
     private EditText inputDescription, inputOtherCategory;
     private LinearLayout complaintsContainer;
     private UserPreferences prefs;
+    private SupabaseClient supabaseClient;
+    private SupabaseClient.UserInfo currentUser;
     private String selectedCategory = "";
     private String photoUri = "";
     private View selectedCategoryView = null;
@@ -52,13 +60,7 @@ public class ComplaintsActivity extends BaseActivity {
     private TextView tvUploadText;
 
     private TextView tvLocation, btnGetLocation;
-    private String currentLat = "", currentLng = "";
-
-    private static final int REQUEST_CAMERA = 1001;
-    private static final int REQUEST_GALLERY = 1002;
-    private static final int REQUEST_LOCATION_PERM = 1003;
-    private static final int REQUEST_CAMERA_PERM = 1004;
-
+    private String currentLat = "", currentLng = "", currentAddress = "";
     private String currentPhotoPath = "";
 
     @Override
@@ -67,6 +69,36 @@ public class ComplaintsActivity extends BaseActivity {
         setContentView(R.layout.activity_complaints);
 
         prefs = new UserPreferences(this);
+        supabaseClient = SupabaseClient.getInstance();
+        currentUser = supabaseClient.getCurrentUser();
+
+        // ── Debug logging ─────────────────────────────────────────────────────────
+        Log.d(TAG, "=== ComplaintsActivity onCreate ===");
+        SupabaseClient.Session session = supabaseClient.getCurrentSession();
+        if (currentUser != null) {
+            Log.d(TAG, "currentUser: id=" + currentUser.id);
+            Log.d(TAG, "currentUser: email=" + currentUser.email);
+            Log.d(TAG, "currentUser: name=" + currentUser.name);
+            Log.d(TAG, "currentUser.id=" + currentUser.id);
+        } else {
+            Log.w(TAG, "currentUser: null — attempting restore from saved preferences");
+            if (prefs.hasSupabaseSession()) {
+                supabaseClient.setSession(prefs.getAccessToken(), prefs.getRefreshToken());
+                currentUser = supabaseClient.getCurrentUser();
+                if (currentUser != null) {
+                    Log.d(TAG, "currentUser restored: id=" + currentUser.id + " email=" + currentUser.email);
+                }
+            }
+        }
+        if (session != null) {
+            Log.d(TAG, "currentSession: accessToken=" + session.accessToken.substring(0, Math.min(10, session.accessToken.length())) + "...");
+            Log.d(TAG, "session expiry: " + session.expiresAt + " (epoch seconds)");
+        } else {
+            Log.w(TAG, "currentSession: null");
+        }
+        Log.d(TAG, "hasValidSession: " + supabaseClient.hasValidSession());
+        // ───────────────────────────────────────────────────────────────────────────
+
         inputDescription = findViewById(R.id.input_description);
         complaintsContainer = findViewById(R.id.complaints_list_container);
 
@@ -84,8 +116,8 @@ public class ComplaintsActivity extends BaseActivity {
             overridePendingTransition(0, 0);
         });
         findViewById(R.id.nav_complaints).setOnClickListener(v -> { });
-        findViewById(R.id.nav_services).setOnClickListener(v -> {
-            startActivity(new Intent(this, JobAlertsActivity.class));
+        findViewById(R.id.nav_emergency).setOnClickListener(v -> {
+            startActivity(new Intent(this, EmergencyServicesActivity.class));
             overridePendingTransition(0, 0);
         });
         findViewById(R.id.nav_profile).setOnClickListener(v -> {
@@ -115,6 +147,8 @@ public class ComplaintsActivity extends BaseActivity {
         loadComplaints();
     }
 
+    // ─── Category Selection ────────────────────────────────────────────────────────
+
     private void selectCategory(View view, String category) {
         if (selectedCategoryView != null) {
             selectedCategoryView.setBackgroundResource(R.drawable.bg_input);
@@ -131,6 +165,8 @@ public class ComplaintsActivity extends BaseActivity {
             inputOtherCategory.setText("");
         }
     }
+
+    // ─── Photo ─────────────────────────────────────────────────────────────────────
 
     private void showPhotoOptions() {
         String[] options = {getString(R.string.take_photo), getString(R.string.choose_from_gallery)};
@@ -250,77 +286,95 @@ public class ComplaintsActivity extends BaseActivity {
         currentPhotoPath = "";
         photoPreviewContainer.setVisibility(View.GONE);
         uploadArea.setVisibility(View.VISIBLE);
-        if (currentPhotoPath != null && !currentPhotoPath.isEmpty()) {
-            new File(currentPhotoPath).delete();
-        }
     }
+
+    // ─── Location ──────────────────────────────────────────────────────────────────
 
     private void fetchLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERM);
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                }, REQUEST_LOCATION_PERM);
                 return;
             }
         }
+
         Toast.makeText(this, getString(R.string.getting_location), Toast.LENGTH_SHORT).show();
-        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-        try {
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_FINE);
-            String provider = lm.getBestProvider(criteria, true);
-            if (provider == null) {
-                criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-                provider = lm.getBestProvider(criteria, true);
-            }
-            if (provider == null) {
-                Toast.makeText(this, getString(R.string.enable_gps), Toast.LENGTH_SHORT).show();
-                return;
-            }
-            lm.requestSingleUpdate(provider, new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    currentLat = String.valueOf(location.getLatitude());
-                    currentLng = String.valueOf(location.getLongitude());
-                    try {
-                        Geocoder geocoder = new Geocoder(ComplaintsActivity.this, Locale.getDefault());
-                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        if (addresses != null && !addresses.isEmpty()) {
-                            String address = addresses.get(0).getAddressLine(0);
-                            tvLocation.setText(getString(R.string.location_found, currentLat, currentLng) + "\n" + address);
+
+        com.google.android.gms.location.FusedLocationProviderClient fusedClient =
+                com.google.android.gms.location.LocationServices.getFusedLocationProviderClient(this);
+
+        // Build high accuracy location request
+        com.google.android.gms.location.LocationRequest locationRequest =
+                new com.google.android.gms.location.LocationRequest.Builder(
+                        com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY, 1000)
+                        .setMaxUpdates(1)
+                        .setWaitForAccurateLocation(false)
+                        .build();
+
+        com.google.android.gms.location.LocationCallback locationCallback =
+                new com.google.android.gms.location.LocationCallback() {
+                    @Override
+                    public void onLocationResult(com.google.android.gms.location.LocationResult result) {
+                        fusedClient.removeLocationUpdates(this);
+                        if (result != null && result.getLastLocation() != null) {
+                            updateLocationUI(result.getLastLocation());
                         } else {
-                            tvLocation.setText(getString(R.string.location_found, currentLat, currentLng));
+                            Toast.makeText(ComplaintsActivity.this,
+                                    "Location not found. Please try again.", Toast.LENGTH_SHORT).show();
                         }
-                    } catch (Exception e) {
-                        tvLocation.setText(getString(R.string.location_found, currentLat, currentLng));
                     }
-                    tvLocation.setTextColor(getColor(R.color.on_surface));
-                    btnGetLocation.setText(R.string.change_location);
+                };
 
-                    String uri = "geo:" + currentLat + "," + currentLng + "?q=" + currentLat + "," + currentLng;
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                    mapIntent.setPackage("com.google.android.apps.maps");
-                    if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(mapIntent);
-                    } else {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+        try {
+            // Try last known location first
+            fusedClient.getLastLocation().addOnSuccessListener(location -> {
+                if (location != null) {
+                    updateLocationUI(location);
+                } else {
+                    // Request fresh location update
+                    try {
+                        fusedClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
+                    } catch (SecurityException e) {
+                        Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                @Override
-                public void onStatusChanged(String provider, int status, android.os.Bundle extras) { }
-
-                @Override
-                public void onProviderEnabled(String provider) { }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-                    Toast.makeText(ComplaintsActivity.this, getString(R.string.enable_gps), Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(e -> {
+                try {
+                    fusedClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
+                } catch (SecurityException ex) {
+                    Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_SHORT).show();
                 }
-            }, null);
+            });
         } catch (SecurityException e) {
             Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void updateLocationUI(android.location.Location location) {
+        currentLat = String.valueOf(location.getLatitude());
+        currentLng = String.valueOf(location.getLongitude());
+        currentAddress = "";
+        try {
+            Geocoder geocoder = new Geocoder(ComplaintsActivity.this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                currentAddress = addresses.get(0).getAddressLine(0);
+                tvLocation.setText(getString(R.string.location_found, currentLat, currentLng) + "\n" + currentAddress);
+            } else {
+                tvLocation.setText(getString(R.string.location_found, currentLat, currentLng));
+            }
+        } catch (Exception e) {
+            tvLocation.setText(getString(R.string.location_found, currentLat, currentLng));
+        }
+        tvLocation.setTextColor(getColor(R.color.on_surface));
+        btnGetLocation.setText(R.string.change_location);
+    }
+
+    // ─── Submit ────────────────────────────────────────────────────────────────────
 
     private void submitComplaint() {
         String description = inputDescription.getText().toString().trim();
@@ -342,20 +396,149 @@ public class ComplaintsActivity extends BaseActivity {
             return;
         }
 
-        prefs.saveComplaint(selectedCategory, description,
-                photoUri.isEmpty() ? null : photoUri,
-                currentLat.isEmpty() ? null : currentLat,
-                currentLng.isEmpty() ? null : currentLng);
+        // ── Get authenticated user from singleton ──────────────────────────────────
+        currentUser = supabaseClient.getCurrentUser();
 
+        if (currentUser == null || currentUser.id.isEmpty()) {
+            if (prefs.hasSupabaseSession()) {
+                supabaseClient.setSession(prefs.getAccessToken(), prefs.getRefreshToken());
+                currentUser = supabaseClient.getCurrentUser();
+            }
+        }
+
+        String accessToken = prefs.getAccessToken();
+        if (accessToken.isEmpty() && supabaseClient.getCurrentSession() != null) {
+            accessToken = supabaseClient.getCurrentSession().accessToken;
+            String refreshToken = supabaseClient.getCurrentSession().refreshToken;
+            prefs.setSupabaseSession(accessToken, refreshToken != null ? refreshToken : "");
+        }
+
+        // If no Supabase session — save locally for email/password users
+        if (currentUser == null || currentUser.id.isEmpty() || accessToken.isEmpty()) {
+            prefs.saveComplaint(selectedCategory, description, photoUri.isEmpty() ? null : photoUri,
+                    currentLat.isEmpty() ? null : currentLat, currentLng.isEmpty() ? null : currentLng);
+            resetForm();
+            Toast.makeText(this, getString(R.string.complaint_submitted), Toast.LENGTH_SHORT).show();
+            loadComplaints();
+            return;
+        }
+
+        String userId = currentUser.id;
+
+        findViewById(R.id.btn_submit_complaint).setEnabled(false);
+        Toast.makeText(this, getString(R.string.submitting), Toast.LENGTH_SHORT).show();
+
+        final String finalUserId = userId;
+        final String cat = selectedCategory;
+        final double lat = currentLat.isEmpty() ? 0 : Double.parseDouble(currentLat);
+        final double lng = currentLng.isEmpty() ? 0 : Double.parseDouble(currentLng);
+        final String addr = currentAddress;
+        final String desc = description;
+
+        Log.d(TAG, String.format("submitComplaint: category=%s, userId=%s, lat=%.4f, lng=%.4f, hasPhoto=%s",
+                cat, finalUserId, lat, lng, !photoUri.isEmpty()));
+
+        if (photoUri.isEmpty()) {
+            insertComplaint(finalUserId, cat, desc, null, lat, lng, addr);
+        } else {
+            String photoPath = resolvePhotoFilePath(photoUri);
+            if (photoPath == null) {
+                Log.e(TAG, "submitComplaint: could not resolve photo path: " + photoUri);
+                insertComplaint(finalUserId, cat, desc, null, lat, lng, addr);
+            } else {
+                Log.d(TAG, "submitComplaint: uploading photo from " + photoPath);
+                supabaseClient.uploadPhoto(finalUserId, photoPath, new SupabaseClient.UploadCallback() {
+                    @Override
+                    public void onSuccess(String publicUrl) {
+                        Log.d(TAG, "uploadPhoto success: " + publicUrl);
+                        insertComplaint(finalUserId, cat, desc, publicUrl, lat, lng, addr);
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Log.e(TAG, "uploadPhoto failed: " + error);
+                        findViewById(R.id.btn_submit_complaint).setEnabled(true);
+                        Toast.makeText(ComplaintsActivity.this,
+                                getString(R.string.photo_upload_failed) + ": " + error,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+    }
+
+    private void insertComplaint(String userId, String category,
+                                  String description, String photoUrl,
+                                  double lat, double lng, String address) {
+        Complaint complaint = new Complaint(userId, category, description, photoUrl, lat, lng, address, "Pending");
+        Log.d(TAG, "insertComplaint: sending to Supabase");
+
+        supabaseClient.insertComplaint(complaint, new SupabaseClient.InsertCallback() {
+            @Override
+            public void onSuccess(Complaint inserted) {
+                Log.d(TAG, "insertComplaint success: id=" + inserted.getId());
+                resetForm();
+                findViewById(R.id.btn_submit_complaint).setEnabled(true);
+                Toast.makeText(ComplaintsActivity.this,
+                        getString(R.string.complaint_submitted),
+                        Toast.LENGTH_SHORT).show();
+                loadComplaints();
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "insertComplaint failed: " + error);
+                findViewById(R.id.btn_submit_complaint).setEnabled(true);
+                Toast.makeText(ComplaintsActivity.this,
+                        "Supabase error: " + error,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private String resolvePhotoFilePath(String uriString) {
+        if (uriString == null || uriString.isEmpty()) return null;
+        if (uriString.startsWith("file://")) {
+            return uriString.substring(7);
+        }
+        if (uriString.startsWith("/")) {
+            return uriString;
+        }
+        if (uriString.startsWith("content://")) {
+            try {
+                InputStream is = getContentResolver().openInputStream(Uri.parse(uriString));
+                if (is == null) return null;
+                File tempFile = File.createTempFile("upload_", ".jpg", getCacheDir());
+                FileOutputStream os = new FileOutputStream(tempFile);
+                byte[] buffer = new byte[4096];
+                int read;
+                while ((read = is.read(buffer)) != -1) {
+                    os.write(buffer, 0, read);
+                }
+                os.close();
+                is.close();
+                Log.d(TAG, "resolvePhotoFilePath: copied content:// to " + tempFile.getAbsolutePath());
+                return tempFile.getAbsolutePath();
+            } catch (Exception e) {
+                Log.e(TAG, "resolvePhotoFilePath: " + e.getMessage());
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private void resetForm() {
         inputDescription.setText("");
         selectedCategory = "";
         photoUri = "";
         currentLat = "";
         currentLng = "";
+        currentAddress = "";
         currentPhotoPath = "";
         inputOtherCategory.setText("");
         inputOtherCategory.setVisibility(View.GONE);
-        removePhoto();
+        photoPreviewContainer.setVisibility(View.GONE);
+        uploadArea.setVisibility(View.VISIBLE);
         tvLocation.setText(R.string.tap_to_add_location);
         tvLocation.setTextColor(getColor(R.color.outline));
         btnGetLocation.setText(R.string.get_location);
@@ -363,34 +546,54 @@ public class ComplaintsActivity extends BaseActivity {
             selectedCategoryView.setBackgroundResource(R.drawable.bg_input);
             selectedCategoryView = null;
         }
-
-        Toast.makeText(this, getString(R.string.complaint_submitted), Toast.LENGTH_SHORT).show();
-        loadComplaints();
     }
 
-    private void loadComplaints() {
-        complaintsContainer.removeAllViews();
-        List<String[]> complaints = prefs.getComplaints();
+    // ─── Load Complaints (Supabase only) ───────────────────────────────────────────
 
-        if (complaints.isEmpty()) {
-            TextView emptyView = new TextView(this);
-            emptyView.setText(getString(R.string.no_complaints));
-            emptyView.setTextColor(getColor(R.color.outline));
-            emptyView.setPadding(0, getResources().getDimensionPixelSize(R.dimen.spacing_stack_lg), 0, getResources().getDimensionPixelSize(R.dimen.spacing_stack_lg));
-            emptyView.setGravity(Gravity.CENTER);
-            complaintsContainer.addView(emptyView);
+    private void loadComplaints() {
+        currentUser = supabaseClient.getCurrentUser();
+        if (currentUser == null || currentUser.id.isEmpty()) {
+            Log.w(TAG, "loadComplaints: no authenticated user");
+            showEmptyView();
+            return;
+        }
+
+        Log.d(TAG, "loadComplaints: fetching complaints for userId=" + currentUser.id);
+        supabaseClient.getUserComplaints(new SupabaseClient.ComplaintsCallback() {
+            @Override
+            public void onSuccess(List<Complaint> complaints) {
+                Log.d(TAG, "loadComplaints success: " + (complaints != null ? complaints.size() : 0) + " items");
+                runOnUiThread(() -> displayComplaints(complaints));
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "loadComplaints failed: " + error);
+                runOnUiThread(() -> {
+                    Toast.makeText(ComplaintsActivity.this,
+                            "Failed to load complaints: " + error,
+                            Toast.LENGTH_LONG).show();
+                    showEmptyView();
+                });
+            }
+        });
+    }
+
+    private void displayComplaints(List<Complaint> complaints) {
+        complaintsContainer.removeAllViews();
+
+        if (complaints == null || complaints.isEmpty()) {
+            showEmptyView();
             return;
         }
 
         for (int i = 0; i < complaints.size(); i++) {
-            String[] c = complaints.get(i);
-            if (c.length < 6) continue;
-
-            String id = c[0];
-            String category = c[1];
-            String description = c[2];
-            String date = c[3];
-            String status = c[4];
+            Complaint c = complaints.get(i);
+            String id = c.getId() != null ? c.getId().substring(0, Math.min(8, c.getId().length())) : "";
+            String category = c.getCategory() != null ? c.getCategory() : "";
+            String description = c.getDescription() != null ? c.getDescription() : "";
+            String date = c.getCreatedAt() != null ? c.getCreatedAt().substring(0, 10) : "";
+            String status = c.getStatus() != null ? c.getStatus().toLowerCase() : "pending";
 
             View item = getLayoutInflater().inflate(R.layout.item_complaint, complaintsContainer, false);
 
@@ -424,32 +627,48 @@ public class ComplaintsActivity extends BaseActivity {
             title.setText(titleText);
 
             String locStr = "";
-            if (c.length >= 8 && !c[6].isEmpty() && !c[7].isEmpty()) {
-                locStr = " | " + getString(R.string.location_abbr) + ": " + c[6].substring(0, Math.min(6, c[6].length())) + "," + c[7].substring(0, Math.min(6, c[7].length()));
+            if (c.getLatitude() != null && c.getLatitude() != 0 && c.getLongitude() != null && c.getLongitude() != 0) {
+                locStr = " | " + getString(R.string.location_abbr) + ": " +
+                        String.format(Locale.US, "%.4f", c.getLatitude()) + "," +
+                        String.format(Locale.US, "%.4f", c.getLongitude());
             }
             detail.setText(getString(R.string.complaint_date_id, date, id) + locStr);
             desc.setText(description);
+
+            TextView btnCancel = item.findViewById(R.id.btn_cancel);
 
             switch (status) {
                 case "pending":
                     statusBadge.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#FFF3E0")));
                     statusBadge.setTextColor(getColor(R.color.secondary_container));
                     statusBadge.setText(getString(R.string.status_pending));
+                    btnCancel.setVisibility(View.VISIBLE);
+                    final String cancelId = c.getId();
+                    btnCancel.setOnClickListener(v -> cancelSupabaseComplaint(cancelId));
                     break;
                 case "approved":
                     statusBadge.setBackgroundTintList(android.content.res.ColorStateList.valueOf(getColor(R.color.on_primary_container)));
                     statusBadge.setTextColor(getColor(R.color.primary_container));
                     statusBadge.setText(getString(R.string.status_approved));
+                    btnCancel.setVisibility(View.GONE);
                     break;
                 case "action_required":
                     statusBadge.setBackgroundTintList(android.content.res.ColorStateList.valueOf(getColor(R.color.error_container)));
                     statusBadge.setTextColor(getColor(R.color.on_error_container));
                     statusBadge.setText(getString(R.string.status_action_required));
+                    btnCancel.setVisibility(View.GONE);
+                    break;
+                case "cancelled":
+                    statusBadge.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#E0E0E0")));
+                    statusBadge.setTextColor(Color.parseColor("#757575"));
+                    statusBadge.setText(getString(R.string.status_cancelled));
+                    btnCancel.setVisibility(View.GONE);
                     break;
                 default:
                     statusBadge.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#FFF3E0")));
                     statusBadge.setTextColor(getColor(R.color.secondary_container));
                     statusBadge.setText(getString(R.string.status_pending));
+                    btnCancel.setVisibility(View.GONE);
                     break;
             }
 
@@ -466,5 +685,52 @@ public class ComplaintsActivity extends BaseActivity {
                 complaintsContainer.addView(divider);
             }
         }
+    }
+
+    // ─── Cancel ────────────────────────────────────────────────────────────────────
+
+    private void cancelSupabaseComplaint(String complaintId) {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(getString(R.string.cancel_complaint_title))
+                .setMessage(getString(R.string.cancel_complaint_message))
+                .setPositiveButton(getString(R.string.yes_cancel), (dialog, which) -> {
+                    Log.d(TAG, "cancelComplaint: id=" + complaintId);
+                    supabaseClient.cancelComplaint(complaintId, new SupabaseClient.SimpleCallback() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "cancelComplaint success: " + complaintId);
+                            runOnUiThread(() -> {
+                                Toast.makeText(ComplaintsActivity.this,
+                                        getString(R.string.complaint_cancelled),
+                                        Toast.LENGTH_SHORT).show();
+                                loadComplaints();
+                            });
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            Log.e(TAG, "cancelComplaint failed: " + error);
+                            runOnUiThread(() -> {
+                                Toast.makeText(ComplaintsActivity.this,
+                                        "Failed to cancel: " + error,
+                                        Toast.LENGTH_LONG).show();
+                            });
+                        }
+                    });
+                })
+                .setNegativeButton(getString(R.string.no), null)
+                .show();
+    }
+
+    // ─── Empty State ───────────────────────────────────────────────────────────────
+
+    private void showEmptyView() {
+        complaintsContainer.removeAllViews();
+        TextView emptyView = new TextView(this);
+        emptyView.setText(getString(R.string.no_complaints));
+        emptyView.setTextColor(getColor(R.color.outline));
+        emptyView.setPadding(0, getResources().getDimensionPixelSize(R.dimen.spacing_stack_lg), 0, getResources().getDimensionPixelSize(R.dimen.spacing_stack_lg));
+        emptyView.setGravity(Gravity.CENTER);
+        complaintsContainer.addView(emptyView);
     }
 }

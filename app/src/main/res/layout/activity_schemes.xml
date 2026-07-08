@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:animateLayoutChanges="true">
 
     <ScrollView
         android:id="@+id/scroll_content"
@@ -19,7 +20,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
 
             <!-- Top App Bar -->
             <LinearLayout
@@ -117,301 +119,412 @@
                         android:textColorHint="@color/on_surface_variant"
                         android:textSize="14sp" />
                 </FrameLayout>
-
-                <!-- Ask GramSeva AI Card -->
-                <LinearLayout
-                    android:id="@+id/card_ask_ai"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_stack_md"
-                    android:background="@drawable/bg_card"
-                    android:backgroundTint="@color/surface_container_lowest"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/spacing_stack_md">
-
-                    <LinearLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_card"
-                        android:backgroundTint="@color/primary"
-                        android:gravity="center"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_auto_awesome"
-                            android:tint="@color/on_primary" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/spacing_stack_md"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/ask_gramseva_ai"
-                            android:textColor="@color/on_surface"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="@string/ask_ai_desc"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_arrow_forward"
-                        android:tint="@color/on_surface_variant" />
-                </LinearLayout>
             </LinearLayout>
 
-            <!-- Categories Section -->
+            <!-- Services Section Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_gutter"
                 android:layout_marginTop="@dimen/spacing_stack_lg"
-                android:text="@string/categories"
+                android:text="@string/services"
                 android:textColor="@color/on_surface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Row 1: Education + Health -->
+            <!-- ===== Service Cards ===== -->
+
+            <!-- 1. Agriculture -->
             <LinearLayout
+                android:id="@+id/category_agriculture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_gutter"
                 android:layout_marginTop="@dimen/spacing_stack_sm"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/spacing_gutter"
-                android:weightSum="2">
+                android:padding="@dimen/spacing_stack_md">
 
                 <LinearLayout
-                    android:id="@+id/category_education"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_stack_sm"
-                    android:layout_weight="1"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:background="@drawable/bg_card"
-                    android:clickable="true"
-                    android:focusable="true"
+                    android:backgroundTint="@color/primary_container"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_stack_md">
+                    android:padding="12dp">
 
-                    <LinearLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_card"
-                        android:backgroundTint="@color/primary"
-                        android:gravity="center"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_policy"
-                            android:tint="@color/on_primary" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_stack_sm"
-                        android:text="@string/education"
-                        android:textColor="@color/on_surface"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/education_desc"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="12sp" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_agriculture"
+                        android:tint="@color/on_primary_container" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/category_health"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_stack_sm"
+                    android:layout_marginStart="@dimen/spacing_stack_md"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_stack_md">
-
-                    <LinearLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_card"
-                        android:backgroundTint="@color/tertiary"
-                        android:gravity="center"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_policy"
-                            android:tint="@color/on_tertiary" />
-                    </LinearLayout>
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_stack_sm"
-                        android:text="@string/health"
-                        android:textColor="@color/on_surface"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/health_desc"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Row 2: Agriculture + Housing -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_stack_sm"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/spacing_gutter"
-                android:weightSum="2">
-
-                <LinearLayout
-                    android:id="@+id/category_agriculture"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_stack_sm"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_stack_md">
-
-                    <LinearLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_card"
-                        android:backgroundTint="@color/primary_container"
-                        android:gravity="center"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_policy"
-                            android:tint="@color/on_primary_container" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_stack_sm"
                         android:text="@string/agriculture"
                         android:textColor="@color/on_surface"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:layout_marginTop="2dp"
                         android:text="@string/agriculture_desc"
                         android:textColor="@color/on_surface_variant"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:tint="@color/on_surface_variant" />
+            </LinearLayout>
+
+            <!-- 2. Weather -->
+            <LinearLayout
+                android:id="@+id/category_weather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_gutter"
+                android:layout_marginTop="@dimen/spacing_stack_sm"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_stack_md">
+
+                <LinearLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/tertiary"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_bolt"
+                        android:tint="@color/on_tertiary" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/category_housing"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_stack_sm"
+                    android:layout_marginStart="@dimen/spacing_stack_md"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_stack_md">
-
-                    <LinearLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_card"
-                        android:backgroundTint="@color/secondary"
-                        android:gravity="center"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_policy"
-                            android:tint="@color/on_secondary" />
-                    </LinearLayout>
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_stack_sm"
-                        android:text="@string/housing"
+                        android:text="@string/weather_updates"
                         android:textColor="@color/on_surface"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/housing_desc"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/weather_desc"
                         android:textColor="@color/on_surface_variant"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:tint="@color/on_surface_variant" />
             </LinearLayout>
 
-            <!-- Emergency Services Card -->
+            <!-- 3. Government Schemes -->
+            <LinearLayout
+                android:id="@+id/category_government_schemes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_gutter"
+                android:layout_marginTop="@dimen/spacing_stack_sm"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_stack_md">
+
+                <LinearLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/primary"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_policy"
+                        android:tint="@color/on_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_stack_md"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/govt_schemes"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/govt_schemes_desc"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:tint="@color/on_surface_variant" />
+            </LinearLayout>
+
+            <!-- 4. Housing -->
+            <LinearLayout
+                android:id="@+id/category_housing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_gutter"
+                android:layout_marginTop="@dimen/spacing_stack_sm"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_stack_md">
+
+                <LinearLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/secondary"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_village"
+                        android:tint="@color/on_secondary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_stack_md"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/housing"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/housing_desc"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:tint="@color/on_surface_variant" />
+            </LinearLayout>
+
+            <!-- 5. Health -->
+            <LinearLayout
+                android:id="@+id/category_health"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_gutter"
+                android:layout_marginTop="@dimen/spacing_stack_sm"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_stack_md">
+
+                <LinearLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/tertiary"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_medical"
+                        android:tint="@color/on_tertiary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_stack_md"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/health"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/health_desc"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:tint="@color/on_surface_variant" />
+            </LinearLayout>
+
+            <!-- 6. Education -->
+            <LinearLayout
+                android:id="@+id/category_education"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_gutter"
+                android:layout_marginTop="@dimen/spacing_stack_sm"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_stack_md">
+
+                <LinearLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/secondary_container"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_support"
+                        android:tint="@color/on_secondary_container" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_stack_md"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/education"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/education_desc"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:tint="@color/on_surface_variant" />
+            </LinearLayout>
+
+            <!-- 7. Emergency Services -->
             <LinearLayout
                 android:id="@+id/category_emergency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_gutter"
-                android:layout_marginTop="@dimen/spacing_stack_md"
+                android:layout_marginTop="@dimen/spacing_stack_sm"
                 android:background="@drawable/bg_card"
                 android:backgroundTint="@color/error"
                 android:clickable="true"
                 android:focusable="true"
-                android:gravity="center"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/spacing_stack_md">
 
@@ -449,11 +562,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:layout_marginTop="2dp"
+                        android:alpha="0.85"
                         android:text="@string/emergency_desc"
                         android:textColor="@color/on_error"
-                        android:textSize="13sp"
-                        android:alpha="0.85" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -462,6 +575,69 @@
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_arrow_forward"
                     android:tint="@color/on_error" />
+            </LinearLayout>
+
+            <!-- 8. Ask GramSeva AI -->
+            <LinearLayout
+                android:id="@+id/card_ask_ai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_gutter"
+                android:layout_marginTop="@dimen/spacing_stack_sm"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_stack_md">
+
+                <LinearLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/primary"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_auto_awesome"
+                        android:tint="@color/on_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_stack_md"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ask_gramseva_ai"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/ask_ai_desc"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:tint="@color/on_surface_variant" />
             </LinearLayout>
 
             <!-- Active Schemes Section -->
@@ -870,7 +1046,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/nav_services"
+            android:id="@+id/nav_emergency"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -881,14 +1057,14 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_apps"
+                android:src="@drawable/ic_emergency"
                 android:tint="@color/on_surface_variant" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/services"
+                android:text="@string/emergency_services"
                 android:textColor="@color/on_surface_variant"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -917,4 +1093,5 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

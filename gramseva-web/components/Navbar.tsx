@@ -9,7 +9,7 @@ interface NavbarProps {
 export default function Navbar({ onMenuClick }: NavbarProps) {
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 h-14 shadow-md"
+      className="sticky top-0 z-30 flex items-center justify-between px-4 h-14 shadow-md"
       style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}
     >
       {/* Left: hamburger */}

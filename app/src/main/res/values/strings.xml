@@ -86,7 +86,7 @@
     <string name="agriculture_desc">Farming &amp; Subsidies</string>
     <string name="housing">Housing</string>
     <string name="housing_desc">Affordable Homes</string>
-    <string name="emergency_services">Emergency Services</string>
+    <string name="emergency_services">Emergency</string>
     <string name="emergency_desc">Ambulance · Police · Helpline</string>
     <string name="active_schemes">Active Schemes</string>
     <string name="tag_agriculture">AGRICULTURE</string>
@@ -119,10 +119,6 @@
     <string name="village_not_set">Village: Not Set</string>
     <string name="village_format">Village: %s</string>
     <string name="schemes_saved">Saved Schemes</string>
-    <string name="education_schemes">Education Schemes</string>
-    <string name="health_schemes">Health Schemes</string>
-    <string name="agriculture_schemes">Agriculture Schemes</string>
-    <string name="housing_schemes">Housing Schemes</string>
     <string name="badge_3">3</string>
     <string name="badge_2">2</string>
     <string name="badge_5">5</string>
@@ -212,6 +208,44 @@
     <string name="mandi_rates_desc">Wheat, Rice, Mustard, Sugarcane &amp; more</string>
     <string name="fertilizer_guide">Fertilizer Guide</string>
     <string name="fertilizer_desc">Urea, DAP, NPK, Potash &amp; Zinc</string>
+
+    <!-- Government Schemes Categories -->
+    <string name="agriculture_schemes">Agriculture Schemes</string>
+    <string name="housing_schemes">Housing Schemes</string>
+    <string name="health_schemes">Health Schemes</string>
+    <string name="education_schemes">Education Schemes</string>
+    <string name="women_child_welfare">Women &amp; Child Welfare</string>
+    <string name="pension_schemes">Pension Schemes</string>
+    <string name="financial_schemes">Financial Schemes</string>
+    <string name="social_welfare">Social Welfare</string>
+
+    <!-- Scheme Sub-items -->
+    <string name="pm_krishi_sinchai">PM Krishi Sinchai Yojana</string>
+    <string name="enam">e-NAM</string>
+    <string name="pm_awas_rural">PM Awas Yojana (Rural)</string>
+    <string name="pm_awas_urban">PM Awas Yojana (Urban)</string>
+    <string name="housing_subsidy">Housing Subsidy</string>
+    <string name="abha_health_id">ABHA Health ID</string>
+    <string name="jan_aushadhi">Jan Aushadhi</string>
+    <string name="nsp">National Scholarship Portal</string>
+    <string name="pre_matric">Pre-Matric Scholarship</string>
+    <string name="ews_scholarship">EWS Scholarship</string>
+    <string name="minority_scholarship">Minority Scholarship</string>
+    <string name="sukanya_samriddhi">Sukanya Samriddhi Yojana</string>
+    <string name="beti_bachao">Beti Bachao Beti Padhao</string>
+    <string name="pm_matru_vandana">PM Matru Vandana Yojana</string>
+    <string name="old_age_pension">Old Age Pension</string>
+    <string name="widow_pension">Widow Pension</string>
+    <string name="disability_pension">Disability Pension</string>
+    <string name="atal_pension">Atal Pension Yojana</string>
+    <string name="pm_jan_dhan">PM Jan Dhan Yojana</string>
+    <string name="pm_mudra">PM Mudra Yojana</string>
+    <string name="stand_up_india">Stand-Up India</string>
+    <string name="startup_india">Startup India</string>
+    <string name="ration_card">Ration Card</string>
+    <string name="ujjwala">Ujjwala Yojana</string>
+    <string name="jal_jeevan">Jal Jeevan Mission</string>
+    <string name="swachh_bharat">Swachh Bharat Mission</string>
 
     <!-- Agriculture Detail Items -->
     <string name="pm_kisan">PM Kisan Samman Nidhi</string>
@@ -366,6 +400,8 @@
     <string name="helpline">Call helpline: 1800-123-4567</string>
     <string name="village_community">Village Community</string>
     <string name="complaint_submitted">Complaint submitted successfully!</string>
+    <string name="submitting">Submitting complaint…</string>
+    <string name="photo_upload_failed">Photo upload failed</string>
     <string name="select_category">Please select a category</string>
     <string name="describe_issue">Please describe your issue</string>
     <string name="no_complaints">No complaints yet</string>
@@ -388,6 +424,13 @@
     <string name="location_error">Could not get location</string>
     <string name="location_abbr">Loc</string>
     <string name="other_category_hint">Enter your issue type…</string>
+    <string name="status_cancelled">Cancelled</string>
+    <string name="cancel_complaint">Cancel</string>
+    <string name="cancel_complaint_title">Cancel Complaint</string>
+    <string name="cancel_complaint_message">Are you sure you want to cancel this complaint?</string>
+    <string name="yes_cancel">Yes, Cancel</string>
+    <string name="no">No</string>
+    <string name="complaint_cancelled">Complaint cancelled successfully!</string>
 
     <!-- Documents -->
     <string name="document_services">Document Services</string>
@@ -473,6 +516,21 @@
     <string name="guidance_text">Watch step-by-step tutorials on applying for government jobs.</string>
     <string name="watch_videos">Watch Videos</string>
 
+    <!-- Market Prices -->
+    <string name="market_prices_title">Market Prices</string>
+    <string name="state_hint">State</string>
+    <string name="commodity_hint">Commodity</string>
+    <string name="min_price_label">Min</string>
+    <string name="max_price_label">Max</string>
+    <string name="modal_price_label">Modal</string>
+    <string name="loading_market_prices">Loading market prices…</string>
+    <string name="error_loading">Failed to load prices</string>
+    <string name="retry">Retry</string>
+    <string name="error_loading_schemes">Unable to load scheme data.\nCheck your connection and try again.</string>
+    <string name="no_data_found">No market prices available</string>
+    <string name="error_icon">⚠️</string>
+    <string name="empty_icon">📭</string>
+
     <!-- Complaints Bottom Nav -->
     <string name="nav_complaints">Complaints</string>
 
@@ -485,4 +543,138 @@
     <string name="emergency_women_num">1091</string>
     <string name="emergency_sms_to">smsto:112</string>
     <string name="emergency_sms_body_text">HELP: I need immediate assistance at my location.</string>
+    <string name="login_required">Please log in to submit a complaint</string>
+
+    <!-- Admin Dashboard -->
+    <string name="admin_dashboard">Admin Dashboard</string>
+    <string name="admin_panel">Admin Panel</string>
+    <string name="view_all_complaints">View All Complaints</string>
+    <string name="view_all_complaints_desc">Review, update status, and manage complaints</string>
+    <string name="all_complaints">All Complaints</string>
+    <string name="complaint_details">Complaint Details</string>
+    <string name="admin_actions">Admin Actions</string>
+    <string name="change_status">Change Status</string>
+    <string name="admin_remarks">Admin Remarks</string>
+    <string name="add_remarks_hint">Add your remarks here…</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="update_history">Update History</string>
+    <string name="no_updates_yet">No updates yet</string>
+    <string name="total_complaints">Total Complaints</string>
+    <string name="today_complaints">Today\'s Complaints</string>
+    <string name="status_in_progress">In Progress</string>
+    <string name="status_resolved">Resolved</string>
+    <string name="status_rejected">Rejected</string>
+    <string name="filter_status">Status: %s</string>
+    <string name="filter_category">Category: %s</string>
+    <string name="filter_all">All</string>
+    <string name="search_complaints">Search complaints…</string>
+    <string name="no_complaints_found">No complaints found</string>
+    <string name="status_updated">Status updated successfully!</string>
+    <string name="status_update_failed">Failed to update status</string>
+    <string name="remarks_added">Remarks saved successfully!</string>
+    <string name="select_status_first">Please select a status first</string>
+    <string name="open_in_maps">Open in Google Maps</string>
+    <string name="view_photo">View Photo</string>
+    <string name="last_refreshed">Last refreshed: %s</string>
+    <string name="complaints_count">%d complaints</string>
+    <string name="submitted_on">Submitted On</string>
+    <string name="reported_by">Reported By</string>
+    <string name="attached_photo">Attached Photo</string>
+    <string name="complaint_updates">Complaint Updates</string>
+    <string name="updated_by_admin">Updated by %s</string>
+    <string name="status_changed_from_to">%s → %s</string>
+
+    <!-- Emergency Services - New Helplines -->
+    <string name="fire_brigade">Fire Brigade</string>
+    <string name="fire_num">101</string>
+    <string name="fire_desc">Report fire emergencies and request fire brigade assistance.</string>
+    <string name="child_helpline">Child Helpline</string>
+    <string name="child_num">1098</string>
+    <string name="child_desc">Dedicated helpline for children in need of care and protection.</string>
+    <string name="health_helpline">Health Helpline</string>
+    <string name="health_helpline_num">104</string>
+    <string name="health_helpline_desc">Free medical advice and health information helpline.</string>
+    <string name="kisan_call_center">Kisan Call Center</string>
+    <string name="kisan_num">1800-180-1551</string>
+    <string name="kisan_desc">Agriculture helpline for farmers to get expert advice.</string>
+    <string name="railway_helpline">Railway Helpline</string>
+    <string name="railway_num">139</string>
+    <string name="railway_desc">Railway enquiry and emergency helpline for passengers.</string>
+    <string name="cyber_crime">Cyber Crime</string>
+    <string name="cyber_num">1930</string>
+    <string name="cyber_desc">Report cyber crimes and online fraud incidents.</string>
+    <string name="nearby_hospital">Nearby Hospital</string>
+    <string name="nearby_police_station">Nearby Police Station</string>
+    <string name="open_maps">Open Maps</string>
+    <string name="additional_services">Additional Helplines</string>
+    <string name="nearby_services">Nearby Services</string>
+
+    <!-- Scheme Detail Sections -->
+    <string name="section_about">About Scheme</string>
+    <string name="section_objective">Objective</string>
+    <string name="section_who_can_apply">Who Can Apply</string>
+    <string name="section_eligibility">Eligibility</string>
+    <string name="section_not_eligible">Who is Not Eligible</string>
+    <string name="section_documents">Required Documents</string>
+    <string name="section_benefits">Benefits</string>
+    <string name="section_process">Step-by-Step Apply Process</string>
+    <string name="section_apply_online">Apply Online</string>
+
+    <!-- Admin Scheme Management -->
+    <string name="manage_schemes">Manage Schemes</string>
+    <string name="manage_schemes_desc">Add, edit, and manage government schemes</string>
+    <string name="scheme_management">Scheme Management</string>
+    <string name="add_scheme">Add Scheme</string>
+    <string name="edit_scheme">Edit Scheme</string>
+    <string name="delete_scheme">Delete Scheme</string>
+    <string name="delete_scheme_confirm">Are you sure you want to permanently delete this scheme? This action cannot be undone.</string>
+    <string name="scheme_deleted">Scheme deleted successfully</string>
+    <string name="scheme_saved">Scheme saved successfully</string>
+    <string name="scheme_id">Scheme ID</string>
+    <string name="scheme_id_hint">e.g. pm_kisan</string>
+    <string name="scheme_category">Category</string>
+    <string name="scheme_about">About</string>
+    <string name="scheme_objective">Objective</string>
+    <string name="scheme_benefits">Benefits</string>
+    <string name="scheme_documents">Required Documents</string>
+    <string name="scheme_eligibility">Eligibility</string>
+    <string name="scheme_not_eligible">Not Eligible</string>
+    <string name="scheme_who_can_apply">Who Can Apply</string>
+    <string name="scheme_apply_process">Apply Steps</string>
+    <string name="scheme_apply_online_url">Apply Online URL</string>
+    <string name="scheme_apply_offline">Apply Offline</string>
+    <string name="scheme_last_date">Last Date</string>
+    <string name="scheme_helpline">Helpline Number</string>
+    <string name="scheme_official_website">Official Website URL</string>
+    <string name="scheme_image">Scheme Image</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="image_uploaded">Image uploaded successfully</string>
+    <string name="manage_faqs">Manage FAQs</string>
+    <string name="add_faq">Add FAQ</string>
+    <string name="manage_steps">Manage Apply Steps</string>
+    <string name="manage_documents">Manage Documents</string>
+    <string name="manage_related">Manage Related Schemes</string>
+    <string name="add_item">Add</string>
+    <string name="remove">Remove</string>
+    <string name="send_notification">Send Notification</string>
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_message">Notification Message</string>
+    <string name="notification_sent">Notification sent successfully</string>
+    <string name="notification_send_failed">Failed to send notification</string>
+    <string name="upload_image_hint">Tap to upload scheme image</string>
+    <string name="add_step">Add Step</string>
+    <string name="step_text">Step description</string>
+    <string name="faq_question">Question</string>
+    <string name="faq_answer">Answer</string>
+    <string name="no_schemes_found">No schemes found</string>
+    <string name="section_apply_offline">Apply Offline</string>
+    <string name="section_last_date">Last Date</string>
+    <string name="section_helpline">Helpline Number</string>
+    <string name="section_faqs">FAQs</string>
+    <string name="section_save">Save</string>
+    <string name="section_share">Share</string>
+    <string name="section_updates">Get Updates</string>
+    <string name="section_related">Related Schemes</string>
+    <string name="section_website">Official Website</string>
+    <string name="view_full_process">View Full Step-by-Step Process</string>
 </resources>

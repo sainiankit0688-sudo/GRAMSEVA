@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/on_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:text="🏛️ Government Exams"
+            android:textColor="@color/on_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏛️ GOVERNMENT EXAMS"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/on_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose Your Exam Category\nPrepare Smart, Crack Government Jobs"
+                    android:textSize="13sp"
+                    android:textColor="@color/on_primary"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- SSC -->
+            <LinearLayout android:id="@+id/card_ssc" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="1" android:backgroundTint="#1565C0" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="👥 SSC" />
+                    <TextView style="@style/ExamCardSub" android:text="CGL • CHSL • MTS • GD • CPO • JE" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Railway -->
+            <LinearLayout android:id="@+id/card_railway" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="2" android:backgroundTint="#2E7D32" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🚂 Railway (RRB)" />
+                    <TextView style="@style/ExamCardSub" android:text="NTPC • Group D • ALP • JE • Technician" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Banking -->
+            <LinearLayout android:id="@+id/card_banking" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="3" android:backgroundTint="#6A1B9A" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🏦 Banking" />
+                    <TextView style="@style/ExamCardSub" android:text="IBPS PO • SBI PO • RBI • NABARD" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- UPSC -->
+            <LinearLayout android:id="@+id/card_upsc" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="4" android:backgroundTint="#E65100" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🎯 UPSC" />
+                    <TextView style="@style/ExamCardSub" android:text="IAS • IPS • IFS • CDS • NDA • CAPF" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- State PCS -->
+            <LinearLayout android:id="@+id/card_state_pcs" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="5" android:backgroundTint="#00695C" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🗺️ State PCS" />
+                    <TextView style="@style/ExamCardSub" android:text="UPPCS • BPSC • MPPSC • RPSC • UKPSC" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Police -->
+            <LinearLayout android:id="@+id/card_police" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="6" android:backgroundTint="#C62828" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="👮 Police" />
+                    <TextView style="@style/ExamCardSub" android:text="UP Police • Delhi Police • SI • Constable" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Defence -->
+            <LinearLayout android:id="@+id/card_defence" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="7" android:backgroundTint="#1A237E" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="⚔️ Defence" />
+                    <TextView style="@style/ExamCardSub" android:text="Army • Navy • Air Force • Agniveer • NDA" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Teaching -->
+            <LinearLayout android:id="@+id/card_teaching" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="8" android:backgroundTint="#F57F17" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="📚 Teaching" />
+                    <TextView style="@style/ExamCardSub" android:text="CTET • UPTET • Super TET • KVS • NVS" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- State Exams -->
+            <LinearLayout android:id="@+id/card_state_exams" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="9" android:backgroundTint="#004D40" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="📋 State Exams" />
+                    <TextView style="@style/ExamCardSub" android:text="UP PET • VDO • Forest Guard • Lekhpal" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+            <!-- Other -->
+            <LinearLayout android:id="@+id/card_other_exams" style="@style/ExamCard">
+                <TextView style="@style/ExamBadge" android:text="10" android:backgroundTint="#37474F" />
+                <LinearLayout style="@style/ExamCardContent">
+                    <TextView style="@style/ExamCardTitle" android:text="🔹 Other Government Exams" />
+                    <TextView style="@style/ExamCardSub" android:text="ESIC • FCI • LIC • High Court • IB" />
+                </LinearLayout>
+                <TextView style="@style/ExamArrow" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

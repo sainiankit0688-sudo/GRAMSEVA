@@ -43,6 +43,12 @@ public class MenuActivity extends BaseActivity {
             overridePendingTransition(0, 0);
             finish();
         });
+        findViewById(R.id.menu_admin).setOnClickListener(v -> {
+            startActivity(new Intent(this, AdminDashboardActivity.class));
+            overridePendingTransition(0, 0);
+            finish();
+        });
+
         findViewById(R.id.menu_emergency).setOnClickListener(v -> {
             startActivity(new Intent(this, EmergencyServicesActivity.class));
             overridePendingTransition(0, 0);

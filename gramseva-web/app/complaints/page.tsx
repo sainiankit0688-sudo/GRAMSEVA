@@ -20,7 +20,7 @@ interface Complaint {
   location: string;
   phone: string;
   date: string;
-  status: 'Submitted' | 'Under Review' | 'Resolved';
+  status: 'Submitted' | 'Under Review' | 'Resolved' | 'Cancelled';
 }
 
 export default function ComplaintsPage() {
@@ -75,6 +75,16 @@ export default function ComplaintsPage() {
     'Submitted': 'bg-blue-100 text-blue-700',
     'Under Review': 'bg-yellow-100 text-yellow-700',
     'Resolved': 'bg-green-100 text-green-700',
+    'Cancelled': 'bg-gray-200 text-gray-600',
+  };
+
+  const handleCancel = (id: string) => {
+    if (!confirm('Are you sure you want to cancel this complaint?\nक्या आप इस शिकायत को रद्द करना चाहते हैं?')) return;
+    const updated = complaints.map((c) =>
+      c.id === id ? { ...c, status: 'Cancelled' as const } : c
+    );
+    setComplaints(updated);
+    localStorage.setItem('gs_complaints', JSON.stringify(updated));
   };
 
   return (
@@ -86,7 +96,7 @@ export default function ComplaintsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="bg-white border-b border-gray-100 sticky top-14 z-10 shadow-sm">
+      <div className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm">
         <div className="flex">
           {[['submit', 'Submit Complaint', 'शिकायत करें'], ['track', 'Track Complaints', 'स्थिति देखें']].map(([val, label, hindi]) => (
             <button
@@ -228,9 +238,19 @@ export default function ComplaintsPage() {
                       <span className="text-xs font-bold text-amber-700">{c.id}</span>
                       <h3 className="font-semibold text-gray-800 text-sm">{c.title}</h3>
                     </div>
-                    <span className={`text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0 ${statusColors[c.status]}`}>
-                      {c.status}
-                    </span>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${statusColors[c.status]}`}>
+                        {c.status}
+                      </span>
+                      {c.status === 'Submitted' && (
+                        <button
+                          onClick={() => handleCancel(c.id)}
+                          className="text-xs font-semibold px-2 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 hover:bg-red-100"
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <p className="text-xs text-gray-600 mb-2">{c.description}</p>
                   <div className="flex items-center gap-3 text-xs text-gray-400">

@@ -24,8 +24,8 @@ public class EducationActivity extends BaseActivity {
             startActivity(new Intent(this, ComplaintsActivity.class));
             overridePendingTransition(0, 0);
         });
-        findViewById(R.id.nav_services).setOnClickListener(v -> {
-            startActivity(new Intent(this, JobAlertsActivity.class));
+        findViewById(R.id.nav_emergency).setOnClickListener(v -> {
+            startActivity(new Intent(this, EmergencyServicesActivity.class));
             overridePendingTransition(0, 0);
         });
         findViewById(R.id.nav_profile).setOnClickListener(v -> {
@@ -34,45 +34,19 @@ public class EducationActivity extends BaseActivity {
         });
 
         findViewById(R.id.card_scholarships).setOnClickListener(v ->
-                openDetail(getString(R.string.education_scholarships), new String[]{
-                        getString(R.string.scholarship_up),
-                        getString(R.string.scholarship_national),
-                        getString(R.string.scholarship_post_matric)
-                })
+                startActivity(new Intent(this, ScholarshipActivity.class))
         );
 
         findViewById(R.id.card_courses).setOnClickListener(v ->
-                openDetail(getString(R.string.courses), new String[]{
-                        getString(R.string.course_computer),
-                        getString(R.string.course_dm),
-                        getString(R.string.course_english)
-                })
+                startActivity(new Intent(this, CoursesActivity.class))
         );
 
         findViewById(R.id.card_exams).setOnClickListener(v ->
-                openDetail(getString(R.string.govt_exams), new String[]{
-                        getString(R.string.exam_pet),
-                        getString(R.string.exam_ssc),
-                        getString(R.string.exam_railway),
-                        getString(R.string.exam_police)
-                })
-        );
-
-        findViewById(R.id.card_study_material).setOnClickListener(v ->
-                openDetail(getString(R.string.study_material), new String[]{
-                        getString(R.string.study_notes),
-                        getString(R.string.study_syllabus),
-                        getString(R.string.study_previous_papers),
-                        getString(R.string.study_pdf_books)
-                })
+                startActivity(new Intent(this, GovtExamsActivity.class))
         );
 
         findViewById(R.id.card_career).setOnClickListener(v ->
-                openDetail(getString(R.string.career_guidance), new String[]{
-                        getString(R.string.career_after_10th),
-                        getString(R.string.career_after_12th),
-                        getString(R.string.career_graduation)
-                })
+                startActivity(new Intent(this, CareerGuidanceActivity.class))
         );
     }
 

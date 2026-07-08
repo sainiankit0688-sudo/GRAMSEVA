@@ -39,7 +39,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside
         className={`fixed top-0 left-0 h-full w-72 bg-white z-50 transform transition-transform duration-300 ease-in-out shadow-2xl flex flex-col
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-          lg:translate-x-0 lg:static lg:shadow-none lg:z-auto lg:flex`}
+          lg:relative lg:translate-x-0 lg:z-auto lg:shadow-none lg:h-full`}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-100" style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}>

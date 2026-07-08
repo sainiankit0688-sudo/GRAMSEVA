@@ -2,6 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+}
+
 android {
     namespace 'com.digital.gramseva'
     compileSdk 36
@@ -14,6 +20,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "SUPABASE_URL", "\"${localProperties.getProperty("supabase.url", "")}\""
+        buildConfigField "String", "SUPABASE_ANON_KEY", "\"${localProperties.getProperty("supabase.anon.key", "")}\""
+        buildConfigField "String", "GROQ_API_KEY", "\"${localProperties.getProperty("groq.api.key", "")}\""
+
+        manifestPlaceholders = [
+            googleMapsApiKey: localProperties.getProperty("google.maps.api.key", "")
+        ]
     }
 
     buildTypes {
@@ -27,6 +41,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
 }
 
 dependencies {
@@ -39,6 +57,11 @@ dependencies {
     implementation libs.okhttp
     implementation libs.gson
     implementation libs.recyclerview
+    implementation libs.swiperefreshlayout
+    implementation libs.retrofit
+    implementation libs.retrofit.gson
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.lifecycle.runtime.ktx
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit

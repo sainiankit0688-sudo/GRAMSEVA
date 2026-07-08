@@ -1,0 +1,11 @@
+## Copy this file to local.properties and fill in your keys
+## local.properties is .gitignored — your secrets stay safe!
+##
+## Location of the Android SDK (required by Android Studio)
+sdk.dir=C\\:\\Android\\Sdk
+
+## 🔐 API Keys — get these from your project admin
+supabase.url=https://your-project.supabase.co
+supabase.anon.key=your-supabase-anon-key
+groq.api.key=your-groq-api-key
+google.maps.api.key=your-google-maps-api-key

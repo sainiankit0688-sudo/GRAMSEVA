@@ -667,7 +667,7 @@ android:text="@string/gender"
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/nav_services"
+                android:id="@+id/nav_emergency"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -680,14 +680,14 @@ android:text="@string/gender"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_apps"
+                    android:src="@drawable/ic_emergency"
                     android:tint="@color/primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="@string/services"
+                    android:text="@string/emergency_services"
                     android:textColor="@color/primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />

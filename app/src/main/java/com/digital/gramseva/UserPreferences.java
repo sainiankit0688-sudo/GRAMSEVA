@@ -105,10 +105,27 @@ public class UserPreferences {
         for (int i = count; i >= 1; i--) {
             String data = prefs.getString(KEY_COMPLAINT_PREFIX + i, "");
             if (!data.isEmpty()) {
-                list.add(data.split("\\|\\|"));
+                list.add(data.split("\\|\\|", -1));
             }
         }
         return list;
+    }
+
+    public void cancelComplaint(String complaintId) {
+        int count = prefs.getInt(KEY_COMPLAINT_COUNT, 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        for (int i = 1; i <= count; i++) {
+            String data = prefs.getString(KEY_COMPLAINT_PREFIX + i, "");
+            if (!data.isEmpty()) {
+                String[] parts = data.split("\\|\\|", -1);
+                if (parts.length >= 5 && parts[0].equals(complaintId)) {
+                    parts[4] = "cancelled";
+                    editor.putString(KEY_COMPLAINT_PREFIX + i, String.join("||", parts));
+                    break;
+                }
+            }
+        }
+        editor.apply();
     }
 
     public void setSupabaseSession(String accessToken, String refreshToken) {

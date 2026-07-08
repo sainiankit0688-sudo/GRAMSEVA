@@ -3,6 +3,8 @@ package com.digital.gramseva;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.digital.gramseva.BuildConfig;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GeminiClient {
 
-    private static final String GROQ_API_KEY = "YOUR_GROQ_API_KEY";
+    private static final String GROQ_API_KEY = BuildConfig.GROQ_API_KEY;
     private static final String GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
     private static final String MODEL = "llama-3.3-70b-versatile";
 
