@@ -1,268 +1,124 @@
 'use client';
 
-import { useState } from 'react';
+/**
+ * ==========================================================
+ * COMPLAINTS MODULE — FROZEN
+ * ----------------------------------------------------------
+ * Production Complete.
+ * No further feature development.
+ * Bug fixes only.
+ * ==========================================================
+ */
 
-type Category = 'Road' | 'Water' | 'Electricity' | 'Sanitation' | 'Other';
+import Link from 'next/link';
+import { useCallback } from 'react';
+import { useQuery } from '@/hooks/useQuery';
+import { complaintService } from '@/lib/services/complaintService';
+import { queryKeys } from '@/lib/queryKeys';
+import { COMPLAINT_STALE_TIME } from '@/lib/constants/api';
+import { PageHeader, LoadingSpinner, ErrorAlert } from '@/components/agriculture';
+import { ComplaintCard, ComplaintStats, ComplaintAnalytics, ComplaintNotificationButton } from '@/components/complaints';
+import { getStoredUser } from '@/lib/auth';
 
-const categories: { value: Category; label: string; labelHindi: string; icon: string; color: string }[] = [
-  { value: 'Road', label: 'Road', labelHindi: 'सड़क', icon: '🛣️', color: '#795548' },
-  { value: 'Water', label: 'Water Supply', labelHindi: 'पानी', icon: '💧', color: '#1565C0' },
-  { value: 'Electricity', label: 'Electricity', labelHindi: 'बिजली', icon: '⚡', color: '#F57F17' },
-  { value: 'Sanitation', label: 'Sanitation', labelHindi: 'स्वच्छता', icon: '🚽', color: '#2E7D32' },
-  { value: 'Other', label: 'Other', labelHindi: 'अन्य', icon: '📋', color: '#6A1B9A' },
-];
+export default function ComplaintsDashboard() {
+  const user = getStoredUser();
 
-interface Complaint {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  location: string;
-  phone: string;
-  date: string;
-  status: 'Submitted' | 'Under Review' | 'Resolved' | 'Cancelled';
-}
+  const {
+    data: complaints,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery(
+    queryKeys.complaints.mine(),
+    () => complaintService.listMine({ pagination: { page: 1, limit: 10 } }),
+    { staleTime: COMPLAINT_STALE_TIME },
+  );
 
-export default function ComplaintsPage() {
-  const [activeTab, setActiveTab] = useState<'submit' | 'track'>('submit');
-  const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
-  const [form, setForm] = useState({ title: '', description: '', location: '', phone: '' });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [complaintId, setComplaintId] = useState('');
-  const [complaints, setComplaints] = useState<Complaint[]>(() => {
-    if (typeof window !== 'undefined') {
-      return JSON.parse(localStorage.getItem('gs_complaints') || '[]');
-    }
-    return [];
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedCategory || !form.title || !form.description || !form.location) {
-      alert('कृपया सभी अनिवार्य फ़ील्ड भरें / Please fill all required fields');
-      return;
-    }
-    setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    const newId = 'GS-' + Date.now().toString(36).toUpperCase();
-    const newComplaint: Complaint = {
-      id: newId,
-      category: selectedCategory,
-      title: form.title,
-      description: form.description,
-      location: form.location,
-      phone: form.phone,
-      date: new Date().toLocaleDateString('en-IN'),
-      status: 'Submitted',
-    };
-    const updated = [newComplaint, ...complaints];
-    setComplaints(updated);
-    localStorage.setItem('gs_complaints', JSON.stringify(updated));
-    setComplaintId(newId);
-    setSuccess(true);
-    setLoading(false);
-  };
-
-  const resetForm = () => {
-    setSuccess(false);
-    setSelectedCategory('');
-    setForm({ title: '', description: '', location: '', phone: '' });
-    setComplaintId('');
-  };
-
-  const statusColors: Record<Complaint['status'], string> = {
-    'Submitted': 'bg-blue-100 text-blue-700',
-    'Under Review': 'bg-yellow-100 text-yellow-700',
-    'Resolved': 'bg-green-100 text-green-700',
-    'Cancelled': 'bg-gray-200 text-gray-600',
-  };
-
-  const handleCancel = (id: string) => {
-    if (!confirm('Are you sure you want to cancel this complaint?\nक्या आप इस शिकायत को रद्द करना चाहते हैं?')) return;
-    const updated = complaints.map((c) =>
-      c.id === id ? { ...c, status: 'Cancelled' as const } : c
-    );
-    setComplaints(updated);
-    localStorage.setItem('gs_complaints', JSON.stringify(updated));
-  };
+  const handleRetry = useCallback(() => { refetch(); }, [refetch]);
 
   return (
     <div className="min-h-full bg-[#F5F5F5]">
-      <div className="px-5 pt-6 pb-8" style={{ background: 'linear-gradient(135deg, #4E342E, #6D4C41)' }}>
-        <h1 className="text-xl font-bold text-white">Complaints Portal</h1>
-        <p className="text-amber-100 text-sm">शिकायत पोर्टल</p>
-        <p className="text-amber-100 text-xs mt-1">Submit grievances about public services / सार्वजनिक सेवाओं की शिकायत</p>
+      <div className="relative">
+        <PageHeader
+          title="Complaints Portal"
+          titleHindi="शिकायत पोर्टल"
+          icon="📋"
+          gradient="linear-gradient(135deg, #4E342E, #6D4C41)"
+        >
+          <p className="text-amber-100 text-xs mt-1">
+            Submit grievances about public services
+          </p>
+        </PageHeader>
+        {user && (
+          <div className="absolute top-4 right-4">
+            <ComplaintNotificationButton />
+          </div>
+        )}
       </div>
 
-      {/* Tabs */}
-      <div className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm">
-        <div className="flex">
-          {[['submit', 'Submit Complaint', 'शिकायत करें'], ['track', 'Track Complaints', 'स्थिति देखें']].map(([val, label, hindi]) => (
-            <button
-              key={val}
-              onClick={() => setActiveTab(val as 'submit' | 'track')}
-              className={`flex-1 py-3.5 text-sm font-semibold border-b-2 transition-colors
-                ${activeTab === val ? 'border-amber-700 text-amber-800' : 'border-transparent text-gray-500'}`}
-            >
-              {label}
-              <span className="block text-xs font-normal text-gray-400">{hindi}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="px-4 py-5">
-        {/* Submit Tab */}
-        {activeTab === 'submit' && !success && (
-          <div className="flex flex-col gap-5">
-            {/* Category Selection */}
+      <div className="px-4 py-5 flex flex-col gap-5">
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 gap-3">
+          <Link href="/complaints/new"
+            className="flex items-center gap-3 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <span className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-xl" aria-hidden="true">✏️</span>
             <div>
-              <h2 className="text-sm font-semibold text-gray-700 mb-3">Category / श्रेणी *</h2>
-              <div className="grid grid-cols-5 gap-2">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.value}
-                    onClick={() => setSelectedCategory(cat.value)}
-                    className={`flex flex-col items-center gap-1.5 p-2.5 rounded-xl border-2 transition-all
-                      ${selectedCategory === cat.value ? 'shadow-md' : 'border-transparent bg-white'}`}
-                    style={selectedCategory === cat.value ? { borderColor: cat.color, backgroundColor: cat.color + '15' } : {}}
-                  >
-                    <span className="text-xl">{cat.icon}</span>
-                    <span className="text-xs font-medium text-gray-700 text-center leading-tight">{cat.label}</span>
-                    <span className="text-xs text-gray-400 text-center leading-tight">{cat.labelHindi}</span>
-                  </button>
-                ))}
-              </div>
+              <p className="text-sm font-semibold text-gray-800">New Complaint</p>
+              <p className="text-xs text-gray-400">नई शिकायत</p>
             </div>
+          </Link>
+          <Link href="/complaints/my-complaints"
+            className="flex items-center gap-3 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <span className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-xl" aria-hidden="true">📂</span>
+            <div>
+              <p className="text-sm font-semibold text-gray-800">My Complaints</p>
+              <p className="text-xs text-gray-400">मेरी शिकायतें</p>
+            </div>
+          </Link>
+        </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1.5 block">Complaint Title / शीर्षक *</label>
-                <input
-                  type="text"
-                  value={form.title}
-                  onChange={(e) => setForm({ ...form, title: e.target.value })}
-                  placeholder="Brief title of your complaint"
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 bg-gray-50 outline-none focus:border-amber-500"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1.5 block">Description / विवरण *</label>
-                <textarea
-                  value={form.description}
-                  onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  placeholder="Describe the issue in detail / विस्तृत विवरण दें"
-                  rows={4}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 bg-gray-50 outline-none focus:border-amber-500 resize-none"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1.5 block">Location / स्थान *</label>
-                <input
-                  type="text"
-                  value={form.location}
-                  onChange={(e) => setForm({ ...form, location: e.target.value })}
-                  placeholder="Village, District, State"
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 bg-gray-50 outline-none focus:border-amber-500"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1.5 block">Phone Number / फोन नंबर</label>
-                <input
-                  type="tel"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  placeholder="For status updates (optional)"
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 bg-gray-50 outline-none focus:border-amber-500"
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3.5 rounded-xl text-white font-bold text-base transition-opacity disabled:opacity-70"
-                style={{ background: 'linear-gradient(135deg, #4E342E, #6D4C41)' }}
-              >
-                {loading ? 'Submitting...' : 'Submit Complaint / शिकायत दर्ज करें'}
-              </button>
-            </form>
+        {/* Stats */}
+        {complaints && complaints.length > 0 && <ComplaintStats complaints={complaints} />}
+
+        {/* Analytics */}
+        {complaints && complaints.length > 0 && <ComplaintAnalytics complaints={complaints} />}
+
+        {/* Content */}
+        {isLoading && <LoadingSpinner message="Loading complaints..." messageHindi="शिकायतें लोड हो रही हैं..." />}
+
+        {error && (
+          <ErrorAlert message={error.message || 'Failed to load complaints.'} messageHindi="शिकायतें लोड करने में विफल।" onRetry={handleRetry} />
+        )}
+
+        {!isLoading && !error && complaints && complaints.length === 0 && (
+          <div className="flex flex-col items-center gap-3 py-12 text-gray-400">
+            <span className="text-5xl" aria-hidden="true">📋</span>
+            <p className="text-sm font-medium">No complaints yet</p>
+            <p className="text-xs">अभी तक कोई शिकायत नहीं</p>
+            <Link href="/complaints/new" className="px-5 py-2.5 bg-amber-700 text-white text-sm font-medium rounded-xl hover:bg-amber-800 transition-colors">
+              File a Complaint
+            </Link>
           </div>
         )}
 
-        {/* Success State */}
-        {activeTab === 'submit' && success && (
-          <div className="flex flex-col items-center gap-4 py-8">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-              <span className="text-4xl">✅</span>
-            </div>
-            <h2 className="text-xl font-bold text-green-800">Complaint Submitted!</h2>
-            <p className="text-gray-600 text-center text-sm">शिकायत सफलतापूर्वक दर्ज की गई</p>
-            <div className="bg-green-50 border border-green-200 rounded-2xl p-4 w-full text-center">
-              <p className="text-sm text-gray-600 mb-1">Complaint ID / शिकायत संख्या</p>
-              <p className="text-2xl font-bold text-green-800">{complaintId}</p>
-              <p className="text-xs text-gray-500 mt-1">Save this for tracking / इसे सुरक्षित रखें</p>
-            </div>
-            <button
-              onClick={resetForm}
-              className="w-full py-3 rounded-xl text-white font-bold" style={{ backgroundColor: '#4E342E' }}
-            >
-              Submit Another / नई शिकायत
-            </button>
-            <button
-              onClick={() => { resetForm(); setActiveTab('track'); }}
-              className="w-full py-3 rounded-xl font-bold text-amber-800 border border-amber-300"
-            >
-              Track Complaints →
-            </button>
-          </div>
-        )}
-
-        {/* Track Tab */}
-        {activeTab === 'track' && (
+        {!isLoading && !error && complaints && complaints.length > 0 && (
           <div className="flex flex-col gap-3">
-            {complaints.length === 0 ? (
-              <div className="flex flex-col items-center gap-3 py-12 text-gray-400">
-                <span className="text-5xl">📋</span>
-                <p className="text-sm">No complaints submitted yet</p>
-                <p className="text-xs">अभी तक कोई शिकायत नहीं</p>
-                <button onClick={() => setActiveTab('submit')} className="text-sm text-amber-700 font-semibold underline mt-2">
-                  Submit a Complaint →
-                </button>
-              </div>
-            ) : (
-              complaints.map((c) => (
-                <div key={c.id} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div>
-                      <span className="text-xs font-bold text-amber-700">{c.id}</span>
-                      <h3 className="font-semibold text-gray-800 text-sm">{c.title}</h3>
-                    </div>
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${statusColors[c.status]}`}>
-                        {c.status}
-                      </span>
-                      {c.status === 'Submitted' && (
-                        <button
-                          onClick={() => handleCancel(c.id)}
-                          className="text-xs font-semibold px-2 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 hover:bg-red-100"
-                        >
-                          Cancel
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-600 mb-2">{c.description}</p>
-                  <div className="flex items-center gap-3 text-xs text-gray-400">
-                    <span>📍 {c.location}</span>
-                    <span>•</span>
-                    <span>{categories.find(cat => cat.value === c.category)?.icon} {c.category}</span>
-                    <span>•</span>
-                    <span>📅 {c.date}</span>
-                  </div>
-                </div>
-              ))
-            )}
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold text-gray-700">Recent Complaints</h2>
+              <Link href="/complaints/my-complaints" className="text-xs font-medium text-amber-700 hover:underline">View All →</Link>
+            </div>
+            {complaints.map((complaint) => (
+              <ComplaintCard key={complaint.id} complaint={complaint} />
+            ))}
+          </div>
+        )}
+
+        {!user && !isLoading && (
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center">
+            <p className="text-sm text-amber-800 font-medium">Login to submit and track complaints</p>
+            <Link href="/login" className="inline-block mt-3 px-4 py-2 bg-amber-700 text-white text-xs font-medium rounded-lg hover:bg-amber-800 transition-colors">
+              Login / लॉगिन
+            </Link>
           </div>
         )}
       </div>

@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { signUp } from '@/lib/auth';
 
 export default function RegisterPage() {
   const router = useRouter();
   const [form, setForm] = useState({
     name: '',
+    email: '',
     phone: '',
     village: '',
     district: '',
@@ -18,6 +20,12 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const redirectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => { if (redirectTimer.current) clearTimeout(redirectTimer.current); };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,11 +34,12 @@ export default function RegisterPage() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    if (!form.name || !form.phone || !form.password) {
+
+    if (!form.name || !form.email || !form.password) {
       setError('कृपया सभी अनिवार्य फ़ील्ड भरें / Fill all required fields');
       return;
     }
-    if (form.phone.length !== 10) {
+    if (form.phone && form.phone.length !== 10) {
       setError('Invalid mobile number / गलत मोबाइल नंबर');
       return;
     }
@@ -42,21 +51,30 @@ export default function RegisterPage() {
       setError('Password must be at least 6 characters / पासवर्ड कम से कम 6 अक्षर का होना चाहिए');
       return;
     }
+
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    const users = JSON.parse(localStorage.getItem('gs_users') || '[]');
-    if (users.find((u: { phone: string }) => u.phone === form.phone)) {
-      setError('Mobile number already registered / यह नंबर पहले से पंजीकृत है');
-      setLoading(false);
+    const result = await signUp({
+      email: form.email,
+      password: form.password,
+      name: form.name,
+      phone: form.phone,
+      village: form.village,
+      district: form.district,
+      state: form.state,
+    });
+    setLoading(false);
+
+    if (result.error) {
+      setError(result.error);
       return;
     }
-    const newUser = { ...form, id: Date.now(), joinedAt: new Date().toISOString() };
-    users.push(newUser);
-    localStorage.setItem('gs_users', JSON.stringify(users));
-    localStorage.setItem('gs_current_user', JSON.stringify(newUser));
-    setSuccess(true);
-    setLoading(false);
-    setTimeout(() => router.push('/'), 1500);
+
+    if (result.data) {
+      setSuccess(true);
+      redirectTimer.current = setTimeout(() => router.push('/'), 1500);
+    } else {
+      setNeedsVerification(true);
+    }
   };
 
   const indianStates = [
@@ -66,6 +84,32 @@ export default function RegisterPage() {
     'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand',
     'West Bengal', 'Delhi', 'J&K', 'Ladakh',
   ];
+
+  if (needsVerification) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F5F5F5] px-4">
+        <div className="flex flex-col items-center gap-4 p-8 bg-white rounded-2xl shadow-sm max-w-sm w-full">
+          <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
+            <span className="text-4xl">📧</span>
+          </div>
+          <h2 className="text-xl font-bold text-gray-800 text-center">Check Your Email</h2>
+          <p className="text-gray-600 text-center text-sm">
+            We&apos;ve sent a verification link to <strong>{form.email}</strong>
+          </p>
+          <p className="text-gray-400 text-center text-xs">
+            कृपया अपना ईमेल जांचें और सत्यापन लिंक पर क्लिक करें
+          </p>
+          <Link
+            href="/login"
+            className="w-full py-3 rounded-xl text-white font-bold text-center block text-center"
+            style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}
+          >
+            Go to Login / लॉगिन पर जाएं
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   if (success) {
     return (
@@ -83,13 +127,11 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      {/* Header */}
       <div className="px-5 pt-6 pb-8 text-white" style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}>
         <h1 className="text-xl font-bold">Create Account</h1>
         <p className="text-green-100 text-sm">नया खाता बनाएं</p>
       </div>
 
-      {/* Form */}
       <div className="px-4 -mt-4 pb-8">
         <div className="bg-white rounded-2xl shadow-sm p-5 border border-gray-100">
           {error && (
@@ -99,32 +141,95 @@ export default function RegisterPage() {
           )}
 
           <form onSubmit={handleRegister} className="flex flex-col gap-4">
-            {[
-              { name: 'name', label: 'Full Name / पूरा नाम', placeholder: 'Enter your full name', icon: '👤', type: 'text' },
-              { name: 'phone', label: 'Mobile Number / मोबाइल नंबर', placeholder: '10-digit number', icon: '📱', type: 'tel' },
-              { name: 'village', label: 'Village / गांव', placeholder: 'Your village name', icon: '🏘️', type: 'text' },
-              { name: 'district', label: 'District / जिला', placeholder: 'Your district', icon: '📍', type: 'text' },
-            ].map((field) => (
-              <div key={field.name}>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">{field.label}</label>
-                <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
-                  <span className="px-3 text-gray-500 text-sm">{field.icon}</span>
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={form[field.name as keyof typeof form]}
-                    onChange={handleChange}
-                    placeholder={field.placeholder}
-                    className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
-                  />
-                </div>
+            <div>
+              <label htmlFor="reg-name" className="text-sm font-medium text-gray-700 mb-1 block">Full Name / पूरा नाम *</label>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
+                <span className="px-3 text-gray-500 text-sm">👤</span>
+                <input
+                  id="reg-name"
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                  className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                  autoComplete="name"
+                />
               </div>
-            ))}
+            </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">State / राज्य</label>
+              <label htmlFor="reg-email" className="text-sm font-medium text-gray-700 mb-1 block">Email / ईमेल *</label>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
+                <span className="px-3 text-gray-500 text-sm">📧</span>
+                <input
+                  id="reg-email"
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="your@email.com"
+                  className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                  autoComplete="email"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="reg-phone" className="text-sm font-medium text-gray-700 mb-1 block">Mobile Number / मोबाइल नंबर</label>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
+                <span className="px-3 text-gray-500 text-sm">📱</span>
+                <input
+                  id="reg-phone"
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="10-digit number (optional)"
+                  className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                  maxLength={10}
+                  autoComplete="tel"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="reg-village" className="text-sm font-medium text-gray-700 mb-1 block">Village / गांव</label>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
+                <span className="px-3 text-gray-500 text-sm">🏘️</span>
+                <input
+                  id="reg-village"
+                  type="text"
+                  name="village"
+                  value={form.village}
+                  onChange={handleChange}
+                  placeholder="Your village name"
+                  className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="reg-district" className="text-sm font-medium text-gray-700 mb-1 block">District / जिला</label>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
+                <span className="px-3 text-gray-500 text-sm">📍</span>
+                <input
+                  id="reg-district"
+                  type="text"
+                  name="district"
+                  value={form.district}
+                  onChange={handleChange}
+                  placeholder="Your district"
+                  className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="reg-state" className="text-sm font-medium text-gray-700 mb-1 block">State / राज्य</label>
               <div className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
                 <select
+                  id="reg-state"
                   name="state"
                   value={form.state}
                   onChange={handleChange}
@@ -136,25 +241,39 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {[
-              { name: 'password', label: 'Password / पासवर्ड', placeholder: 'Min 6 characters', icon: '🔒' },
-              { name: 'confirmPassword', label: 'Confirm Password / पासवर्ड दोहराएं', placeholder: 'Re-enter password', icon: '🔐' },
-            ].map((field) => (
-              <div key={field.name}>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">{field.label}</label>
-                <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
-                  <span className="px-3 text-gray-500 text-sm">{field.icon}</span>
-                  <input
-                    type="password"
-                    name={field.name}
-                    value={form[field.name as keyof typeof form]}
-                    onChange={handleChange}
-                    placeholder={field.placeholder}
-                    className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
-                  />
-                </div>
+            <div>
+              <label htmlFor="reg-password" className="text-sm font-medium text-gray-700 mb-1 block">Password / पासवर्ड *</label>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
+                <span className="px-3 text-gray-500 text-sm">🔒</span>
+                <input
+                  id="reg-password"
+                  type="password"
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="Min 6 characters"
+                  className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                  autoComplete="new-password"
+                />
               </div>
-            ))}
+            </div>
+
+            <div>
+              <label htmlFor="reg-confirm-password" className="text-sm font-medium text-gray-700 mb-1 block">Confirm Password / पासवर्ड दोहराएं *</label>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500">
+                <span className="px-3 text-gray-500 text-sm">🔐</span>
+                <input
+                  id="reg-confirm-password"
+                  type="password"
+                  name="confirmPassword"
+                  value={form.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Re-enter password"
+                  className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                  autoComplete="new-password"
+                />
+              </div>
+            </div>
 
             <button
               type="submit"

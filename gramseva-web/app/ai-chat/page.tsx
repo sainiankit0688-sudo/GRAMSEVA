@@ -113,8 +113,11 @@ export default function AiChatPage() {
     }
   };
 
+  const escapeHtml = (str: string) =>
+    str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
   const formatMessage = (content: string) => {
-    return content
+    return escapeHtml(content)
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/\n/g, '<br/>');
@@ -134,7 +137,7 @@ export default function AiChatPage() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3 bg-[#F5F5F5]">
+      <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3 bg-[#F5F5F5]" role="log" aria-live="polite" aria-label="Chat messages">
         {/* Quick Prompts (only at start) */}
         {messages.length === 1 && (
           <div className="mb-2">
@@ -173,7 +176,7 @@ export default function AiChatPage() {
               style={msg.role === 'user' ? { background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' } : {}}
             >
               {msg.role === 'assistant' && msg.content === '' ? (
-                <span className="flex gap-1 py-0.5">
+                <span className="flex gap-1 py-0.5" role="status" aria-label="Assistant is typing">
                   <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                   <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
                   <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
@@ -190,13 +193,14 @@ export default function AiChatPage() {
       {/* Input */}
       <div className="flex-shrink-0 bg-white border-t border-gray-200 px-4 py-3">
         <div className="flex items-end gap-2">
-          <div className="flex-1 border border-gray-200 rounded-2xl overflow-hidden bg-gray-50 focus-within:border-blue-400 transition-colors">
+          <div className="flex-1 border border-gray-200 rounded-2xl overflow-hidden bg-gray-50 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-colors">
             <textarea
               ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="सवाल पूछें / Ask a question..."
+              aria-label="Ask a question"
               rows={1}
               disabled={isStreaming}
               className="w-full bg-transparent px-4 py-3 text-sm text-gray-800 outline-none resize-none max-h-24"
@@ -206,6 +210,7 @@ export default function AiChatPage() {
           <button
             onClick={() => sendMessage()}
             disabled={!input.trim() || isStreaming}
+            aria-label="Send message"
             className="w-11 h-11 rounded-xl flex items-center justify-center text-white transition-opacity disabled:opacity-40 flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}
           >

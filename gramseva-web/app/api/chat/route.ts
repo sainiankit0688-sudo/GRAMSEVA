@@ -1,3 +1,13 @@
+/**
+ * ==========================================================
+ * AI MODULE — FROZEN
+ * ----------------------------------------------------------
+ * Production Complete.
+ * No further feature development.
+ * Bug fixes only.
+ * ==========================================================
+ */
+
 import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';

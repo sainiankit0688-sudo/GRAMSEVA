@@ -2,39 +2,43 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn } from '@/lib/auth';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [phone, setPhone] = useState('');
+  const searchParams = useSearchParams();
+  const rawRedirect = searchParams.get('redirect') || '/';
+  const redirectTo = rawRedirect.startsWith('/') && !rawRedirect.includes('://') ? rawRedirect : '/';
+
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    if (!phone || !password) {
+    if (!email || !password) {
       setError('कृपया सभी फ़ील्ड भरें / Please fill all fields');
       return;
     }
     setLoading(true);
-    // Simulate login with localStorage
-    await new Promise((r) => setTimeout(r, 800));
-    const users = JSON.parse(localStorage.getItem('gs_users') || '[]');
-    const user = users.find((u: { phone: string; password: string }) => u.phone === phone && u.password === password);
-    if (user) {
-      localStorage.setItem('gs_current_user', JSON.stringify(user));
-      router.push('/');
-    } else {
-      setError('Invalid phone or password / गलत नंबर या पासवर्ड');
-    }
+    const result = await signIn(email, password);
     setLoading(false);
+
+    if (result.error) {
+      setError(result.error);
+      return;
+    }
+
+    router.push(redirectTo);
+    router.refresh();
   };
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'linear-gradient(160deg, #2E7D32 0%, #4CAF50 40%, #F5F5F5 60%)' }}>
-      {/* Top illustration */}
       <div className="flex flex-col items-center pt-12 pb-6 px-4">
         <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3">
           <span className="text-4xl">🏡</span>
@@ -43,7 +47,6 @@ export default function LoginPage() {
         <p className="text-green-100 text-sm">ग्राम सेवा - डिजिटल भारत</p>
       </div>
 
-      {/* Card */}
       <div className="flex-1 bg-white mx-4 rounded-t-3xl shadow-2xl px-6 pt-8 pb-6">
         <h2 className="text-xl font-bold text-gray-800 mb-1">Login / लॉगिन</h2>
         <p className="text-sm text-gray-500 mb-6">अपने खाते में प्रवेश करें</p>
@@ -56,36 +59,54 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">
-              Mobile Number / मोबाइल नंबर
+            <label htmlFor="login-email" className="text-sm font-medium text-gray-700 mb-1 block">
+              Email / ईमेल
             </label>
             <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500 focus-within:ring-1 focus-within:ring-green-500">
-              <span className="px-3 text-gray-500 text-sm">📱</span>
+              <span className="px-3 text-gray-500 text-sm">📧</span>
               <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="10-digit mobile number"
+                id="login-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
                 className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
-                maxLength={10}
+                autoComplete="email"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">
+            <label htmlFor="login-password" className="text-sm font-medium text-gray-700 mb-1 block">
               Password / पासवर्ड
             </label>
             <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 focus-within:border-green-500 focus-within:ring-1 focus-within:ring-green-500">
               <span className="px-3 text-gray-500 text-sm">🔒</span>
               <input
+                id="login-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
                 className="flex-1 bg-transparent py-3 pr-3 text-gray-800 outline-none text-sm"
+                autoComplete="current-password"
               />
             </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
+              />
+              <span className="text-sm text-gray-600">Remember me / याद रखें</span>
+            </label>
+            <Link href="/forgot-password" className="text-sm text-green-700 font-medium hover:underline">
+              Forgot password?
+            </Link>
           </div>
 
           <button
@@ -104,11 +125,6 @@ export default function LoginPage() {
             Register / पंजीकरण
           </Link>
         </p>
-
-        {/* Demo hint */}
-        <div className="mt-4 p-3 bg-green-50 rounded-xl">
-          <p className="text-xs text-green-700 font-medium">💡 Demo: Register first, then login with your credentials.</p>
-        </div>
       </div>
     </div>
   );

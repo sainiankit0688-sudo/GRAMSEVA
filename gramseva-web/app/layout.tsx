@@ -12,6 +12,15 @@ export const metadata: Metadata = {
   title: "GramSeva - ग्राम सेवा",
   description: "Digital services for rural India - सरकारी योजनाएं, कृषि, शिक्षा, स्वास्थ्य और अधिक",
   manifest: "/manifest.json",
+  metadataBase: new URL('https://gramseva-ten.vercel.app'),
+  openGraph: {
+    siteName: 'GramSeva',
+    locale: 'hi_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
   verification: {
     google: "c6fcd102c1c4cce9",
   },

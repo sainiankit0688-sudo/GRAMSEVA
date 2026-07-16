@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   const lat = searchParams.get('lat');
   const lon = searchParams.get('lon');
   const city = searchParams.get('city');
-  const type = searchParams.get('type') || 'current'; // 'current' or 'forecast'
+  const type = searchParams.get('type') || 'current';
 
   try {
     let url: string;
@@ -20,6 +20,18 @@ export async function GET(req: NextRequest) {
       } else {
         return NextResponse.json({ error: 'Provide lat/lon or city' }, { status: 400 });
       }
+    } else if (type === 'aqi') {
+      if (lat && lon) {
+        url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_KEY}`;
+      } else {
+        return NextResponse.json({ error: 'lat/lon required for AQI' }, { status: 400 });
+      }
+    } else if (type === 'uv') {
+      if (lat && lon) {
+        url = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_KEY}`;
+      } else {
+        return NextResponse.json({ error: 'lat/lon required for UV' }, { status: 400 });
+      }
     } else {
       if (city) {
         url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_KEY}&units=metric`;
@@ -30,7 +42,7 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    const res = await fetch(url, { next: { revalidate: 1800 } }); // cache 30 min
+    const res = await fetch(url, { next: { revalidate: 1800 } });
     if (!res.ok) {
       const text = await res.text();
       return NextResponse.json({ error: text }, { status: res.status });
