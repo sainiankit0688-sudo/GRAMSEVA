@@ -1,4 +1,3 @@
-import { createApiClient } from '@/lib/api/client';
 import { REQUEST_TIMEOUT, WEATHER_STALE_TIME } from '@/lib/constants/api';
 
 export interface WeatherData {
@@ -58,19 +57,18 @@ export interface WeatherCoordsOptions {
   signal?: AbortSignal;
 }
 
-const weatherClient = createApiClient({
-  baseUrl: '',
-  timeout: REQUEST_TIMEOUT,
-  retries: 1,
-});
+async function weatherFetch<T>(path: string, signal?: AbortSignal): Promise<T> {
+  const res = await fetch(path, { signal });
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    throw new Error(body?.error || `Weather request failed (${res.status})`);
+  }
+  return res.json() as Promise<T>;
+}
 
 async function getCurrent(options: WeatherCityOptions): Promise<WeatherData> {
   const params = new URLSearchParams({ q: options.city });
-  const { data } = await weatherClient.get<WeatherData>(
-    `/api/weather?${params.toString()}`,
-    { signal: options.signal },
-  );
-  return data as WeatherData;
+  return weatherFetch<WeatherData>(`/api/weather?${params.toString()}`, options.signal);
 }
 
 async function getCurrentByCoords(options: WeatherCoordsOptions): Promise<WeatherData> {
@@ -78,20 +76,12 @@ async function getCurrentByCoords(options: WeatherCoordsOptions): Promise<Weathe
     lat: String(options.lat),
     lon: String(options.lon),
   });
-  const { data } = await weatherClient.get<WeatherData>(
-    `/api/weather?${params.toString()}`,
-    { signal: options.signal },
-  );
-  return data as WeatherData;
+  return weatherFetch<WeatherData>(`/api/weather?${params.toString()}`, options.signal);
 }
 
 async function getForecast(options: WeatherCityOptions): Promise<WeatherForecast> {
   const params = new URLSearchParams({ q: options.city, type: 'forecast' });
-  const { data } = await weatherClient.get<WeatherForecast>(
-    `/api/weather?${params.toString()}`,
-    { signal: options.signal },
-  );
-  return data as WeatherForecast;
+  return weatherFetch<WeatherForecast>(`/api/weather?${params.toString()}`, options.signal);
 }
 
 async function getForecastByCoords(
@@ -102,11 +92,7 @@ async function getForecastByCoords(
     lon: String(options.lon),
     type: 'forecast',
   });
-  const { data } = await weatherClient.get<WeatherForecast>(
-    `/api/weather?${params.toString()}`,
-    { signal: options.signal },
-  );
-  return data as WeatherForecast;
+  return weatherFetch<WeatherForecast>(`/api/weather?${params.toString()}`, options.signal);
 }
 
 interface RawAqiResponse {
@@ -126,11 +112,8 @@ async function getAirQuality(options: WeatherCoordsOptions): Promise<AirQualityD
     lon: String(options.lon),
     type: 'aqi',
   });
-  const { data } = await weatherClient.get<RawAqiResponse>(
-    `/api/weather?${params.toString()}`,
-    { signal: options.signal },
-  );
-  const entry = (data as RawAqiResponse).list?.[0];
+  const data = await weatherFetch<RawAqiResponse>(`/api/weather?${params.toString()}`, options.signal);
+  const entry = data.list?.[0];
   if (!entry) throw new Error('No AQI data available');
   return {
     aqi: entry.main.aqi,
@@ -150,11 +133,8 @@ async function getUvIndex(options: WeatherCoordsOptions): Promise<UvIndexData> {
     type: 'uv',
   });
   try {
-    const { data } = await weatherClient.get<RawUvResponse>(
-      `/api/weather?${params.toString()}`,
-      { signal: options.signal },
-    );
-    const uv = (data as RawUvResponse).value ?? 0;
+    const data = await weatherFetch<RawUvResponse>(`/api/weather?${params.toString()}`, options.signal);
+    const uv = data.value ?? 0;
     return { uv };
   } catch {
     return { uv: 0 };
