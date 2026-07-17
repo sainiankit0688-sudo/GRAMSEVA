@@ -67,7 +67,7 @@ async function weatherFetch<T>(path: string, signal?: AbortSignal): Promise<T> {
 }
 
 async function getCurrent(options: WeatherCityOptions): Promise<WeatherData> {
-  const params = new URLSearchParams({ q: options.city });
+  const params = new URLSearchParams({ city: options.city });
   return weatherFetch<WeatherData>(`/api/weather?${params.toString()}`, options.signal);
 }
 
@@ -80,7 +80,7 @@ async function getCurrentByCoords(options: WeatherCoordsOptions): Promise<Weathe
 }
 
 async function getForecast(options: WeatherCityOptions): Promise<WeatherForecast> {
-  const params = new URLSearchParams({ q: options.city, type: 'forecast' });
+  const params = new URLSearchParams({ city: options.city, type: 'forecast' });
   return weatherFetch<WeatherForecast>(`/api/weather?${params.toString()}`, options.signal);
 }
 
