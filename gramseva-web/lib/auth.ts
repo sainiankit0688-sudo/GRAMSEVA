@@ -72,6 +72,7 @@ export function saveTokens(session: AuthSession): void {
   if (session.user) {
     localStorage.setItem(USER_KEY, JSON.stringify(session.user));
   }
+  notifyAuthListeners();
 }
 
 export function clearTokens(): void {
@@ -80,6 +81,7 @@ export function clearTokens(): void {
   localStorage.removeItem(REFRESH_KEY);
   localStorage.removeItem(USER_KEY);
   localStorage.removeItem(EXPIRY_KEY);
+  notifyAuthListeners();
 }
 
 export function getAccessToken(): string | null {
@@ -121,6 +123,10 @@ export function hasStoredSession(): boolean {
 type AuthListener = () => void;
 const authListeners = new Set<AuthListener>();
 let storageListenerAttached = false;
+
+function notifyAuthListeners(): void {
+  authListeners.forEach((listener) => listener());
+}
 
 function onStorageEvent(event: StorageEvent) {
   if (
@@ -394,6 +400,7 @@ export async function getUser(): Promise<AuthUser | null> {
           if (retry.ok) {
             const user = await retry.json();
             localStorage.setItem(USER_KEY, JSON.stringify(user));
+            notifyAuthListeners();
             return user;
           }
         }
@@ -403,6 +410,7 @@ export async function getUser(): Promise<AuthUser | null> {
 
     const user = await res.json();
     localStorage.setItem(USER_KEY, JSON.stringify(user));
+    notifyAuthListeners();
     return user;
   } catch {
     return getStoredUser();
@@ -435,6 +443,7 @@ export async function updateUser(data: {
 
     const user = await res.json();
     localStorage.setItem(USER_KEY, JSON.stringify(user));
+    notifyAuthListeners();
     return {};
   } catch {
     return { error: 'Network error.' };
