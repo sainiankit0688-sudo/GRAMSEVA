@@ -43,7 +43,6 @@ export default function AuthCallbackPage() {
             setLoading(false);
           } else {
             router.replace('/');
-            router.refresh();
           }
         });
         return;
@@ -57,7 +56,6 @@ export default function AuthCallbackPage() {
           setLoading(false);
         } else {
           router.replace('/');
-          router.refresh();
         }
       });
       return;

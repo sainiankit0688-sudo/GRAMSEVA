@@ -121,7 +121,6 @@ export default function ProfilePage() {
   const handleLogout = async () => {
     await signOut();
     router.push('/login');
-    router.refresh();
   };
 
   const startEditing = () => {
