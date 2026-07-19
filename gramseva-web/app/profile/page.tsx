@@ -4,6 +4,7 @@ import { useState, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ensureValidSession, signOut, updateUser, getStoredUser, type AuthUser } from '@/lib/auth';
+import { ProtectedRoute } from '@/components/auth';
 
 interface ProfileData {
   name: string;
@@ -290,6 +291,7 @@ export default function ProfilePage() {
   }
 
   return (
+    <ProtectedRoute>
     <div className="min-h-full bg-[#F5F5F5]">
       {/* Header */}
       <div className="px-5 pt-6 pb-12" style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}>
@@ -400,5 +402,6 @@ export default function ProfilePage() {
         <p className="text-center text-xs text-gray-400 mt-2">GramSeva v1.0 • Made with ❤️ for Rural India</p>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

@@ -91,9 +91,6 @@ export const MANDI_REFETCH_INTERVAL = 5 * 60 * 1_000;
 /** Buffer in milliseconds before token expiry to trigger refresh. */
 export const TOKEN_EXPIRY_BUFFER_MS = 60 * 1_000;
 
-/** Session cookie name. */
-export const SESSION_COOKIE_NAME = 'gs_session';
-
 // ─── Supabase REST API ───────────────────────────────────────────────────────
 
 /** Supabase REST API path prefix. */

@@ -1,7 +1,7 @@
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://gramseva-ten.vercel.app';
 
-const SESSION_COOKIE = 'gs_session';
 const TOKEN_EXPIRY_BUFFER = 60 * 1000;
 
 export interface AuthUser {
@@ -34,24 +34,27 @@ export interface AuthResponse {
   error?: string;
 }
 
-// ─── Cookie Helpers ──────────────────────────────────────────────────────────
+// ─── Server Session Sync (HttpOnly Cookies) ──────────────────────────────────
 
-export function setSessionCookie(session: AuthSession): void {
-  if (typeof document === 'undefined') return;
-  const maxAge = session.expires_at
-    ? Math.max(0, session.expires_at - Math.floor(Date.now() / 1000))
-    : 60 * 60 * 24 * 7;
-  document.cookie = `${SESSION_COOKIE}=1; path=/; max-age=${maxAge}; SameSite=Lax`;
+export async function syncSessionToServer(session: AuthSession): Promise<void> {
+  if (typeof window === 'undefined') return;
+  try {
+    await fetch('/api/auth/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_token: session.access_token,
+        refresh_token: session.refresh_token,
+      }),
+    });
+  } catch { /* non-blocking */ }
 }
 
-export function clearSessionCookie(): void {
-  if (typeof document === 'undefined') return;
-  document.cookie = `${SESSION_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
-}
-
-export function hasSessionCookie(): boolean {
-  if (typeof document === 'undefined') return false;
-  return document.cookie.split(';').some(c => c.trim().startsWith(`${SESSION_COOKIE}=`));
+export async function clearServerSession(): Promise<void> {
+  if (typeof window === 'undefined') return;
+  try {
+    await fetch('/api/auth/session', { method: 'DELETE' });
+  } catch { /* non-blocking */ }
 }
 
 // ─── Token Storage (localStorage) ────────────────────────────────────────────
@@ -69,7 +72,6 @@ export function saveTokens(session: AuthSession): void {
   if (session.user) {
     localStorage.setItem(USER_KEY, JSON.stringify(session.user));
   }
-  setSessionCookie(session);
 }
 
 export function clearTokens(): void {
@@ -78,7 +80,6 @@ export function clearTokens(): void {
   localStorage.removeItem(REFRESH_KEY);
   localStorage.removeItem(USER_KEY);
   localStorage.removeItem(EXPIRY_KEY);
-  clearSessionCookie();
 }
 
 export function getAccessToken(): string | null {
@@ -197,23 +198,30 @@ export async function signUp(params: {
   district?: string;
   state?: string;
 }): Promise<AuthResponse> {
+  const trimmedEmail = params.email.trim().toLowerCase();
+  const trimmedPassword = params.password.trim();
+
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     return { error: 'Backend not configured.' };
   }
 
   try {
+    if (process.env.NODE_ENV !== 'production') console.log('[Auth] Signing up:', { email: trimmedEmail });
     const res = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
       method: 'POST',
       headers: gotrueHeaders(),
       body: JSON.stringify({
-        email: params.email,
-        password: params.password,
+        email: trimmedEmail,
+        password: trimmedPassword,
         data: {
           name: params.name,
           phone: params.phone,
           village: params.village || '',
           district: params.district || '',
           state: params.state || '',
+        },
+        options: {
+          emailRedirectTo: `${SITE_URL}/auth/callback`,
         },
       }),
     });
@@ -232,6 +240,7 @@ export async function signUp(params: {
         user: data.user,
       };
       saveTokens(session);
+      syncSessionToServer(session);
       return { data: session };
     }
 
@@ -242,22 +251,30 @@ export async function signUp(params: {
 }
 
 export async function signIn(email: string, password: string): Promise<AuthResponse> {
+  const trimmedEmail = email.trim().toLowerCase();
+  const trimmedPassword = password.trim();
+
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    if (process.env.NODE_ENV !== 'production') console.error('[Auth] Backend not configured. SUPABASE_URL:', SUPABASE_URL ? 'set' : 'EMPTY', 'ANON_KEY:', SUPABASE_ANON_KEY ? 'set' : 'EMPTY');
     return { error: 'Backend not configured.' };
   }
 
   try {
+    if (process.env.NODE_ENV !== 'production') console.log('[Auth] Signing in:', { email: trimmedEmail });
     const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
       method: 'POST',
       headers: gotrueHeaders(),
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: trimmedEmail, password: trimmedPassword }),
     });
 
     const data = await res.json();
 
     if (!res.ok) {
+      if (process.env.NODE_ENV !== 'production') console.error('[Auth] Sign-in failed:', { status: res.status, error: data });
       return { error: data.error_description || data.msg || 'Invalid email or password.' };
     }
+
+    if (process.env.NODE_ENV !== 'production') console.log('[Auth] Sign-in success for:', trimmedEmail);
 
     const session: AuthSession = {
       access_token: data.access_token,
@@ -266,6 +283,7 @@ export async function signIn(email: string, password: string): Promise<AuthRespo
       user: data.user,
     };
     saveTokens(session);
+    syncSessionToServer(session);
     return { data: session };
   } catch {
     return { error: 'Network error. Please try again.' };
@@ -285,39 +303,53 @@ export async function signOut(): Promise<void> {
     }
   }
   clearTokens();
+  clearServerSession();
   clearLegacyStorage();
 }
 
+let refreshLock: Promise<AuthResponse> | null = null;
+
 export async function refreshSession(): Promise<AuthResponse> {
-  const refreshToken = getRefreshToken();
-  if (!refreshToken || !SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    return { error: 'No refresh token available.' };
-  }
+  if (refreshLock) return refreshLock;
 
-  try {
-    const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
-      method: 'POST',
-      headers: gotrueHeaders(),
-      body: JSON.stringify({ refresh_token: refreshToken }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      clearTokens();
-      return { error: data.error_description || 'Session expired.' };
+  refreshLock = (async () => {
+    const refreshToken = getRefreshToken();
+    if (!refreshToken || !SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      return { error: 'No refresh token available.' };
     }
 
-    const session: AuthSession = {
-      access_token: data.access_token,
-      refresh_token: data.refresh_token,
-      expires_at: data.expires_at,
-      user: data.user,
-    };
-    saveTokens(session);
-    return { data: session };
-  } catch {
-    return { error: 'Network error during refresh.' };
+    try {
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+        method: 'POST',
+        headers: gotrueHeaders(),
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        clearTokens();
+        return { error: data.error_description || 'Session expired.' };
+      }
+
+      const session: AuthSession = {
+        access_token: data.access_token,
+        refresh_token: data.refresh_token,
+        expires_at: data.expires_at,
+        user: data.user,
+      };
+      saveTokens(session);
+      syncSessionToServer(session);
+      return { data: session };
+    } catch {
+      return { error: 'Network error during refresh.' };
+    }
+  })();
+
+  try {
+    return await refreshLock;
+  } finally {
+    refreshLock = null;
   }
 }
 
@@ -418,7 +450,7 @@ export async function forgotPassword(email: string): Promise<{ error?: string }>
     const res = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
       method: 'POST',
       headers: gotrueHeaders(),
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email: email.trim().toLowerCase() }),
     });
 
     if (!res.ok) {
@@ -480,6 +512,7 @@ export async function exchangeCodeForSession(code: string): Promise<AuthResponse
       user: data.user,
     };
     saveTokens(session);
+    syncSessionToServer(session);
     return { data: session };
   } catch {
     return { error: 'Network error.' };

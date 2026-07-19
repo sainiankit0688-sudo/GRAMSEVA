@@ -1,7 +1,8 @@
-// FROZEN — DO NOT MODIFY — Phase 3 Complete
+// FROZEN — Phase 3 Complete — Auth guard added
 'use client';
 
 import { useBookmarks } from './useBookmarks';
+import { useAuth } from '@/components/auth';
 
 interface BookmarkButtonProps {
   itemId: string;
@@ -11,11 +12,20 @@ interface BookmarkButtonProps {
 
 export default function BookmarkButton({ itemId, className = '', showLabel = true }: BookmarkButtonProps) {
   const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { isGuest, showLoginDialog } = useAuth();
   const saved = isBookmarked(itemId);
+
+  const handleClick = () => {
+    if (isGuest) {
+      showLoginDialog('Login to save emergency contacts to your bookmarks.');
+      return;
+    }
+    toggleBookmark(itemId);
+  };
 
   return (
     <button
-      onClick={() => toggleBookmark(itemId)}
+      onClick={handleClick}
       className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 ${className} ${
         saved
           ? 'bg-yellow-50 border-yellow-200 text-yellow-700'

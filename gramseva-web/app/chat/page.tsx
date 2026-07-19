@@ -29,6 +29,7 @@ import {
 } from '@/lib/ai/history';
 import { sendMessageWithHistory } from '@/lib/ai/provider';
 import { getActiveProvider, setActiveProvider } from '@/lib/ai/provider';
+import { useGuestAiLimit } from '@/hooks/useGuestAiLimit';
 import type { AiModule, AiProviderName, Conversation, Message, ReactionType } from '@/lib/ai/types';
 
 const MODULE_OPTIONS: { module: AiModule; label: string; icon: string }[] = [
@@ -74,6 +75,7 @@ export default function ChatPage() {
   const [rateLimitState, setRateLimitState] = useState(() => checkRateLimit());
   const [reactions, setReactions] = useState<Record<string, ReactionType[]>>({});
   const [provider, setProvider] = useState(getActiveProvider);
+  const { canSend, showLimitCard, consumeMessage } = useGuestAiLimit();
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -125,9 +127,12 @@ export default function ChatPage() {
 
   const handleSend = useCallback(async (text: string) => {
     if (!text.trim() || isLoading) return;
+    if (!canSend) return;
 
     const detectedModule = detectModule(text, activeModule);
     if (detectedModule !== activeModule) setActiveModule(detectedModule);
+
+    if (!consumeMessage()) return;
 
     const userMsg = createMessage('user', text, 'sent');
     const updatedMessages = [...messages, userMsg];
@@ -187,7 +192,7 @@ export default function ChatPage() {
       setIsStreaming(false);
       setConversations(getConversations());
     }
-  }, [activeConv, activeModule, isLoading, messages, router]);
+  }, [activeConv, activeModule, isLoading, messages, router, canSend, consumeMessage]);
 
   const handleStop = useCallback(() => {
     abortRef.current?.abort();
@@ -277,7 +282,40 @@ export default function ChatPage() {
               <RateLimitNotice remainingMs={rateLimitState.remainingMs} />
             </div>
           )}
-          {messagesWithReactions.length === 0 && !isLoading ? (
+          {showLimitCard && (
+            <div className="max-w-sm mx-auto my-8 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
+              <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🤖</span>
+              </div>
+              <h3 className="text-base font-bold text-gray-800 mb-1">Daily AI Limit Reached</h3>
+              <p className="text-sm text-gray-500 mb-4">आज की AI सीमा पूरी हो गई</p>
+              <div className="bg-green-50 rounded-xl p-4 mb-4 text-left">
+                <p className="text-sm font-semibold text-green-800 mb-2">Login to continue using GramSeva AI.</p>
+                <ul className="space-y-1.5">
+                  <li className="flex items-center gap-2 text-sm text-green-700">
+                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    Unlimited AI
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-green-700">
+                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    Conversation History
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-green-700">
+                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    Better Responses
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-green-700">
+                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    Saved Chats
+                  </li>
+                </ul>
+              </div>
+              <a href="/login" className="inline-block w-full py-3 rounded-xl text-white font-bold text-center transition-opacity hover:opacity-90" style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}>
+                Login / लॉगिन
+              </a>
+            </div>
+          )}
+          {!showLimitCard && messagesWithReactions.length === 0 && !isLoading ? (
             <EmptyChatState module={activeModule} onSuggestion={handleSend} />
           ) : (
             <div className="max-w-2xl mx-auto" role="list" aria-label="Messages">
@@ -302,7 +340,13 @@ export default function ChatPage() {
         </div>
 
         <div className="max-w-2xl mx-auto w-full">
-          <ChatInput onSend={handleSend} onStop={isStreaming ? handleStop : undefined} disabled={isLoading && !isStreaming} isStreaming={isStreaming} placeholder={`Ask ${currentModule.label} AI...`} />
+          {!showLimitCard ? (
+            <ChatInput onSend={handleSend} onStop={isStreaming ? handleStop : undefined} disabled={isLoading && !isStreaming} isStreaming={isStreaming} placeholder={`Ask ${currentModule.label} AI...`} />
+          ) : (
+            <div className="px-4 py-3 text-center text-sm text-gray-500 bg-gray-50 border-t border-gray-100">
+              <a href="/login" className="text-green-700 font-semibold hover:underline">Login</a> to continue using AI
+            </div>
+          )}
         </div>
       </div>
     </div>

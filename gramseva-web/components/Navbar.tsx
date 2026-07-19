@@ -1,25 +1,14 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
 import Link from 'next/link';
-import { subscribeToAuthChanges, getAuthSnapshot, getAuthServerSnapshot } from '@/lib/auth';
+import { useAuth } from './auth';
 
 interface NavbarProps {
   onMenuClick: () => void;
 }
 
 export default function Navbar({ onMenuClick }: NavbarProps) {
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
-
-  const user = useSyncExternalStore(
-    subscribeToAuthChanges,
-    () => mounted ? getAuthSnapshot() : null,
-    getAuthServerSnapshot,
-  );
+  const { user, isLoading } = useAuth();
 
   return (
     <header
@@ -46,7 +35,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
         </div>
       </Link>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
         <Link
           href="/weather"
           className="p-2 rounded-lg text-white hover:bg-white/20 transition-colors"
@@ -61,7 +50,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
         >
           <span className="text-lg">🚨</span>
         </Link>
-        {mounted && (
+        {!isLoading && (
           user ? (
             <Link
               href="/profile"

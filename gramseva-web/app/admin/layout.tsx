@@ -7,24 +7,30 @@
 
 'use client';
 
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { getStoredUser } from '@/lib/auth';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const isLoginPage = pathname === '/admin/login';
+  const user = getStoredUser();
+  const isAuthorized = !!(user && user.app_metadata?.role === 'admin');
+
+  useEffect(() => {
+    if (!isLoginPage && !isAuthorized) {
+      router.replace('/admin/login');
+    }
+  }, [isLoginPage, isAuthorized, router]);
 
   if (isLoginPage) {
     return <>{children}</>;
   }
-
-  const user = getStoredUser();
-  const isAuthorized = !!(user && user.app_metadata?.role === 'admin');
 
   if (!isAuthorized) {
     return (

@@ -18,6 +18,7 @@ import { queryKeys } from '@/lib/queryKeys';
 import { COMPLAINT_STALE_TIME, DEFAULT_PAGE_SIZE } from '@/lib/constants/api';
 import { PageHeader, LoadingSpinner, ErrorAlert, EmptyState, Breadcrumb } from '@/components/agriculture';
 import { ComplaintCard, AdvancedFilters } from '@/components/complaints';
+import { ProtectedRoute } from '@/components/auth';
 import type { AdvancedFiltersState } from '@/components/complaints/AdvancedFilters';
 import type { Complaint } from '@/lib/services/complaintService';
 
@@ -118,6 +119,7 @@ export default function MyComplaintsPage() {
   }, []);
 
   return (
+    <ProtectedRoute>
     <div className="min-h-full bg-[#F5F5F5]">
       <PageHeader title="My Complaints" titleHindi="मेरी शिकायतें" icon="📂" gradient="linear-gradient(135deg, #4E342E, #6D4C41)" />
 
@@ -175,5 +177,6 @@ export default function MyComplaintsPage() {
         )}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

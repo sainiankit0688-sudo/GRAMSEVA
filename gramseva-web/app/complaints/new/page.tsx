@@ -15,6 +15,7 @@ import { useCallback } from 'react';
 import { PageHeader } from '@/components/agriculture';
 import { ComplaintForm } from '@/components/complaints';
 import { Breadcrumb } from '@/components/agriculture';
+import { ProtectedRoute } from '@/components/auth';
 
 export default function NewComplaintPage() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function NewComplaintPage() {
   }, [router]);
 
   return (
+    <ProtectedRoute>
     <div className="min-h-full bg-[#F5F5F5]">
       <PageHeader
         title="File a Complaint"
@@ -72,5 +74,6 @@ export default function NewComplaintPage() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

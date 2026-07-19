@@ -2,16 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useAuth } from './auth';
 
 const tabs = [
-  { href: '/', label: 'Home', labelHindi: 'होम', icon: '🏠' },
-  { href: '/complaints', label: 'Complaints', labelHindi: 'शिकायत', icon: '📋' },
-  { href: '/emergency', label: 'Emergency', labelHindi: 'आपातकाल', icon: '🚨' },
-  { href: '/profile', label: 'Profile', labelHindi: 'प्रोफ़ाइल', icon: '👤' },
+  { href: '/', label: 'Home', labelHindi: 'होम', icon: '🏠', authRequired: false },
+  { href: '/complaints', label: 'Complaints', labelHindi: 'शिकायत', icon: '📋', authRequired: false },
+  { href: '/emergency', label: 'Emergency', labelHindi: 'आपातकाल', icon: '🚨', authRequired: false },
+  { href: '/profile', label: 'Profile', labelHindi: 'प्रोफ़ाइल', icon: '👤', authRequired: true },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { isGuest } = useAuth();
 
   return (
     <nav
@@ -21,10 +23,11 @@ export default function BottomNav() {
       <div className="flex items-center justify-around h-16 max-w-lg mx-auto">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;
+          const href = tab.authRequired && isGuest ? `/login?redirect=${encodeURIComponent(tab.href)}` : tab.href;
           return (
             <Link
               key={tab.href}
-              href={tab.href}
+              href={href}
               className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg transition-colors min-w-[64px] focus:outline-none focus:ring-2 focus:ring-green-300 ${
                 isActive
                   ? 'text-green-700 bg-green-50'

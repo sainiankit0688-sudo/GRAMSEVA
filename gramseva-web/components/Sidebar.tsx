@@ -1,9 +1,8 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { hasStoredSession, getAuthSnapshot, getAuthServerSnapshot, subscribeToAuthChanges } from '@/lib/auth';
+import { useAuth } from './auth';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -22,17 +21,12 @@ const navItems = [
   { href: '/jobs', label: 'Job Alerts', labelHindi: 'नौकरी अलर्ट', icon: '💼' },
   { href: '/ai-chat', label: 'AI Chat', labelHindi: 'AI चैट', icon: '🤖' },
   { href: '/weather', label: 'Weather', labelHindi: 'मौसम', icon: '⛅' },
-  { href: '/profile', label: 'Profile', labelHindi: 'प्रोफ़ाइल', icon: '👤' },
+  { href: '/profile', label: 'Profile', labelHindi: 'प्रोफ़ाइल', icon: '👤', requiresAuth: true },
 ];
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
-
-  const user = useSyncExternalStore(
-    subscribeToAuthChanges,
-    () => hasStoredSession() ? getAuthSnapshot() : null,
-    getAuthServerSnapshot,
-  );
+  const { user, isLoading } = useAuth();
 
   return (
     <>
@@ -64,7 +58,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </button>
         </div>
 
-        {user && (
+        {!isLoading && user && (
           <Link
             href="/profile"
             onClick={onClose}
@@ -80,13 +74,34 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </Link>
         )}
 
+        {!isLoading && !user && (
+          <div className="flex gap-2 px-5 py-3 border-b border-gray-100">
+            <Link
+              href="/login"
+              onClick={onClose}
+              className="flex-1 py-2 rounded-xl text-center text-sm font-bold text-white transition-opacity hover:opacity-90"
+              style={{ background: 'linear-gradient(135deg, #2E7D32, #4CAF50)' }}
+            >
+              Login
+            </Link>
+            <Link
+              href="/register"
+              onClick={onClose}
+              className="flex-1 py-2 rounded-xl text-center text-sm font-semibold text-green-700 border border-green-200 hover:bg-green-50 transition-colors"
+            >
+              Register
+            </Link>
+          </div>
+        )}
+
         <nav className="flex-1 overflow-y-auto py-4 px-3">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
+            const href = item.requiresAuth && !user ? `/login?redirect=${encodeURIComponent(item.href)}` : item.href;
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={href}
                 onClick={onClose}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl mb-1 transition-all duration-150 group
                   ${isActive

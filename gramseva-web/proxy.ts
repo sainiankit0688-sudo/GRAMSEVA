@@ -1,26 +1,24 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { verifySupabaseJwt } from '@/lib/server/jwt';
 
-const SESSION_COOKIE = 'gs_session';
-
-const protectedRoutes = ['/profile'];
-const guestOnlyRoutes = ['/login', '/register'];
+const JWT_SECRET = process.env.SUPABASE_JWT_SECRET || '';
+const ACCESS_COOKIE = 'sb-access-token';
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const hasSession = request.cookies.get(SESSION_COOKIE)?.value === '1';
 
-  if (protectedRoutes.some(route => pathname.startsWith(route))) {
-    if (!hasSession) {
-      const loginUrl = new URL('/login', request.url);
-      loginUrl.searchParams.set('redirect', pathname);
-      return NextResponse.redirect(loginUrl);
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
+    const accessToken = request.cookies.get(ACCESS_COOKIE)?.value;
+
+    if (!accessToken || !JWT_SECRET) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
     }
-  }
 
-  if (guestOnlyRoutes.some(route => pathname === route || pathname.startsWith(route + '/'))) {
-    if (hasSession) {
-      return NextResponse.redirect(new URL('/', request.url));
+    const { payload, valid } = verifySupabaseJwt(accessToken, JWT_SECRET);
+
+    if (!valid || payload?.app_metadata?.role !== 'admin') {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
     }
   }
 
@@ -28,9 +26,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/profile/:path*',
-    '/login',
-    '/register',
-  ],
+  matcher: ['/admin/:path*'],
 };

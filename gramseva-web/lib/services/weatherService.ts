@@ -1,4 +1,4 @@
-import { REQUEST_TIMEOUT, WEATHER_STALE_TIME } from '@/lib/constants/api';
+import { WEATHER_STALE_TIME } from '@/lib/constants/api';
 
 export interface WeatherData {
   temperature: number;

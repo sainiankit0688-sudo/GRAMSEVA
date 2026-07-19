@@ -19,6 +19,7 @@ import { COMPLAINT_STALE_TIME } from '@/lib/constants/api';
 import { invalidateComplaints } from '@/lib/cache/invalidation';
 import { addComplaintNotification } from '@/components/complaints/ComplaintNotificationButton';
 import { PageHeader, LoadingSpinner, ErrorAlert, Breadcrumb } from '@/components/agriculture';
+import { ProtectedRoute } from '@/components/auth';
 import {
   ComplaintTimeline,
   LiveTrackingCard,
@@ -136,6 +137,7 @@ export default function ComplaintDetailPage({ params }: { params: Promise<{ id: 
     : null;
 
   return (
+    <ProtectedRoute>
     <div className="min-h-full bg-[#F5F5F5]">
       <PageHeader title="Complaint Details" titleHindi="शिकायत विवरण" icon="📋" gradient="linear-gradient(135deg, #4E342E, #6D4C41)" />
 
@@ -261,5 +263,6 @@ export default function ComplaintDetailPage({ params }: { params: Promise<{ id: 
         )}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
