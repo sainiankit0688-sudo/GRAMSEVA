@@ -25,15 +25,20 @@ export default function LoginPage() {
       return;
     }
     setLoading(true);
+    console.log('[DEBUG-LOGIN-1] Before signIn()');
     const result = await signIn(email.trim(), password);
+    console.log('[DEBUG-LOGIN-2] After signIn(), result:', JSON.stringify(result));
     setLoading(false);
 
     if (result.error) {
+      console.log('[DEBUG-LOGIN-3] signIn returned error:', result.error);
       setError(result.error);
       return;
     }
 
+    console.log('[DEBUG-LOGIN-4] Before router.push("' + redirectTo + '")');
     router.push(redirectTo);
+    console.log('[DEBUG-LOGIN-5] After router.push()');
   };
 
   return (
