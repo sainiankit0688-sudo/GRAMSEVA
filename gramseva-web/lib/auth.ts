@@ -94,12 +94,20 @@ export function getRefreshToken(): string | null {
   return localStorage.getItem(REFRESH_KEY);
 }
 
+let _cachedUserRaw: string | null = null;
+let _cachedUser: AuthUser | null = null;
+
 export function getStoredUser(): AuthUser | null {
   if (typeof localStorage === 'undefined') return null;
   try {
     const raw = localStorage.getItem(USER_KEY);
-    return raw ? JSON.parse(raw) : null;
+    if (raw === _cachedUserRaw) return _cachedUser;
+    _cachedUserRaw = raw;
+    _cachedUser = raw ? JSON.parse(raw) : null;
+    return _cachedUser;
   } catch {
+    _cachedUserRaw = null;
+    _cachedUser = null;
     return null;
   }
 }
