@@ -467,7 +467,12 @@ export async function forgotPassword(email: string): Promise<{ error?: string }>
     const res = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
       method: 'POST',
       headers: gotrueHeaders(),
-      body: JSON.stringify({ email: email.trim().toLowerCase() }),
+      body: JSON.stringify({
+        email: email.trim().toLowerCase(),
+        options: {
+          emailRedirectTo: `${SITE_URL}/auth/callback`,
+        },
+      }),
     });
 
     if (!res.ok) {

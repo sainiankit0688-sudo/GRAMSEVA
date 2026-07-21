@@ -54,6 +54,8 @@ export default function AuthCallbackPage() {
         if (result.error) {
           setError(result.error);
           setLoading(false);
+        } else if (type === 'recovery' && result.data?.access_token) {
+          router.replace(`/reset-password?access_token=${result.data.access_token}&type=recovery`);
         } else {
           router.replace('/');
         }
