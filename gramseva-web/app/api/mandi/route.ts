@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
-const RAILWAY_BASE = 'https://gramseva-production.up.railway.app';
+const RAILWAY_BASE = 'https://gramseva-production-25b6.up.railway.app';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
