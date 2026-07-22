@@ -12,7 +12,7 @@ import type { MandiApiResponse, MandiQueryParams } from '@/lib/agriculture/types
 // ─── Internal Client ──────────────────────────────────────────────────────────
 
 const mandiClient = createApiClient({
-  baseUrl: '',
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://gramseva-ten.vercel.app',
   timeout: REQUEST_TIMEOUT,
   retries: 1,
 });
