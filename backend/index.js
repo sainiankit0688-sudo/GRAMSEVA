@@ -196,8 +196,8 @@ async function fetchAllRecords() {
     `Base fetch: ${allRecords.length} records (dataset total: ${baseTotal})`,
   );
 
-  // Phase 2: Early exit if no truncation
-  if (baseTotal <= allRecords.length) {
+  // Phase 2: Early exit if total fits within one API page (no truncation)
+  if (baseTotal <= API_PAGE_SIZE) {
     responseCache.set(ALL_DATA_CACHE_KEY, {
       records: allRecords,
       timestamp: Date.now(),
