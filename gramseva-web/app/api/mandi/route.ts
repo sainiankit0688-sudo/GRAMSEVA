@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
   try {
     const res = await fetch(
       `${RAILWAY_BASE}/api/market-prices?${params.toString()}`,
-      { next: { revalidate: 300 } },
+      { cache: 'no-store' },
     );
 
     if (!res.ok) {

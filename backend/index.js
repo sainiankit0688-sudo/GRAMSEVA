@@ -19,6 +19,7 @@ const MAX_RETRIES = 3;
 const responseCache = new Map();
 
 const ALL_DATA_CACHE_KEY = "__all_data__";
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 // Concurrency guard — prevents parallel fetchAllRecords() calls.
 // When multiple /api/market-prices requests arrive before the cache is
@@ -267,9 +268,9 @@ app.get("/api/market-prices", async (req, res) => {
     const limit = parseInt(req.query.limit) || 20;
     const offset = parseInt(req.query.offset) || 0;
 
-    // Try cached full dataset first
+    // Try cached full dataset first (skip if cache expired)
     let cachedAll = responseCache.get(ALL_DATA_CACHE_KEY);
-    if (!cachedAll) {
+    if (!cachedAll || Date.now() - cachedAll.timestamp >= CACHE_TTL_MS) {
       // If another request is already fetching, share its promise
       // instead of triggering a duplicate 37-request Data.gov.in burst.
       if (!fetchPromise) {
