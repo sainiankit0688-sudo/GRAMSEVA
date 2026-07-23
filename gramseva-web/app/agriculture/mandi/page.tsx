@@ -268,7 +268,7 @@ export default function MandiPage() {
           >
             All States
           </button>
-          {mandiStates.slice(0, 15).map((state) => (
+          {mandiStates.map((state) => (
             <button
               key={state}
               onClick={() => handleStateChange(state)}
@@ -295,7 +295,7 @@ export default function MandiPage() {
           >
             All Commodities
           </button>
-          {mandiCommodities.slice(0, 12).map((commodity) => (
+          {mandiCommodities.map((commodity) => (
             <button
               key={commodity}
               onClick={() => handleCommodityChange(commodity)}
